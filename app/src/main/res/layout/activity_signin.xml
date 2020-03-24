@@ -21,7 +21,8 @@
             android:drawableLeft="@drawable/name"
             android:textSize="26dp"
             android:textColor="#000000"
-            android:id="@+id/edit_name">
+            android:id="@+id/edit_name"
+            android:hint="请输入用户名">
         </EditText>
         <EditText
             android:layout_width="300dp"
@@ -33,6 +34,7 @@
             android:background="@drawable/message"
             android:drawableLeft="@drawable/password"
             android:id="@+id/edit_password"
+            android:hint="请输入密码"
             >
         </EditText>
         <LinearLayout

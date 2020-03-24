@@ -755,12 +755,11 @@ public class MainActivity extends AppCompatActivity{
                                             }
                                         }
 
-                                        else {
                                             if(list.get( d[0] ).indexOf( "大" )!=-1)
                                             {
                                                 for(int i=0;i<4;i++)
                                                 {
-                                                    if(d[0]==0)
+                                                    if(d[0]==1)
                                                     {
                                                         if(space1[3].getVisibility()==View.VISIBLE)
                                                         {
@@ -774,7 +773,7 @@ public class MainActivity extends AppCompatActivity{
                                                         }
 
                                                     }
-                                                    if(d[0]==1)
+                                                    if(d[0]==2)
                                                     {
                                                         if(space2[3].getVisibility()==View.VISIBLE)
                                                         {
@@ -787,7 +786,7 @@ public class MainActivity extends AppCompatActivity{
                                                             break;
                                                         }
                                                     }
-                                                    if(d[0]==2)
+                                                    if(d[0]==3)
                                                     {
                                                         if(space3[3].getVisibility()==View.VISIBLE)
                                                         {
@@ -800,7 +799,7 @@ public class MainActivity extends AppCompatActivity{
                                                             break;
                                                         }
                                                     }
-                                                    if(d[0]==3)
+                                                    if(d[0]==4)
                                                     {
                                                         if(space4[3].getVisibility()==View.VISIBLE)
                                                         {
@@ -931,7 +930,6 @@ public class MainActivity extends AppCompatActivity{
                                                     }
                                                 }
                                             }
-                                        }
 
                                     }
                                 }
@@ -1403,7 +1401,15 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         } );
-
+        space11.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(space11.getVisibility()==View.VISIBLE)
+                {
+                    Toast.makeText( MainActivity.this,space11.getText().toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        } );
 
         discount.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -1411,110 +1417,42 @@ public class MainActivity extends AppCompatActivity{
                 discount();
             }
         } );
-//        discount2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                discount();
-//            }
-//        } );
-//        discount3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                discount();
-//            }
-//        } );
+
         purchase.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 purchase();
             }
         } );
-//        purchase2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                purchase();
-//            }
-//        } );
-//        purchase3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                purchase();
-//            }
-//        } );
+
         soldinventory.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 soldinventory();
             }
         } );
-//        soldinventory2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                soldinventory();
-//            }
-//        } );
-//        soldinventory3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                soldinventory();
-//            }
-//        } );
+
         factorydiscount.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 factorydiscount();
             }
         } );
-//        factorydiscount2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                factorydiscount();
-//            }
-//        } );
-//        factorydiscount3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                factorydiscount();
-//            }
-//        } );
+
         ordermessage.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ordermessage();
             }
         } );
-//        ordermessage2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ordermessage();
-//
-//            }
-//        } );
-//        ordermessage3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ordermessage();
-//
-//            }
-//        } );
+
         spy.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 spy();
             }
         } );
-//        spy2.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                spy();
-//            }
-//        } );
-//        spy3.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                spy();
-//            }
-//        } );
+
     }
     private  void discount()
     {
