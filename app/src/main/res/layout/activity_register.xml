@@ -40,8 +40,9 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="XXX"
-            android:textColor="#000000">
+            android:text=""
+            android:textColor="#000000"
+            android:id="@+id/name">
         </TextView>
         <TextView
             android:layout_width="70dp"
@@ -283,6 +284,28 @@
             android:textSize="15dp"
             android:id="@+id/declaration">
         </EditText>
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="生产总监:"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                >
+            </TextView>
+            <EditText
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/message"
+                android:hint="请输入生产总监名称"
+                android:paddingLeft="6dp"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:id="@+id/create"
+                >
+            </EditText>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

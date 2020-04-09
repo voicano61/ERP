@@ -12,6 +12,11 @@ public class MyDatebaseHelper extends SQLiteOpenHelper {
             +"id integer primary key autoincrement,"
             +"username text,"
             +"password text)";
+    public static final String userstate="create table UserState ("
+            +"id integer primary key autoincrement,"
+            +"applylong int,"
+            +"start text,"
+            +"applyshort text";
     private Context mContext;
     public MyDatebaseHelper( Context context, String name,SQLiteDatabase.CursorFactory factory, int version) {
         super( context, name, factory, version );

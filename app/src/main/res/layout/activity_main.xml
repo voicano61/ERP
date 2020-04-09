@@ -110,16 +110,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/state"
             android:text="用户状态: "
-            android:id="@+id/state"
+            android:id="@+id/status"
             android:layout_marginLeft="50dp"
             android:textColor="#000000">
-        </TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正在经营"
-            android:layout_marginLeft="5dp"
-            android:textColor="#992424">
         </TextView>
     </LinearLayout>
     <LinearLayout
@@ -378,14 +371,14 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="当前现金:"
-                        android:id="@+id/m1"
+                        android:id="@+id/cash"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="应收账款:"
-                        android:id="@+id/m2"
+                        android:id="@+id/receivable"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                 </LinearLayout>
@@ -397,14 +390,14 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="长贷总额:"
-                        android:id="@+id/m3"
+                        android:id="@+id/longloan"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="短贷总额:"
-                        android:id="@+id/m4"
+                        android:id="@+id/shortloan"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                 </LinearLayout>
@@ -430,14 +423,14 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="特别贷款:"
-                            android:id="@+id/m5"
+                            android:id="@+id/specialloan"
                             android:textColor="#000000"
                             android:textSize="12dp"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="股东资助:"
-                            android:id="@+id/m6"
+                            android:id="@+id/shareholder"
                             android:textColor="#000000"
                             android:textSize="12dp"></TextView>
                     </LinearLayout>
@@ -463,13 +456,15 @@
                             android:layout_height="wrap_content"
                             android:text="贴息:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/discountCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="利息:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/interest"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -480,13 +475,15 @@
                             android:layout_height="wrap_content"
                             android:text="销售收入:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/salesAmount"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="维护费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/maintenanceCost"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -497,13 +494,15 @@
                             android:layout_height="wrap_content"
                             android:text="转产费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/turnOverCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="租金:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/rentCost"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -514,13 +513,15 @@
                             android:layout_height="wrap_content"
                             android:text="管理费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/adminstrativeCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="广告费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/adCost"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -531,13 +532,15 @@
                             android:layout_height="wrap_content"
                             android:text="信息费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/informationCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="损失:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/depreiationCost"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -548,13 +551,15 @@
                             android:layout_height="wrap_content"
                             android:text="直接成本:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/directCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="ISO认证:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/developingIsoCost"></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -565,13 +570,15 @@
                             android:layout_height="wrap_content"
                             android:text="产品开发:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/developingProductCost"></TextView>
                         <TextView
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:text="市场开拓:"
                             android:textColor="#000000"
-                            android:textSize="12dp"></TextView>
+                            android:textSize="12dp"
+                            android:id="@+id/developingMarketCost"></TextView>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
@@ -932,84 +939,6 @@
             android:orientation="horizontal"
             android:id="@+id/page2"
             android:gravity="center">
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="贴现"-->
-<!--                android:drawableLeft="@drawable/discount"-->
-<!--                android:background="#6CB170"-->
-<!--                android:layout_marginLeft="7dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/discount"-->
-<!--                >-->
-<!--            </Button>-->
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="紧急采购"-->
-<!--                android:drawableLeft="@drawable/purchase"-->
-<!--                android:background="#4982B1"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/purchase"-->
-<!--                >-->
-<!--            </Button>-->
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="出售库存"-->
-<!--                android:drawableLeft="@drawable/sellline"-->
-<!--                android:background="#A7DBF1"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/soleinventory"-->
-<!--                >-->
-<!--            </Button>-->
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="厂房贴现"-->
-<!--                android:drawableLeft="@drawable/sell"-->
-<!--                android:background="#7C8083"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/factorydiscount"-->
-<!--                >-->
-<!--            </Button>-->
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="订单信息"-->
-<!--                android:drawableLeft="@drawable/order"-->
-<!--                android:background="#A8504C"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/ordermessage"-->
-<!--                >-->
-<!--            </Button>-->
-<!--            <Button-->
-<!--                android:layout_width="105dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:textSize="15dp"-->
-<!--                android:text="间谍"-->
-<!--                android:drawableLeft="@drawable/espionage"-->
-<!--                android:background="#D86B49"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:paddingLeft="4dp"-->
-<!--                android:id="@+id/spy"-->
-<!--                >-->
-<!--            </Button>-->
         </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"

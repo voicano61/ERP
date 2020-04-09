@@ -3,6 +3,9 @@ package com.example.erp1;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 import android.app.Dialog;
@@ -36,13 +39,19 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.example.erp1.info.informationBean;
+import com.example.erp1.info.loanBean;
+import com.example.erp1.info.receivableBean;
+
+import org.w3c.dom.Text;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
     private MyDatebaseHelper dbHelper;
-    private int i=1;
-    private  int j=1;
     private ArrayAdapter<String> adapter;
     private DrawerLayout mDrawerLayout;
     private  List<String> list;
@@ -50,8 +59,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+
         final Intent intent = getIntent();
         final String name = intent.getStringExtra( "name" );
+        final String token=intent.getStringExtra( "token" );
+        setInfo( token );
         Button help = (Button) findViewById( R.id.help );
         Button notice=(Button)findViewById( R.id.notice );
         Button signout=(Button)findViewById( R.id.signout );
@@ -167,15 +179,12 @@ public class MainActivity extends AppCompatActivity{
         final ScrollView researchpage=(ScrollView)findViewById( R.id.researchpage );
         final ScrollView inventorypage=(ScrollView)findViewById( R.id.inventorypage );
 
-        final TextView textView = (TextView) findViewById( R.id.name );
+
+        final TextView username = (TextView) findViewById( R.id.name );
         SpannableString spannableString = new SpannableString( name );
         spannableString.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        textView.append( spannableString );
-        TextView time = (TextView) findViewById( R.id.time );
-        final String[][] s = {{"第" + j + "年第" + i + "季"}};
-        SpannableString spannableString1 =new SpannableString( s[0][0] );
-        spannableString1.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        time.append( spannableString1 );
+        username.append( spannableString );
+
 
 
 //        View view=getLayoutInflater().inflate(R.layout.longloan,null);
@@ -192,6 +201,7 @@ public class MainActivity extends AppCompatActivity{
         notice.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText( MainActivity.this,statusString,Toast.LENGTH_SHORT ).show();
                 Intent intent=new Intent( MainActivity.this,NoticeActivity.class );
                 startActivity( intent);
             }
@@ -268,25 +278,12 @@ public class MainActivity extends AppCompatActivity{
         longloan.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=new Intent( MainActivity.this,LongloanActivity.class);
-//                startActivity( intent );
-//                LongLoanDialog myDialog=new LongLoanDialog(MainActivity.this,R.style.Dialog_Msg);
-
-//                myDialog.setMyOnclickListener("这是外部实现的点击事件", new
-//                        LongLoanDialog.MyOnclickListener() {
-//                            @Override
-//                            public void onYesClick(String message) {
-//                                System.out.println("测试:"+message);
-//                            }
-//                        });
-//                myDialog.show();
-
-//
                 LinearLayout  linearLayout1= (LinearLayout) getLayoutInflater().inflate(R.layout.longloan, null);
                 final Spinner spinner=(Spinner)linearLayout1.findViewById( R.id.spinner );
                 final EditText number=linearLayout1.findViewById( R.id.number );
                 //final int  num=Integer.parseInt( number.getText().toString() );
                 final String num=number.getText().toString();
+                final String[] time = new String[1];
                 //长贷时间
                 spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -296,6 +293,7 @@ public class MainActivity extends AppCompatActivity{
                         tv.setTextColor(Color.parseColor( "#000000" )); //设置颜色
                         tv.setTextSize(15.0f); //设置大小
                         tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL); //设置居中
+                        time[0] =languages[position];
                        // Toast.makeText(MainActivity.this, "你点击的是:"+languages[position], Toast.LENGTH_SHORT).show();
                     }
 
@@ -315,7 +313,7 @@ public class MainActivity extends AppCompatActivity{
                                     Toast.makeText( MainActivity.this,"长贷金额0",Toast.LENGTH_SHORT ).show();
                                 }
                                 else {
-                                    Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
+
                                 }
 
                                 longloan.setEnabled( false );
@@ -337,18 +335,6 @@ public class MainActivity extends AppCompatActivity{
         start.setOnClickListener( new View.OnClickListener() {
             @Override
         public void onClick(View v) {
-//                Intent intent=new Intent( MainActivity.this, LonglActivity.class );
-                //startActivity( intent);
-                //Toast.makeText( MainActivity.this,"已进行该操作", Toast.LENGTH_SHORT ).show();
-               // linearLayout.removeAllViews();
-                //linearLayout.addView( view2);
-                TextView time = (TextView) findViewById( R.id.time );
-                time.setText( "" );
-                String s="第"+j+"年第"+i+"季";
-                SpannableString spannableString1 =new SpannableString(s);
-                spannableString1.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-                time.append( spannableString1 );
-
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.start,null );
                 alertDialog1.setTitle( "当季开始" )
                         .setView( linearLayout1 )
@@ -370,7 +356,6 @@ public class MainActivity extends AppCompatActivity{
                         } )
                         .create();
                 alertDialog1.show();
-                Toast.makeText( MainActivity.this,"第"+j+"年第"+i+"季!",Toast.LENGTH_LONG ).show();
             }
         } );
         //申请短贷
@@ -497,72 +482,6 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(s[0].equals( "请选择厂房类型" ))
-                                {
-                                    Toast.makeText( MainActivity.this,"未选择厂房类型",Toast.LENGTH_SHORT ).show();
-                                }
-                                else
-                                {
-                                    if(place4.getText().toString().equals( "空地" ))
-                                    {
-                                        if (radioButton1.isChecked())
-                                        {
-                                            for (int i = 0; i < 4; i++)
-                                            {
-                                                if (place[i].getText().toString().equals( "空地" ))
-                                                {
-                                                    if (s[0].equals( "大厂房（购买:400W,容量:4,租用:40W）" ))
-                                                    {
-                                                        place[i].setText( "大厂房（购买）" );
-                                                        break;
-                                                    }
-                                                    if (s[0].equals( "中厂房（购买:300W,容量:3,租用:30W）" ))
-                                                    {
-                                                        place[i].setText( "中厂房（购买）" );
-                                                        break;
-                                                    }
-                                                    if (s[0].equals( "小厂房（购买:200W,容量:2,租用:20W）" ))
-                                                    {
-                                                        place[i].setText( "小厂房（购买）" );
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (radioButton2.isChecked())
-                                        {
-                                            //Toast.makeText( MainActivity.this,"2",Toast.LENGTH_SHORT ).show();
-                                            for (int i = 0; i < 4; i++)
-                                            {
-                                                if (place[i].getText().toString().equals( "空地" ))
-                                                {
-                                                    if (s[0].equals( "大厂房（购买:400W,容量:4,租用:40W）" ))
-                                                    {
-                                                        place[i].setText( "大厂房（租）" );
-                                                        break;
-                                                    }
-                                                    if (s[0].equals( "中厂房（购买:3000W,容量:3,租用:30W）" )) {
-                                                        place[i].setText( "中厂房（租）" );
-                                                        break;
-                                                    }
-                                                    if (s[0].equals( "小厂房（购买:200W,容量:2,租用:20W）" )) {
-                                                        place[i].setText( "小厂房（租）" );
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                       if(!radioButton1.isChecked()&&!radioButton2.isChecked())
-                                        {
-                                            Toast.makeText( MainActivity.this,"未选择购买或是租赁",Toast.LENGTH_SHORT ).show();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText( MainActivity.this,"没有空地",Toast.LENGTH_SHORT ).show();
-                                    }
-                                }
-
                                 dialog.dismiss();
                             }
                         } )
@@ -646,293 +565,6 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(c[0].equals( "请选择厂房" ))
-                                {
-                                    Toast.makeText( MainActivity.this,"未选择厂房",Toast.LENGTH_SHORT ).show();
-                                }
-                                else
-                                {
-                                    if(s[0].equals( "请选择生产线类型" ))
-                                    {
-                                        Toast.makeText( MainActivity.this,"未选择生产线类型",Toast.LENGTH_SHORT ).show();
-                                    }
-                                    else
-                                    {
-                                        if(p1.isChecked())
-                                        {
-                                            if(s[0].equals( "超级手工线（30W）" ))
-                                            {
-                                                line[0] ="超级手工线("+p1.getText().toString()+")";
-                                            }
-                                            if(s[0].equals( "租赁线（0W）" ))
-                                            {
-                                                line[0] ="租赁线("+p1.getText().toString()+")";
-                                            }
-                                            if(s[0].equals( "自动线（150W）" ))
-                                            {
-                                                line[0] ="自动线("+p1.getText().toString()+")";
-                                            }
-                                            if(s[0].equals( "柔性线（200W）" ))
-                                            {
-                                                line[0] ="柔性线("+p1.getText().toString()+")";
-                                            }
-                                            //Toast.makeText( MainActivity.this,"p1"+s[0],Toast.LENGTH_SHORT ).show();
-                                        }
-                                        if(p2.isChecked())
-                                        {
-                                            if(s[0].equals( "超级手工线（30W）" ))
-                                            {
-                                                line[0] ="超级手工线(P2)";
-                                            }
-                                            if(s[0].equals( "租赁线（0W）" ))
-                                            {
-                                                line[0] ="租赁线(P2)";
-                                            }
-                                            if(s[0].equals( "自动线（150W）" ))
-                                            {
-                                                line[0] ="自动线(P2)";
-                                            }
-                                            if(s[0].equals( "柔性线（200W）" ))
-                                            {
-                                                line[0] ="柔性线(P2)";
-                                            }
-                                        }
-                                        if(p3.isChecked())
-                                        {
-                                            if(s[0].equals( "超级手工线（30W）" ))
-                                            {
-                                                line[0] ="超级手工线(P3)";
-                                            }
-                                            if(s[0].equals( "租赁线（0W）" ))
-                                            {
-                                                line[0] ="租赁线(P3)";
-                                            }
-                                            if(s[0].equals( "自动线（150W）" ))
-                                            {
-                                                line[0] ="自动线(P3)";
-                                            }
-                                            if(s[0].equals( "柔性线（200W）" ))
-                                            {
-                                                line[0] ="柔性线(P3)";
-                                            }
-                                        }
-                                        if(p4.isChecked())
-                                        {
-                                            if(s[0].equals( "超级手工线（30W）" ))
-                                            {
-                                                line[0] ="超级手工线(P4)";
-                                            }
-                                            if(s[0].equals( "租赁线（0W）" ))
-                                            {
-                                                line[0] ="租赁线(P4)";
-                                            }
-                                            if(s[0].equals( "自动线（150W）" ))
-                                            {
-                                                line[0] ="自动线(P4)";
-                                            }
-                                            if(s[0].equals( "柔性线（200W）" ))
-                                            {
-                                                line[0] ="柔性线(P4)";
-                                            }
-                                        }
-                                        if(p5.isChecked())
-                                        {
-                                            if(s[0].equals( "超级手工线（30W）" ))
-                                            {
-                                                line[0] ="超级手工线(P5)";
-                                            }
-                                            if(s[0].equals( "租赁线（0W）" ))
-                                            {
-                                                line[0] ="租赁线(P5)";
-                                            }
-                                            if(s[0].equals( "自动线（150W）" ))
-                                            {
-                                                line[0] ="自动线(P5)";
-                                            }
-                                            if(s[0].equals( "柔性线（200W）" ))
-                                            {
-                                                line[0] ="柔性线(P5)";
-                                            }
-                                        }
-
-                                            if(list.get( d[0] ).indexOf( "大" )!=-1)
-                                            {
-                                                for(int i=0;i<4;i++)
-                                                {
-                                                    if(d[0]==1)
-                                                    {
-                                                        if(space1[3].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space1[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space1[i].setText( line[0] );
-                                                            space1[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-
-                                                    }
-                                                    if(d[0]==2)
-                                                    {
-                                                        if(space2[3].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space2[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space2[i].setText( line[0] );
-                                                            space2[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==3)
-                                                    {
-                                                        if(space3[3].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space3[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space3[i].setText( line[0] );
-                                                            space3[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==4)
-                                                    {
-                                                        if(space4[3].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space4[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space4[i].setText( line[0] );
-                                                            space4[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if(list.get( d[0] ).indexOf( "中" )!=-1)
-                                            {
-                                                for(int i=0;i<3;i++)
-                                                {
-                                                    if(d[0]==1)
-                                                    {
-                                                        if(space1[2].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space1[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space1[i].setText( line[0] );
-                                                            space1[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==2)
-                                                    {
-                                                        if(space2[2].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space2[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space2[i].setText( line[0] );
-                                                            space2[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==3)
-                                                    {
-                                                        if(space3[2].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space3[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space3[i].setText( line[0] );
-                                                            space3[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==4)
-                                                    {
-                                                        if(space4[2].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space4[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space4[i].setText( line[0] );
-                                                            space4[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if(list.get( d[0] ).indexOf( "小" )!=-1)
-                                            {
-                                                for(int i=0;i<2;i++)
-                                                {
-                                                    if(d[0]==1)
-                                                    {
-                                                        if(space1[1].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space1[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space1[i].setText( line[0] );
-                                                            space1[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==2)
-                                                    {
-                                                        if(space2[1].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space2[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space2[i].setText( line[0] );
-                                                            space2[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==3)
-                                                    {
-                                                        if(space3[1].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space3[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space3[i].setText( line[0] );
-                                                            space3[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                    if(d[0]==4)
-                                                    {
-                                                        if(space4[1].getVisibility()==View.VISIBLE)
-                                                        {
-                                                            Toast.makeText( MainActivity.this,"该工厂已建满",Toast.LENGTH_SHORT );
-                                                        }
-                                                        if(space4[i].getVisibility()==View.INVISIBLE)
-                                                        {
-                                                            space4[i].setText( line[0] );
-                                                            space4[i].setVisibility( View.VISIBLE );
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                    }
-                                }
                                 dialog.dismiss();
 
                             }
@@ -1074,7 +706,6 @@ public class MainActivity extends AppCompatActivity{
         update1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i=i+1;
                 alertDialog2.setTitle( "更新应收款账" )
                         .setMessage( "收现金额(1期)  " )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
@@ -1084,13 +715,13 @@ public class MainActivity extends AppCompatActivity{
                                 Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
                                 linearLayout.removeAllViews();
                                 //linearLayout2.setVisibility( View.VISIBLE );
-                                if(i%4==0&&i!=0)
-                                {
-                                    linearLayout.addView( view5 );
-                                }
-                                else {
-                                    linearLayout.addView( view4 );
-                                }
+//                                if(i%4==0&&i!=0)
+//                                {
+//                                    linearLayout.addView( view5 );
+//                                }
+//                                else {
+//                                    linearLayout.addView( view4 );
+//                                }
 
                             }
                         } )
@@ -1279,7 +910,6 @@ public class MainActivity extends AppCompatActivity{
         end1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                j=j+1;
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.end,null );
                 alertDialog1.setTitle( "当季结束" )
                         .setView( linearLayout1 )
@@ -1684,5 +1314,116 @@ public class MainActivity extends AppCompatActivity{
     private void createline()
     {
        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+    }
+
+    private void setInfo(String token)
+    {
+
+        String url = "http://110.88.128.202:8088/stu/user/info";
+        final informationBean[] info = {new informationBean()};
+        HttpUtil.decide(token,url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println( "error" );
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        informationBean info=JSON.parseObject( responseData,informationBean.class );
+                        TextView time=findViewById( R.id.time );
+                        SpannableString spannableString1 =new SpannableString( info.getData().getCompany().getPeriodString());
+                        spannableString1.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+                        time.append( spannableString1 );
+                        TextView status=findViewById( R.id.status );
+                        SpannableString spannableString2 =new SpannableString( info.getData().getCompany().getStatusString());
+                        spannableString2.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+                        status.append( spannableString2 );
+                        TextView cash=findViewById( R.id.cash );
+                        cash.append( Integer.toString(info.getData().getCompany().getCash()));
+                        TextView receivable=findViewById( R.id.receivable );
+                        List<receivableBean> receivableBeanList=info.getData().getReceivable();
+                        if(receivableBeanList.size()==0)
+                        {
+                            receivable.append( "0" );
+                        }
+                        else
+                        {
+                            receivable.append( Integer.toString(receivableBeanList.get( 0 ).getReceivableValue() ));
+                        }
+                        TextView longloan=findViewById( R.id.longloan );
+                        TextView shortloan=findViewById( R.id.shortloan );
+                        TextView specialloan=findViewById( R.id.specialloan );
+
+                        TextView shareholder=findViewById( R.id.shareholder );
+                        List<loanBean> loanBeanList=info.getData().getLoan();
+                        shareholder.append( Integer.toString( info.getData().getCompany().getCapital() ) );
+                        if(loanBeanList.size()==0)
+                        {
+                            longloan.append( "0" );
+                            shortloan.append( "0" );
+                            specialloan.append( "0" );
+                        }
+                        else
+                        {
+                            int lloan=0;
+                            int sloan=0;
+                            int sploan=0;
+                            for(int i=0;i<loanBeanList.size();i++)
+                            {
+                                if(loanBeanList.get( i ).getLoanType()==1)
+                                {
+                                    sloan=loanBeanList.get( i ).getLoanValue()+sloan;
+                                }
+                                if(loanBeanList.get( i ).getLoanType()==2)
+                                {
+                                    lloan=loanBeanList.get( i ).getLoanValue()+lloan;
+                                }
+                                if(loanBeanList.get( i ).getLoanType()==3)
+                                {
+                                    sploan=loanBeanList.get( i ).getLoanValue()+sploan;
+                                }
+                            }
+                            longloan.append( Integer.toString( lloan ) );
+                            shortloan.append( Integer.toString( sloan ) );
+                            specialloan.append( Integer.toString( sploan ) );
+                        }
+                        TextView discountCost=findViewById( R.id.discountCost );
+                        discountCost.append( Integer.toString( info.getData().getFinancial().getDiscountCost() ) );
+                        TextView interest=findViewById( R.id.interest );
+                        interest.append( Integer.toString( info.getData().getFinancial().getInterest() ) );
+                        TextView salesAmount=findViewById( R.id.salesAmount );
+                        salesAmount.append( Integer.toString( info.getData().getFinancial().getSalesAmount() ) );
+                        TextView maintenanceCost=findViewById( R.id.maintenanceCost );
+                        maintenanceCost.append( Integer.toString( info.getData().getFinancial().getMaintenanceCost() ) );
+                        TextView turnOverCost=findViewById( R.id.turnOverCost );
+                        turnOverCost.append( Integer.toString( info.getData().getFinancial().getTurnOverCost() ) );
+                        TextView rentCost=findViewById( R.id.rentCost );
+                        rentCost.append( Integer.toString( info.getData().getFinancial().getRentCost() ) );
+                        TextView adminstrativeCost=findViewById( R.id.adminstrativeCost );
+                        adminstrativeCost.append( Integer.toString( info.getData().getFinancial().getAdminstrativeCost() ) );
+                        TextView adCost=findViewById( R.id.adCost );
+                        adCost.append( Integer.toString( info.getData().getFinancial().getAdCost() ) );
+                        TextView informationCost=findViewById( R.id.informationCost );
+                        informationCost.append(Integer.toString( info.getData().getFinancial().getInformationCost() ) );
+                        TextView depreiationCost=findViewById( R.id.depreiationCost );
+                        depreiationCost.append( Integer.toString( info.getData().getFinancial().getDepreiationCost()) );
+                        TextView directCost=findViewById( R.id.directCost );
+                        directCost.append( Integer.toString( info.getData().getFinancial().getDirectCost() ) );
+                        TextView developingIsoCost=findViewById( R.id.developingIsoCost );
+                        developingIsoCost.append( Integer.toString( info.getData().getFinancial().getDevelopingIsoCost() ) );
+                        TextView developingProductCost=findViewById( R.id.developingProductCost );
+                        developingProductCost.append( Integer.toString( info.getData().getFinancial().getDevelopingProductCost() ) );
+                        TextView developingMarketCost=findViewById( R.id.developingMarketCost );
+                        developingMarketCost.append( Integer.toString( info.getData().getFinancial().getDevelopingMarketCost() ) );
+
+                    }
+                });
+
+            }
+        });
     }
 }
