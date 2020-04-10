@@ -100,20 +100,28 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/time"
             android:text="系统时间: "
-            android:id="@+id/time"
             android:layout_marginLeft="50dp"
             android:textColor="#000000">
         </TextView>
-
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:textColor="#992424"></TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/state"
             android:text="用户状态: "
-            android:id="@+id/status"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="5dp"
             android:textColor="#000000">
         </TextView>
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/status"
+            android:textColor="#992424"
+            ></TextView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -368,38 +376,62 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:text="当前现金:"
-                        android:id="@+id/cash"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cash"
+                        android:textSize="11dp"
+                        android:textColor="#000000">
+                    </TextView>
+                    <TextView
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:text="应收账款:"
-                        android:id="@+id/receivable"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/receivable"
+                        android:textSize="11dp"
+                        android:textColor="#000000">
+                    </TextView>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:text="长贷总额:"
-                        android:id="@+id/longloan"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/longloan"
+                        android:textSize="11dp"
+                        android:textColor="#000000">
+                    </TextView>
+                    <TextView
+                        android:layout_width="55dp"
                         android:layout_height="wrap_content"
                         android:text="短贷总额:"
-                        android:id="@+id/shortloan"
                         android:textColor="#000000"
                         android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/shortloan"
+                        android:textSize="11dp"
+                        android:textColor="#000000">
+                    </TextView>
                 </LinearLayout>
 
             </LinearLayout>
@@ -420,19 +452,31 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="5dp">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="特别贷款:"
-                            android:id="@+id/specialloan"
                             android:textColor="#000000"
                             android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/specialloan"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="股东资助:"
-                            android:id="@+id/shareholder"
                             android:textColor="#000000"
                             android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/shareholder"
+                            android:textSize="11dp"
+                            android:textColor="#000000">
+                        </TextView>
                     </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
@@ -452,133 +496,217 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="贴息:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/discountCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/discountCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="利息:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/interest"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/interest"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="销售收入:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/salesAmount"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/salesAmount"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="维护费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/maintenanceCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/maintenanceCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="转产费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/turnOverCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/turnOverCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="租金:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/rentCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rentCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="管理费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/adminstrativeCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/adminstrativeCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="广告费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/adCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/adCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="信息费:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/informationCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/informationCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="损失:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/depreiationCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/finacialLoss"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="直接成本:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/directCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/directCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:text="ISO认证:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/developingIsoCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/developingIsoCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000">
+                        </TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="产品开发:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/developingProductCost"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/developingProductCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="55dp"
                             android:layout_height="wrap_content"
                             android:text="市场开拓:"
                             android:textColor="#000000"
-                            android:textSize="12dp"
-                            android:id="@+id/developingMarketCost"></TextView>
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/developingMarketCost"
+                            android:textSize="11dp"
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
@@ -595,34 +723,49 @@
             </Button>
             <LinearLayout
                 android:layout_width="160dp"
-                android:layout_height="48dp"
+                android:layout_height="32dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                 <TextView
-                    android:layout_width="160dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="市场准入:"
-                    android:id="@+id/o1"
                     android:textColor="#000000"
                     android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/market"
+                        android:textSize="12dp"
+                        android:textColor="#F55320">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                 <TextView
-                    android:layout_width="160dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:text="生产资格:"
-                    android:id="@+id/o2"
                     android:textColor="#000000"
                     android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/product"
+                        android:textSize="12dp"
+                        android:textColor="#992424">
+                    </TextView>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:text="ISO认证:"
-                    android:id="@+id/o3"
-                    android:textColor="#000000"
-                    android:textSize="12dp"></TextView>
             </LinearLayout>
             <ScrollView
                 android:layout_width="160dp"
-                android:layout_height="70dp"
+                android:layout_height="78dp"
                 android:fadingEdge="vertical"
                 android:scrollbars="vertical"
                 android:visibility="gone"
@@ -632,7 +775,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="ISO认证:"
+                            android:textColor="#000000"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/iso"
+                            android:textColor="#085797">
+                        </TextView>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -651,46 +810,80 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="本地:"
                             android:textColor="#F55320"
-                            android:textSize="12dp"
-                            android:id="@+id/o4"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/local"
+                            android:textSize="12dp"
+                            android:textColor="#000000"></TextView>
+                        <TextView
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="区域:"
                             android:textColor="#F55320"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/region"
                             android:textSize="12dp"
-                            android:id="@+id/o5"></TextView>
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="国内:"
                             android:textColor="#F55320"
-                            android:textSize="12dp"
-                            android:id="@+id/o6"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/domestic"
+                            android:textSize="12dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="亚洲:"
                             android:textColor="#F55320"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/asia"
                             android:textSize="12dp"
-                            android:id="@+id/o7"></TextView>
+                            android:textColor="#000000"></TextView>
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="80dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="国际:"
-                        android:textColor="#F55320"
-                        android:textSize="12dp"
-                        android:id="@+id/o8"></TextView>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:text="国际:"
+                            android:textColor="#F55320"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/international"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -709,45 +902,79 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="P1:"
                             android:textColor="#C00606"
-                            android:textSize="12dp"
-                            android:id="@+id/o9"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/product1"
+                            android:textSize="12dp"
+                            android:textColor="#000000"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="P2:"
                             android:textColor="#C00606"
-                            android:textSize="12dp"
-                            android:id="@+id/o10"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
-                            android:text="P3:"
-                            android:textColor="#C00606"
+                            android:id="@+id/product2"
                             android:textSize="12dp"
-                            android:id="@+id/o11"></TextView>
+                            android:textColor="#000000">
+                        </TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="20dp"
+                            android:layout_height="wrap_content"
+                            android:text="P3:"
+                            android:textColor="#C00606"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/product3"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
+                        <TextView
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="P4:"
                             android:textColor="#C00606"
-                            android:textSize="12dp"
-                            android:id="@+id/o12"></TextView>
+                            android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/product4"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="P5:"
                             android:textColor="#C00606"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/product5"
                             android:textSize="12dp"
-                            android:id="@+id/o13"></TextView>
+                            android:textColor="#000000"
+                            ></TextView>
                     </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
@@ -762,20 +989,42 @@
                         android:layout_height="0.5dp"
                         android:background="#000000"
                         android:layout_marginTop="5dp"></View>
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="ISO9000:"
-                        android:textColor="#085797"
-                        android:textSize="12dp"
-                        android:id="@+id/o14"></TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ISO14000:"
-                        android:textColor="#085797"
-                        android:textSize="12dp"
-                        android:id="@+id/o15"></TextView>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:text="ISO9000:"
+                            android:textColor="#085797"
+                            android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:textColor="#000000"
+                            android:id="@+id/iso1"
+                            ></TextView>
+                    </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <TextView
+                           android:layout_width="60dp"
+                           android:layout_height="wrap_content"
+                           android:text="ISO14000:"
+                           android:textColor="#085797"
+                           android:textSize="12dp"></TextView>
+                       <TextView
+                           android:layout_width="100dp"
+                           android:layout_height="wrap_content"
+                           android:textSize="12dp"
+                           android:textColor="#000000"
+                           android:id="@+id/iso2"></TextView>
+                   </LinearLayout>
+
                 </LinearLayout>
             </ScrollView>
             <Button
@@ -792,33 +1041,97 @@
             </Button>
             <LinearLayout
                 android:layout_width="160dp"
-                android:layout_height="17dp"
+                android:layout_height="37dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="53dp"
+                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text="P1:"
-                        android:id="@+id/p1"
                         android:textColor="#C00606"
                         android:textSize="12dp"></TextView>
                     <TextView
-                        android:layout_width="53dp"
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        android:id="@+id/p1">
+                    </TextView>
+                    <TextView
+                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text="P2:"
-                        android:id="@+id/p2"
                         android:textColor="#C00606"
                         android:textSize="12dp"></TextView>
                     <TextView
-                        android:layout_width="53dp"
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        android:id="@+id/p2">
+                    </TextView>
+                    <TextView
+                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:text="P3:"
-                        android:id="@+id/p3"
                         android:textColor="#C00606"
                         android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        android:id="@+id/p3">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="P4:"
+                        android:textColor="#C00606"
+                        android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/p4"
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        >
+                    </TextView>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="P5:"
+                        android:textColor="#C00606"
+                        android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/p5"
+                        android:textSize="12dp"
+                        android:textColor="#000000"
+                        ></TextView>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="R1:"
+                        android:textColor="#F55320"
+                        android:textSize="12dp"></TextView>
+                    <TextView
+                        android:layout_width="33dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/r1"
+                        android:textSize="12dp"
+                        android:textColor="#000000">
+                    </TextView>
                 </LinearLayout>
             </LinearLayout>
             <ScrollView
@@ -833,79 +1146,95 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="2dp">
                         <TextView
-                            android:layout_width="53dp"
-                            android:layout_height="wrap_content"
-                            android:text="P4:"
-                            android:id="@+id/b4"
-                            android:textColor="#C00606"
-                            android:textSize="12dp"></TextView>
-                        <TextView
-                            android:layout_width="53dp"
-                            android:layout_height="wrap_content"
-                            android:text="P5:"
-                            android:id="@+id/p5"
-                            android:textColor="#C00606"
-                            android:textSize="12dp"></TextView>
-                        <TextView
-                            android:layout_width="53dp"
-                            android:layout_height="wrap_content"
-                            android:text="R1:"
-                            android:id="@+id/r1"
-                            android:textColor="#F55320"
-                            android:textSize="12dp"></TextView>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="2dp">
-                        <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="R2:"
-                            android:id="@+id/r2"
                             android:textColor="#F55320"
                             android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="33dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/r2"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
+                        <TextView
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="R3:"
-                            android:id="@+id/r3"
                             android:textColor="#F55320"
                             android:textSize="12dp"></TextView>
                         <TextView
-                            android:layout_width="53dp"
+                            android:layout_width="33dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/r3"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
+                        <TextView
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:text="R4:"
-                            android:id="@+id/r4"
                             android:textColor="#F55320"
                             android:textSize="12dp"></TextView>
+                        <TextView
+                            android:layout_width="33dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/r4"
+                            android:textSize="12dp"
+                            android:textColor="#000000">
+                        </TextView>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <TextView
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:text="第一季:"
+                            android:textColor="#000000"
+                            android:drawableLeft="@drawable/car"
+                            android:textSize="12dp"
+                            ></TextView>
+                        <TextView
+                            android:layout_width="95dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:textSize="12dp"
+                            android:id="@+id/transport1"
+                            ></TextView>
+                    </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal"
+                       android:layout_marginTop="5dp">
+                       <TextView
+                           android:layout_width="65dp"
+                           android:layout_height="wrap_content"
+                           android:text="第二季:"
+                           android:textColor="#000000"
+                           android:drawableLeft="@drawable/car"
+                           android:textSize="12dp"
+                           ></TextView>
+                       <TextView
+                           android:layout_width="95dp"
+                           android:layout_height="wrap_content"
+                           android:textColor="#000000"
+                           android:textSize="12dp"
+                           android:id="@+id/transport2"
+                           ></TextView>
+                   </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="第一季;"
-                        android:id="@+id/t1"
-                        android:textColor="#000000"
-                        android:drawableLeft="@drawable/car"
-                        android:textSize="12dp"
-                        android:layout_marginTop="5dp"></TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="第二季:"
-                        android:id="@+id/t2"
-                        android:textColor="#000000"
-                        android:drawableLeft="@drawable/car"
-                        android:textSize="12dp"
-                        android:layout_marginTop="5dp"></TextView>
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

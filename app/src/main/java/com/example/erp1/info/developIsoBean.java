@@ -1,5 +1,7 @@
 package com.example.erp1.info;
 
+import com.example.erp1.info.developIso.configIsoBean;
+
 public class developIsoBean {
     private int id;
     private int userId;
@@ -10,7 +12,15 @@ public class developIsoBean {
     private int developingRemainder;
     private String createTime;
     private int createUserId;
-    private developIsoBean developIso;
+    private configIsoBean configIso;
+
+    public configIsoBean getConfigIso() {
+        return configIso;
+    }
+
+    public void setConfigIso(configIsoBean configIso) {
+        this.configIso = configIso;
+    }
 
     public int getId() {
         return id;
@@ -82,13 +92,5 @@ public class developIsoBean {
 
     public void setCreateUserId(int createUserId) {
         this.createUserId = createUserId;
-    }
-
-    public developIsoBean getDevelopIso() {
-        return developIso;
-    }
-
-    public void setDevelopIso(developIsoBean developIso) {
-        this.developIso = developIso;
     }
 }

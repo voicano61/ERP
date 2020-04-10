@@ -1,11 +1,22 @@
 package com.example.erp1.info;
 
+import com.example.erp1.info.developMarket.configMarketBean;
+
 public class developMarketBean {
     private int id;
     private int userid;
     private int matchId;
     private int startTime;
     private int finishTime;
+    private configMarketBean configMarket;
+
+    public configMarketBean getConfigMarket() {
+        return configMarket;
+    }
+
+    public void setConfigMarket(configMarketBean configMarket) {
+        this.configMarket = configMarket;
+    }
 
     public int getId() {
         return id;

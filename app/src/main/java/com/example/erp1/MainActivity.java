@@ -40,9 +40,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.erp1.info.developIsoBean;
+import com.example.erp1.info.developMarketBean;
+import com.example.erp1.info.developProductBean;
 import com.example.erp1.info.informationBean;
 import com.example.erp1.info.loanBean;
+import com.example.erp1.info.materialBean;
+import com.example.erp1.info.productBean;
 import com.example.erp1.info.receivableBean;
+import com.example.erp1.info.transportBean;
 
 import org.w3c.dom.Text;
 
@@ -1335,24 +1341,25 @@ public class MainActivity extends AppCompatActivity{
                     public void run() {
                         informationBean info=JSON.parseObject( responseData,informationBean.class );
                         TextView time=findViewById( R.id.time );
-                        SpannableString spannableString1 =new SpannableString( info.getData().getCompany().getPeriodString());
-                        spannableString1.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-                        time.append( spannableString1 );
+//                        SpannableString spannableString1 =new SpannableString( info.getData().getCompany().getPeriodString());
+//                        spannableString1.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+                        time.setText(info.getData().getCompany().getPeriodString());
                         TextView status=findViewById( R.id.status );
-                        SpannableString spannableString2 =new SpannableString( info.getData().getCompany().getStatusString());
-                        spannableString2.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-                        status.append( spannableString2 );
+//                        SpannableString spannableString2 =new SpannableString( info.getData().getCompany().getStatusString());
+//                        spannableString2.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+                        status.setText(info.getData().getCompany().getStatusString());
+                        //财务信息
                         TextView cash=findViewById( R.id.cash );
-                        cash.append( Integer.toString(info.getData().getCompany().getCash()));
+                        cash.setText( Integer.toString(info.getData().getCompany().getCash()));
                         TextView receivable=findViewById( R.id.receivable );
                         List<receivableBean> receivableBeanList=info.getData().getReceivable();
                         if(receivableBeanList.size()==0)
                         {
-                            receivable.append( "0" );
+                            receivable.setText( "0" );
                         }
                         else
                         {
-                            receivable.append( Integer.toString(receivableBeanList.get( 0 ).getReceivableValue() ));
+                            receivable.setText( Integer.toString(receivableBeanList.get( 0 ).getReceivableValue() ));
                         }
                         TextView longloan=findViewById( R.id.longloan );
                         TextView shortloan=findViewById( R.id.shortloan );
@@ -1360,12 +1367,12 @@ public class MainActivity extends AppCompatActivity{
 
                         TextView shareholder=findViewById( R.id.shareholder );
                         List<loanBean> loanBeanList=info.getData().getLoan();
-                        shareholder.append( Integer.toString( info.getData().getCompany().getCapital() ) );
+                        shareholder.setText( Integer.toString( info.getData().getCompany().getCapital() ) );
                         if(loanBeanList.size()==0)
                         {
-                            longloan.append( "0" );
-                            shortloan.append( "0" );
-                            specialloan.append( "0" );
+                            longloan.setText( "0" );
+                            shortloan.setText( "0" );
+                            specialloan.setText( "0" );
                         }
                         else
                         {
@@ -1387,39 +1394,263 @@ public class MainActivity extends AppCompatActivity{
                                     sploan=loanBeanList.get( i ).getLoanValue()+sploan;
                                 }
                             }
-                            longloan.append( Integer.toString( lloan ) );
-                            shortloan.append( Integer.toString( sloan ) );
-                            specialloan.append( Integer.toString( sploan ) );
+                            longloan.setText( Integer.toString( lloan ) );
+                            shortloan.setText( Integer.toString( sloan ) );
+                            specialloan.setText( Integer.toString( sploan ) );
                         }
                         TextView discountCost=findViewById( R.id.discountCost );
-                        discountCost.append( Integer.toString( info.getData().getFinancial().getDiscountCost() ) );
+                        discountCost.setText( Integer.toString( info.getData().getFinancial().getDiscountCost() ) );
                         TextView interest=findViewById( R.id.interest );
-                        interest.append( Integer.toString( info.getData().getFinancial().getInterest() ) );
+                        interest.setText( Integer.toString( info.getData().getFinancial().getInterest() ) );
                         TextView salesAmount=findViewById( R.id.salesAmount );
-                        salesAmount.append( Integer.toString( info.getData().getFinancial().getSalesAmount() ) );
+                        salesAmount.setText( Integer.toString( info.getData().getFinancial().getSalesAmount() ) );
                         TextView maintenanceCost=findViewById( R.id.maintenanceCost );
-                        maintenanceCost.append( Integer.toString( info.getData().getFinancial().getMaintenanceCost() ) );
+                        maintenanceCost.setText( Integer.toString( info.getData().getFinancial().getMaintenanceCost() ) );
                         TextView turnOverCost=findViewById( R.id.turnOverCost );
-                        turnOverCost.append( Integer.toString( info.getData().getFinancial().getTurnOverCost() ) );
+                        turnOverCost.setText( Integer.toString( info.getData().getFinancial().getTurnOverCost() ) );
                         TextView rentCost=findViewById( R.id.rentCost );
-                        rentCost.append( Integer.toString( info.getData().getFinancial().getRentCost() ) );
+                        rentCost.setText( Integer.toString( info.getData().getFinancial().getRentCost() ) );
                         TextView adminstrativeCost=findViewById( R.id.adminstrativeCost );
-                        adminstrativeCost.append( Integer.toString( info.getData().getFinancial().getAdminstrativeCost() ) );
+                        adminstrativeCost.setText( Integer.toString( info.getData().getFinancial().getAdminstrativeCost() ) );
                         TextView adCost=findViewById( R.id.adCost );
-                        adCost.append( Integer.toString( info.getData().getFinancial().getAdCost() ) );
+                        adCost.setText( Integer.toString( info.getData().getFinancial().getAdCost() ) );
                         TextView informationCost=findViewById( R.id.informationCost );
-                        informationCost.append(Integer.toString( info.getData().getFinancial().getInformationCost() ) );
-                        TextView depreiationCost=findViewById( R.id.depreiationCost );
-                        depreiationCost.append( Integer.toString( info.getData().getFinancial().getDepreiationCost()) );
+                        informationCost.setText(Integer.toString( info.getData().getFinancial().getInformationCost() ) );
+                        TextView finacialLoss=findViewById( R.id.finacialLoss );
+                        finacialLoss.setText( Integer.toString( info.getData().getFinancial().getFinacialLoss()) );
                         TextView directCost=findViewById( R.id.directCost );
-                        directCost.append( Integer.toString( info.getData().getFinancial().getDirectCost() ) );
+                        directCost.setText( Integer.toString( info.getData().getFinancial().getDirectCost() ) );
                         TextView developingIsoCost=findViewById( R.id.developingIsoCost );
-                        developingIsoCost.append( Integer.toString( info.getData().getFinancial().getDevelopingIsoCost() ) );
+                        developingIsoCost.setText( Integer.toString( info.getData().getFinancial().getDevelopingIsoCost() ) );
                         TextView developingProductCost=findViewById( R.id.developingProductCost );
-                        developingProductCost.append( Integer.toString( info.getData().getFinancial().getDevelopingProductCost() ) );
+                        developingProductCost.setText( Integer.toString( info.getData().getFinancial().getDevelopingProductCost() ) );
                         TextView developingMarketCost=findViewById( R.id.developingMarketCost );
-                        developingMarketCost.append( Integer.toString( info.getData().getFinancial().getDevelopingMarketCost() ) );
+                        developingMarketCost.setText( Integer.toString( info.getData().getFinancial().getDevelopingMarketCost() ) );
 
+                        //研发认证信息
+                        TextView market=findViewById( R.id.market );
+                        TextView local=findViewById( R.id.local );
+                        TextView region=findViewById( R.id.region );
+                        TextView domestic=findViewById( R.id.domestic );
+                        TextView asia=findViewById( R.id.asia );
+                        TextView international=findViewById( R.id.international );
+                        TextView []markets={local,region,domestic,asia,international};
+                        List<developMarketBean> developMarketBeanList=info.getData().getDevelopMarket();
+
+                        int j=0;
+                        String s="";
+                        for(int i=0;i<5;i++)
+                        {
+                            markets[i].setText( "未开拓" );
+                        }
+                        for(int i=0;i<developMarketBeanList.size();i++)
+                        {
+                            int x=0;
+                            if(developMarketBeanList.get( i ).getDevelopingRemainder()==0)
+                            {
+                                s=s+developMarketBeanList.get( i ).getConfigMarket().getName()+" ";
+//                                SpannableString spannableString =new SpannableString(s);
+//                                spannableString.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+                                if(developMarketBeanList.get( i).getConfigMarket().getName()=="本地")
+                                {
+                                    x=0;
+                                }
+                                if(developMarketBeanList.get( i).getConfigMarket().getName()=="区域")
+                                {
+                                    x=1;
+                                }
+                                if(developMarketBeanList.get( i).getConfigMarket().getName()=="国内")
+                                {
+                                    x=2;
+                                }
+                                if(developMarketBeanList.get( i).getConfigMarket().getName()=="亚洲")
+                                {
+                                    x=3;
+                                }
+                                if(developMarketBeanList.get( i).getConfigMarket().getName()=="国际")
+                                {
+                                    x=4;
+                                }
+                                markets[x].setText( "已开拓" );
+                            }
+                            else
+                            {
+                                j=j+1;
+                                String m="剩余"+developMarketBeanList.get( i ).getDevelopingRemainder()+"/"+developMarketBeanList.get( i ).getConfigMarket().getDevelopingTime();
+                                markets[x].setText( m );
+                            }
+
+                        }
+                        market.setText(s);
+                        if(j==developMarketBeanList.size()||developMarketBeanList.size()==0)
+                        {
+                            market.setText( "暂无" );
+                            market.setTextColor( Color.parseColor( "#000000" ));
+                        }
+
+                        TextView iso=findViewById( R.id.iso );
+                        TextView iso1=findViewById( R.id.iso1 );
+                        TextView iso2=findViewById( R.id.iso2 );
+                        TextView []isos={iso1,iso2};
+                        int []isonum={0,0};
+                        List<developIsoBean> developIsoBeanList=info.getData().getDevelopIso();
+                        int z=0;
+                        String isomessage="";
+                        for(int i=0;i<developIsoBeanList.size();i++)
+                        {
+                            int x=0;
+                            if(developIsoBeanList.get( i ).getDevelopingRemainder()==0)
+                            {
+                                isomessage=isomessage+developIsoBeanList.get( i ).getConfigIso().getName()+" ";
+                                if(developIsoBeanList.get( i ).getConfigIso().getName().equals( "ISO9000" ))
+                                {
+                                    x=0;
+                                }
+                                if(developIsoBeanList.get( i ).getConfigIso().getName().equals( "ISO14000" ))
+                                {
+                                    x=1;
+                                }
+                                isos[x].setText( "已认证" );
+                                isonum[x]=1;
+
+                            }
+                            else
+                            {
+                                String m="剩余"+developIsoBeanList.get( i ).getDevelopingRemainder()+"/"+developIsoBeanList.get( i ).getConfigIso().getDevelopingTime();
+                                isos[x].setText( m);
+                                isonum[x]=1;
+                                z=z+1;
+                            }
+                        }
+                        iso.setText( isomessage );
+                        if (z==developIsoBeanList.size()||developIsoBeanList.size()==0)
+                        {
+                            iso.setText( "暂无" );
+                            iso.setTextColor( Color.parseColor( "#000000" ));
+                        }
+
+                        TextView product=findViewById( R.id.product );
+                        TextView product1=findViewById( R.id.product1 );
+                        TextView product2=findViewById( R.id.product2 );
+                        TextView product3=findViewById( R.id.product3 );
+                        TextView product4=findViewById( R.id.product4 );
+                        TextView product5=findViewById( R.id.product5 );
+                        TextView []products={product1,product2,product3,product4,product5};
+                        List<developProductBean> developProductBeanList=info.getData().getDevelopProduct();
+                        String p="";
+                        int y=0;
+                        for(int i=0;i<5;i++)
+                        {
+                            products[i].setText( "未研发" );
+                        }
+                        for(int i=0;i<developProductBeanList.size();i++)
+                        {
+                            int x=0;
+                            if(developProductBeanList.get( i ).getDevelopingRemainder()==0)
+                            {
+                                if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P1" ))
+                                {
+                                    x=0;
+                                }
+                                if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P2" ))
+                                {
+                                    x=1;
+                                }
+                                if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P3" ))
+                                {
+                                    x=2;
+                                }
+                                if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P4" ))
+                                {
+                                    x=3;
+                                }
+                                if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P5" ))
+                                {
+                                    x=4;
+                                }
+                                p=p+developProductBeanList.get( i ).getConfigProduct().getName()+" ";
+                                products[x].setText( "已研发" );
+                            }
+                            else
+                            {
+                                String m="剩余"+developProductBeanList.get( i ).getDevelopingRemainder()+"/"+developProductBeanList.get( i ).getConfigProduct().getDevelopingTime();
+                                products[x].setText( m );
+                                y=y+1;
+                            }
+                        }
+                        product.setText( p );
+
+                        if(developProductBeanList.size()==0||y==developProductBeanList.size())
+                        {
+                            product.setText( "暂无" );
+                        }
+
+                        TextView p1=findViewById( R.id.p1 );
+                        TextView p2=findViewById( R.id.p2 );
+                        TextView p3=findViewById( R.id.p3 );
+                        TextView p4=findViewById( R.id.p4 );
+                        TextView p5=findViewById( R.id.p5 );
+                        TextView r1=findViewById( R.id.r1 );
+                        TextView r2=findViewById( R.id.r2 );
+                        TextView r3=findViewById( R.id.r3 );
+                        TextView r4=findViewById( R.id.r4 );
+                        List<productBean> productBeanList=info.getData().getProduct();
+                        List<materialBean> materialBeanList=info.getData().getMaterial();
+                        TextView []ps={p1,p2,p3,p4,p5};
+                        TextView []rs={r1,r2,r3,r4};
+                        for(int i=0;i<5;i++)
+                        {
+                            ps[i].setText( "0" );
+                        }
+                        for (int i=0;i<4;i++)
+                        {
+                            rs[i].setText( "0" );
+                        }
+                        for(int i=0;i<productBeanList.size();i++)
+                        {
+                            if(productBeanList.get( i ).getConfigProduct().getName().equals( "P1" ))
+                            {
+                                p1.setText(Integer.toString(  productBeanList.get( i ).getInventoryNum()) );
+                            }
+                            if(productBeanList.get( i ).getConfigProduct().getName().equals( "P2" ))
+                            {
+                                p2.setText(Integer.toString(  productBeanList.get( i ).getInventoryNum()) );
+                            }
+                            if(productBeanList.get( i ).getConfigProduct().getName().equals( "P3" ))
+                            {
+                                p3.setText( Integer.toString(  productBeanList.get( i ).getInventoryNum()) );
+                            }
+                            if(productBeanList.get( i ).getConfigProduct().getName().equals( "P4" ))
+                            {
+                                p4.setText(Integer.toString(  productBeanList.get( i ).getInventoryNum()) );
+                            }
+                            if(productBeanList.get( i ).getConfigProduct().getName().equals( "P5" ))
+                            {
+                                p5.setText( Integer.toString(  productBeanList.get( i ).getInventoryNum()) );
+                            }
+                        }
+                        for(int i=0;i<materialBeanList.size();i++)
+                        {
+                            rs[materialBeanList.get( i ).getMaterialId()-1].setText(Integer.toString(  materialBeanList.get( i ).getInventoryNum() ) );
+                        }
+                        TextView transport1=findViewById( R.id.transport1 );
+                        TextView transport2=findViewById( R.id.transport2 );
+                        transport1.setText( "暂无运单信息" );
+                        transport2.setText( "暂无运单信息" );
+                        List<transportBean> transportBeanList=info.getData().getTransport();
+                        String rnum="";
+                        for (int i=0;i<transportBeanList.size();i++)
+                        {
+                            rnum="R"+transportBeanList.get( i ).getProductId()+"("+transportBeanList.get( i ).getNum()+")";
+                            if(transportBeanList.get( i ).getRemainder()==1)
+                            {
+                                transport1.setText(rnum);
+                            }
+                            if(transportBeanList.get( i ).getRemainder()==2)
+                            {
+                                transport2.setText( rnum);
+                            }
+                        }
                     }
                 });
 

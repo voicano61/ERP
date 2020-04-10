@@ -1,6 +1,6 @@
 package com.example.erp1.info.developIso;
 
-public class congigIsoBean {
+public class configIsoBean {
     private int id;
     private int matchId;
     private int developingTime;
