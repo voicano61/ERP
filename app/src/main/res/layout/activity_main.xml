@@ -139,10 +139,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:text="空地"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:drawableLeft="@drawable/space3"
                 android:background="#707274"
                 android:paddingLeft="4dp"
+                android:gravity="center_vertical"
                 android:id="@+id/place1"
                 >
             </TextView>
@@ -154,6 +155,7 @@
                 android:id="@+id/space11"
                 android:visibility="invisible"
                 android:textColor="#000000"
+                android:textSize="12dp"
                 >
             </TextView>
             <TextView
@@ -163,7 +165,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space12"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -172,7 +175,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space13"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -181,7 +185,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space14"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
         </LinearLayout>
         <LinearLayout
@@ -194,10 +199,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:text="空地"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:drawableLeft="@drawable/space3"
                 android:background="#707274"
                 android:paddingLeft="4dp"
+                android:gravity="center_vertical"
                 android:id="@+id/place2">
             </TextView>
             <TextView
@@ -208,6 +214,7 @@
                 android:id="@+id/space21"
                 android:visibility="invisible"
                 android:textColor="#000000"
+                android:textSize="12dp"
                 >
             </TextView>
             <TextView
@@ -217,7 +224,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space22"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -226,7 +234,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space23"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -235,7 +244,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space24"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
         </LinearLayout>
         <LinearLayout
@@ -248,10 +258,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:text="空地"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:drawableLeft="@drawable/space3"
                 android:background="#707274"
                 android:paddingLeft="4dp"
+                android:gravity="center_vertical"
                 android:id="@+id/place3">
             </TextView>
             <TextView
@@ -262,6 +273,7 @@
                 android:id="@+id/space31"
                 android:visibility="invisible"
                 android:textColor="#000000"
+                android:textSize="12dp"
                 >
             </TextView>
             <TextView
@@ -271,7 +283,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space32"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -280,7 +293,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space33"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -289,7 +303,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space34"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
         </LinearLayout>
         <LinearLayout
@@ -302,10 +317,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:text="空地"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:drawableLeft="@drawable/space3"
                 android:background="#707274"
                 android:paddingLeft="4dp"
+                android:gravity="center_vertical"
                 android:id="@+id/place4">
             </TextView>
             <TextView
@@ -316,6 +332,7 @@
                 android:id="@+id/space41"
                 android:visibility="invisible"
                 android:textColor="#000000"
+                android:textSize="12dp"
                 >
             </TextView>
             <TextView
@@ -325,7 +342,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space42"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -334,7 +352,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space43"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
@@ -343,7 +362,8 @@
                 android:drawableLeft="@drawable/create"
                 android:id="@+id/space44"
                 android:visibility="invisible"
-                android:textColor="#000000">
+                android:textColor="#000000"
+                android:textSize="12dp">
             </TextView>
         </LinearLayout>
         <LinearLayout

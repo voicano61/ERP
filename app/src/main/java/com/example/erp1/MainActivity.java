@@ -47,8 +47,10 @@ import com.example.erp1.info.informationBean;
 import com.example.erp1.info.loanBean;
 import com.example.erp1.info.materialBean;
 import com.example.erp1.info.productBean;
+import com.example.erp1.info.productLineBean;
 import com.example.erp1.info.receivableBean;
 import com.example.erp1.info.transportBean;
+import com.example.erp1.info.workshopBean;
 
 import org.w3c.dom.Text;
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity{
     private ArrayAdapter<String> adapter;
     private DrawerLayout mDrawerLayout;
     private  List<String> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -79,32 +82,7 @@ public class MainActivity extends AppCompatActivity{
         final LinearLayout finance_message=(LinearLayout)findViewById( R.id.finance_message );
         dbHelper = new MyDatebaseHelper( this, "ERP.db", null, 2 );
 
-        final TextView place1=(TextView)findViewById( R.id.place1 ) ;
-        final TextView place2=(TextView)findViewById( R.id.place2 ) ;
-        final TextView place3=(TextView)findViewById( R.id.place3 ) ;
-        final TextView place4=(TextView)findViewById( R.id.place4 ) ;
-        //final LinearLayout space1=(LinearLayout)findViewById( R.id.space1 );
-        final TextView space11=(TextView)findViewById( R.id.space11 );
-        final TextView space12=(TextView)findViewById( R.id.space12 );
-        final TextView space13=(TextView)findViewById( R.id.space13 );
-        final TextView space14=(TextView)findViewById( R.id.space14 );
-        final TextView space21=(TextView)findViewById( R.id.space21 );
-        final TextView space22=(TextView)findViewById( R.id.space22 );
-        final TextView space23=(TextView)findViewById( R.id.space23 );
-        final TextView space24=(TextView)findViewById( R.id.space24 );
-        final TextView space31=(TextView)findViewById( R.id.space31 );
-        final TextView space32=(TextView)findViewById( R.id.space32 );
-        final TextView space33=(TextView)findViewById( R.id.space33 );
-        final TextView space34=(TextView)findViewById( R.id.space34 );
-        final TextView space41=(TextView)findViewById( R.id.space41 );
-        final TextView space42=(TextView)findViewById( R.id.space42 );
-        final TextView space43=(TextView)findViewById( R.id.space43 );
-        final TextView space44=(TextView)findViewById( R.id.space44 );
-        final TextView[] place={place1,place2,place3,place4};
-        final TextView[] space1={space11,space12,space13,space14};
-        final TextView[] space2={space21,space22,space23,space24};
-        final TextView[] space3={space31,space32,space33,space34};
-        final TextView[] space4={space41,space42,space43,space44};
+
         final View view1=getLayoutInflater().inflate( R.layout.operation1,null);
         final View view2=getLayoutInflater().inflate( R.layout.operation2,null );
         final View view3=getLayoutInflater().inflate( R.layout.operation3,null );
@@ -522,13 +500,7 @@ public class MainActivity extends AppCompatActivity{
                 //所属厂房
                 list =new ArrayList<String>();
                 list.add( "请选择厂房" );
-                for(int i=0;i<4;i++)
-                {
-                    if(!place[i].getText().toString().equals( "空地" ))
-                    {
-                        list.add( place[i].getText().toString() );
-                    }
-                }
+
                 createline();
                 spinner1.setAdapter( adapter );
                 spinner1.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
@@ -1037,15 +1009,7 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         } );
-        space11.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(space11.getVisibility()==View.VISIBLE)
-                {
-                    Toast.makeText( MainActivity.this,space11.getText().toString(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        } );
+
 
         discount.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -1476,7 +1440,7 @@ public class MainActivity extends AppCompatActivity{
                             else
                             {
                                 j=j+1;
-                                String m="剩余"+developMarketBeanList.get( i ).getDevelopingRemainder()+"/"+developMarketBeanList.get( i ).getConfigMarket().getDevelopingTime();
+                                String m="剩余"+developMarketBeanList.get( i ).getDevelopingRemainder()+"年";
                                 markets[x].setText( m );
                             }
 
@@ -1516,7 +1480,7 @@ public class MainActivity extends AppCompatActivity{
                             }
                             else
                             {
-                                String m="剩余"+developIsoBeanList.get( i ).getDevelopingRemainder()+"/"+developIsoBeanList.get( i ).getConfigIso().getDevelopingTime();
+                                String m="剩余"+developIsoBeanList.get( i ).getDevelopingRemainder()+"年";
                                 isos[x].setText( m);
                                 isonum[x]=1;
                                 z=z+1;
@@ -1573,7 +1537,7 @@ public class MainActivity extends AppCompatActivity{
                             }
                             else
                             {
-                                String m="剩余"+developProductBeanList.get( i ).getDevelopingRemainder()+"/"+developProductBeanList.get( i ).getConfigProduct().getDevelopingTime();
+                                String m="剩余"+developProductBeanList.get( i ).getDevelopingRemainder()+"季";
                                 products[x].setText( m );
                                 y=y+1;
                             }
@@ -1649,6 +1613,82 @@ public class MainActivity extends AppCompatActivity{
                             if(transportBeanList.get( i ).getRemainder()==2)
                             {
                                 transport2.setText( rnum);
+                            }
+                        }
+
+                        final TextView place1=(TextView)findViewById( R.id.place1 ) ;
+                        final TextView place2=(TextView)findViewById( R.id.place2 ) ;
+                        final TextView place3=(TextView)findViewById( R.id.place3 ) ;
+                        final TextView place4=(TextView)findViewById( R.id.place4 ) ;
+                        //final LinearLayout space1=(LinearLayout)findViewById( R.id.space1 );
+                        final TextView space11=(TextView)findViewById( R.id.space11 );
+                        final TextView space12=(TextView)findViewById( R.id.space12 );
+                        final TextView space13=(TextView)findViewById( R.id.space13 );
+                        final TextView space14=(TextView)findViewById( R.id.space14 );
+                        final TextView space21=(TextView)findViewById( R.id.space21 );
+                        final TextView space22=(TextView)findViewById( R.id.space22 );
+                        final TextView space23=(TextView)findViewById( R.id.space23 );
+                        final TextView space24=(TextView)findViewById( R.id.space24 );
+                        final TextView space31=(TextView)findViewById( R.id.space31 );
+                        final TextView space32=(TextView)findViewById( R.id.space32 );
+                        final TextView space33=(TextView)findViewById( R.id.space33 );
+                        final TextView space34=(TextView)findViewById( R.id.space34 );
+                        final TextView space41=(TextView)findViewById( R.id.space41 );
+                        final TextView space42=(TextView)findViewById( R.id.space42 );
+                        final TextView space43=(TextView)findViewById( R.id.space43 );
+                        final TextView space44=(TextView)findViewById( R.id.space44 );
+                        final TextView[] place={place1,place2,place3,place4};
+                        final TextView[] space1={space11,space12,space13,space14};
+                        final TextView[] space2={space21,space22,space23,space24};
+                        final TextView[] space3={space31,space32,space33,space34};
+                        final TextView[] space4={space41,space42,space43,space44};
+                        List<workshopBean> workshopBeanList=info.getData().getWorkshop();
+                        List<productLineBean> productLineBeanList=info.getData().getProductLine();
+                        for(int i=0;i<workshopBeanList.size();i++)
+                        {
+                            String wsname=workshopBeanList.get( i ).getConfigWorkshop().getName()+"("+workshopBeanList.get( i ).getId()+")"+workshopBeanList.get( i ).getWorkshopStatusDesc();
+                            place[i].setText( wsname );
+                        }
+                        int n1=0;
+                        int n2=0;
+                        int n3=0;
+                        int n4=0;
+                        for(int i=0;i<productLineBeanList.size();i++)
+                        {
+                            for(int a=0;a<4;a++)
+                            {
+                                if(productLineBeanList.get( i ).getWorkshopId()==workshopBeanList.get(a).getId())
+                                {
+                                    if(a==0)
+                                    {
+                                        String linename=productLineBeanList.get(i).getConfigProductLine().getName()+"("+productLineBeanList.get(i).getId()+") P"+productLineBeanList.get(i).getProductId()+productLineBeanList.get(i).getStatusString();
+                                        space1[n1].setText( linename );
+                                        space1[n1].setVisibility( View.VISIBLE );
+                                        n1=n1+1;
+                                    }
+                                    if(a==1)
+                                    {
+                                        String linename=productLineBeanList.get(i).getConfigProductLine().getName()+"("+productLineBeanList.get(i).getId()+") P"+productLineBeanList.get(i).getProductId()+productLineBeanList.get(i).getStatusString();
+                                        space2[n2].setText( linename );
+                                        space2[n2].setVisibility( View.VISIBLE );
+                                        n2=n2+1;
+                                    }
+                                    if(a==2)
+                                    {
+                                        String linename=productLineBeanList.get(i).getConfigProductLine().getName()+"("+productLineBeanList.get(i).getId()+") P"+productLineBeanList.get(i).getProductId()+productLineBeanList.get(i).getStatusString();
+                                        space3[n3].setText( linename );
+                                        space3[n3].setVisibility( View.VISIBLE );
+                                        n3=n3+1;
+                                    }
+                                    if(a==3)
+                                    {
+                                        String linename=productLineBeanList.get(i).getConfigProductLine().getName()+"("+productLineBeanList.get(i).getId()+") P"+productLineBeanList.get(i).getProductId()+productLineBeanList.get(i).getStatusString();
+                                        space4[n4].setText( linename );
+                                        space4[n4].setVisibility( View.VISIBLE );
+                                        n4=n4+1;
+                                    }
+                                    break;
+                                }
                             }
                         }
                     }
