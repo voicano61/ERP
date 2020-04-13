@@ -78,7 +78,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/r1">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -103,7 +104,8 @@
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:digits="1234567890"></EditText>
+                    android:digits="1234567890"
+                    android:id="@+id/r1_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -122,7 +124,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/r2">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -147,7 +150,8 @@
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:digits="1234567890"></EditText>
+                    android:digits="1234567890"
+                    android:id="@+id/r2_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -166,7 +170,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/r3">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -191,7 +196,8 @@
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:digits="1234567890"></EditText>
+                    android:digits="1234567890"
+                    android:id="@+id/r3_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -210,7 +216,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/r4">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -235,7 +242,8 @@
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:digits="1234567890"></EditText>
+                    android:digits="1234567890"
+                    android:id="@+id/r4_number"></EditText>
             </LinearLayout>
         </TableRow>
     </TableLayout>
@@ -305,7 +313,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/p1">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -329,7 +338,9 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:textColor="#000000"
-                    android:gravity="center"></EditText>
+                    android:gravity="center"
+                    android:digits="1234567890"
+                    android:id="@+id/p1_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -348,7 +359,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/p2">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -372,7 +384,9 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:textColor="#000000"
-                    android:gravity="center"></EditText>
+                    android:gravity="center"
+                    android:digits="1234567890"
+                    android:id="@+id/p2_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -391,7 +405,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/p3">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -415,7 +430,9 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:textColor="#000000"
-                    android:gravity="center"></EditText>
+                    android:gravity="center"
+                    android:digits="1234567890"
+                    android:id="@+id/p3_number"></EditText>
             </LinearLayout>
         </TableRow>
         <TableRow>
@@ -434,7 +451,8 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/p4">
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -459,6 +477,8 @@
                     android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"
+                    android:digits="1234567890"
+                    android:id="@+id/p4_number"
                     ></EditText>
             </LinearLayout>
         </TableRow>
@@ -478,7 +498,9 @@
                 android:textSize="15dp"
                 android:textColor="#000000"
                 android:gravity="center"
-                android:background="@drawable/textview_border">
+                android:background="@drawable/textview_border"
+                android:id="@+id/p5"
+                >
             </TextView>
             <TextView
                 android:layout_width="100dp"
@@ -502,7 +524,9 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:textColor="#000000"
-                    android:gravity="center"></EditText>
+                    android:gravity="center"
+                    android:digits="1234567890"
+                    android:id="@+id/p5_number"></EditText>
             </LinearLayout>
         </TableRow>
     </TableLayout>

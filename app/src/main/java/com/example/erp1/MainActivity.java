@@ -36,10 +36,13 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.erp1.discount.discountListBean;
+import com.example.erp1.dispose.disposeListBean;
 import com.example.erp1.info.developIsoBean;
 import com.example.erp1.info.developMarketBean;
 import com.example.erp1.info.developProductBean;
@@ -51,6 +54,10 @@ import com.example.erp1.info.productLineBean;
 import com.example.erp1.info.receivableBean;
 import com.example.erp1.info.transportBean;
 import com.example.erp1.info.workshopBean;
+import com.example.erp1.purchase.dataBean;
+import com.example.erp1.purchase.purchaseListBean;
+import com.example.erp1.spy.spyBean;
+import com.example.erp1.tLogin.loginBean;
 
 import org.w3c.dom.Text;
 
@@ -1014,28 +1021,28 @@ public class MainActivity extends AppCompatActivity{
         discount.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                discount();
+                discount(token);
             }
         } );
 
         purchase.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                purchase();
+                purchase(token);
             }
         } );
 
         soldinventory.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soldinventory();
+                soldinventory(token);
             }
         } );
 
         factorydiscount.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                factorydiscount();
+                factorydiscount(token);
             }
         } );
 
@@ -1054,17 +1061,84 @@ public class MainActivity extends AppCompatActivity{
         } );
 
     }
-    private  void discount()
+
+    //贴现(success)
+    private  void discount(final String token)
     {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
         LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.discount,null);
+        final int[][] l = new int[1][4];
+        final TextView discount1=linearLayout1.findViewById( R.id.discount1 );
+        final TextView discount2=linearLayout1.findViewById( R.id.discount2 );
+        final TextView discount3=linearLayout1.findViewById( R.id.discount3 );
+        final TextView discount4=linearLayout1.findViewById( R.id.discount4 );
+        final TextView []discount={discount1,discount2,discount3,discount4};
+        final EditText d1=linearLayout1.findViewById( R.id.d1 );
+        final EditText d2=linearLayout1.findViewById( R.id.d2 );
+        final EditText d3=linearLayout1.findViewById( R.id.d3 );
+        final EditText d4=linearLayout1.findViewById( R.id.d4 );
+        final EditText []d={d1,d2,d3,d4};
+        HttpUtil.discountList(token,new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        discountListBean discountList = JSON.parseObject( responseData, discountListBean.class );
+                        int []list=discountList.getData();
+                        l[0] =list;
+                        for(int i = 0; i< list.length; i++)
+                        {
+                            discount[i].setText( Integer.toString( list[i] )+"W" );
+                        }
+                    }
+                } );
+            }
+        });
         alertDialog.setTitle( "贴现" )
                 .setView(  linearLayout1)
                 .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        int s=0;
+                        for(int i=0;i<4;i++)
+                        {
+                            if(Integer.parseInt(String.valueOf(d[i].getText()))>l[0][i])
+                            {
+                                Toast.makeText( MainActivity.this,"贴息金额超过应收款金额",Toast.LENGTH_SHORT ).show();
+                                break;
+                            }
+                            else
+                            {
+                                s=s+1;
+                            }
+                        }
+                        if(s==4)
+                        {
+                            HttpUtil.discountSubmit(token,String.valueOf(d1.getText()),String.valueOf(d2.getText()),String.valueOf(d3.getText()),String.valueOf(d4.getText()),new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
 
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String responseData = response.body().string();
+                                    runOnUiThread( new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setInfo( token );
+                                        }
+                                    } );
+                                }
+                            });
+                            dialog.dismiss();
+                        }
                     }
                 } )
                 .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1076,17 +1150,146 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    private void purchase()
+    //紧急采购(success)
+    private void purchase(final String token)
     {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
         LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.purchase,null);
+        final TextView r1=linearLayout1.findViewById( R.id.r1 );
+        final TextView r2=linearLayout1.findViewById( R.id.r2 );
+        final TextView r3=linearLayout1.findViewById( R.id.r3 );
+        final TextView r4=linearLayout1.findViewById( R.id.r4 );
+        final TextView p1=linearLayout1.findViewById( R.id.p1 );
+        final TextView p2=linearLayout1.findViewById( R.id.p2 );
+        final TextView p3=linearLayout1.findViewById( R.id.p3 );
+        final TextView p4=linearLayout1.findViewById( R.id.p4 );
+        final TextView p5=linearLayout1.findViewById( R.id.p5 );
+        final EditText r1_num=linearLayout1.findViewById( R.id.r1_number );
+        final EditText r2_num=linearLayout1.findViewById( R.id.r2_number );
+        final EditText r3_num=linearLayout1.findViewById( R.id.r3_number );
+        final EditText r4_num=linearLayout1.findViewById( R.id.r4_number );
+        final EditText p1_num=linearLayout1.findViewById( R.id.p1_number );
+        final EditText p2_num=linearLayout1.findViewById( R.id.p2_number );
+        final EditText p3_num=linearLayout1.findViewById( R.id.p3_number );
+        final EditText p4_num=linearLayout1.findViewById( R.id.p4_number );
+        final EditText p5_num=linearLayout1.findViewById( R.id.p5_number );
+        final TextView []r={r1,r2,r3,r4};
+        final TextView []p={p1,p2,p3,p4,p5};
+        final EditText []material={r1_num,r2_num,r3_num,r4_num};
+        final EditText []product={p1_num,p2_num,p3_num,p4_num,p5_num};
+
+        HttpUtil.purchasetList(token,new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        purchaseListBean purchaseList=JSON.parseObject( responseData,purchaseListBean.class );
+                        dataBean data=purchaseList.getData();
+                        List<productBean> product=data.getProduct();
+                        List<materialBean> material=data.getMaterial();
+                        for(int i=0;i<material.size();i++)
+                        {
+                            r[i].setText( String.valueOf( material.get(i).getInventoryNum() ) );
+                        }
+                        for(int i=0;i<product.size();i++)
+                        {
+                            p[i].setText( String.valueOf( product.get(i).getInventoryNum() ) );
+                        }
+
+                    }
+                } );
+            }
+        });
         alertDialog.setTitle( "紧急采购" )
                 .setView(  linearLayout1)
                 .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        String material_ids="";
+                        String material_nums="";
+                        String product_ids="";
+                        String product_nums="";
+                        int j=0;
+                        int x=0;
+                        for(int i=0;i<material.length;i++)
+                        {
+                           if(Integer.parseInt( String.valueOf( material[i].getText() ) )!=0)
+                           {
+                               j=j+1;
+                               if(j==1)
+                               {
+                                   material_ids=Integer.toString( i+1 );
+                                   material_nums=String.valueOf( material[i].getText());
+                               }
+                               else
+                               {
+                                   material_ids=material_ids+","+Integer.toString( i+1 );
+                                   material_nums=material_nums+","+String.valueOf( material[i].getText());
+                               }
+                           }
+                       }
+                        for(int i=0;i<product.length;i++)
+                        {
+                            if(Integer.parseInt( String.valueOf( product[i].getText() ) )!=0)
+                            {
+                                x=x+1;
+                                if(x==1)
+                                {
+                                    product_ids=Integer.toString( i+1 );
+                                    product_nums=String.valueOf( product[i].getText());
+                                }
+                                else
+                                {
+                                    product_ids=product_ids+","+Integer.toString( i+1 );
+                                    product_nums=product_nums+","+String.valueOf( product[i].getText());
+                                }
+                            }
+                        }
+                        if(!material_ids.equals( "" ))
+                        {
+                            HttpUtil.buyMaterial(token,material_ids,material_nums,new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
 
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String responseData = response.body().string();
+                                    runOnUiThread( new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    } );
+                                }
+                            });
+                        }
+                        if(!product_ids.equals( "" ))
+                        {
+                            HttpUtil.buyProduct(token,product_ids,product_nums,new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String responseData = response.body().string();
+                                    runOnUiThread( new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    } );
+                                }
+                            });
+                        }
+                        dialog.dismiss();
+                        setInfo( token );
                     }
                 } )
                 .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1098,17 +1301,175 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    private void soldinventory()
+    //出售库存(success)
+    private void soldinventory(final String token)
     {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.soldinventory,null);
+        alertDialog.setCancelable(false);
+        final int []list1 = new int[4];
+        final int []list2=new int[5];
+        final TextView r1=linearLayout1.findViewById( R.id.r1 );
+        final TextView r2=linearLayout1.findViewById( R.id.r2 );
+        final TextView r3=linearLayout1.findViewById( R.id.r3 );
+        final TextView r4=linearLayout1.findViewById( R.id.r4 );
+        final TextView p1=linearLayout1.findViewById( R.id.p1 );
+        final TextView p2=linearLayout1.findViewById( R.id.p2 );
+        final TextView p3=linearLayout1.findViewById( R.id.p3 );
+        final TextView p4=linearLayout1.findViewById( R.id.p4 );
+        final TextView p5=linearLayout1.findViewById( R.id.p5 );
+        final EditText r1_num=linearLayout1.findViewById( R.id.r1_number );
+        final EditText r2_num=linearLayout1.findViewById( R.id.r2_number );
+        final EditText r3_num=linearLayout1.findViewById( R.id.r3_number );
+        final EditText r4_num=linearLayout1.findViewById( R.id.r4_number );
+        final EditText p1_num=linearLayout1.findViewById( R.id.p1_number );
+        final EditText p2_num=linearLayout1.findViewById( R.id.p2_number );
+        final EditText p3_num=linearLayout1.findViewById( R.id.p3_number );
+        final EditText p4_num=linearLayout1.findViewById( R.id.p4_number );
+        final EditText p5_num=linearLayout1.findViewById( R.id.p5_number );
+        final TextView []r={r1,r2,r3,r4};
+        final TextView []p={p1,p2,p3,p4,p5};
+        final EditText []material={r1_num,r2_num,r3_num,r4_num};
+        final EditText []product={p1_num,p2_num,p3_num,p4_num,p5_num};
+        HttpUtil.sellList(token,new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        purchaseListBean purchaseList=JSON.parseObject( responseData,purchaseListBean.class );
+                        dataBean data=purchaseList.getData();
+                        List<productBean> product=data.getProduct();
+                        List<materialBean> material=data.getMaterial();
+                        for(int i=0;i<material.size();i++)
+                        {
+                            r[i].setText( String.valueOf( material.get(i).getInventoryNum() ) );
+                            list1[i]=material.get(i).getInventoryNum();
+                        }
+                        for(int i=0;i<product.size();i++)
+                        {
+                            p[i].setText( String.valueOf( product.get(i).getInventoryNum() ) );
+                            list2[i]=product.get(i).getInventoryNum();
+                        }
+
+                    }
+                } );
+            }
+        });
         alertDialog.setTitle( "出售库存" )
                 .setView(  linearLayout1)
                 .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        String material_ids="";
+                        String material_nums="";
+                        String product_ids="";
+                        String product_nums="";
+                        int j=0;
+                        int x=0;
+                        int a=0;
+                        int b=0;
+                        for (int i=0;i<4;i++)
+                        {
+                            if(Integer.parseInt( String.valueOf( material[i].getText() ) )>list1[i])
+                            {
+                                Toast.makeText( MainActivity.this,"出售数量超出现有库存",Toast.LENGTH_SHORT ).show();
+                                break;
+                            }
+                            else
+                            {
+                                a=a+1;
+                            }
+                        }
+                        for (int i=0;i<5;i++)
+                        {
+                            if(Integer.parseInt( String.valueOf( product[i].getText() ) )>list2[i])
+                            {
+                                Toast.makeText( MainActivity.this,"出售数量超出现有库存",Toast.LENGTH_SHORT ).show();
+                                break;
+                            }
+                            else
+                            {
+                                b=b+1;
+                            }
+                        }
+                        for(int i=0;i<material.length;i++)
+                        {
+                            if(Integer.parseInt( String.valueOf( material[i].getText() ) )!=0&&a==4)
+                            {
+                                j=j+1;
+                                if(j==1)
+                                {
+                                    material_ids=Integer.toString( i+1 );
+                                    material_nums=String.valueOf( material[i].getText());
+                                }
+                                else
+                                {
+                                    material_ids=material_ids+","+Integer.toString( i+1 );
+                                    material_nums=material_nums+","+String.valueOf( material[i].getText());
+                                }
+                            }
+                        }
+                        for(int i=0;i<product.length;i++)
+                        {
+                            if(Integer.parseInt( String.valueOf( product[i].getText() ) )!=0&&b==5)
+                            {
+                                x=x+1;
+                                if(x==1)
+                                {
+                                    product_ids=Integer.toString( i+1 );
+                                    product_nums=String.valueOf( product[i].getText());
+                                }
+                                else
+                                {
+                                    product_ids=product_ids+","+Integer.toString( i+1 );
+                                    product_nums=product_nums+","+String.valueOf( product[i].getText());
+                                }
+                            }
+                        }
+                        if(!material_ids.equals( "" ))
+                        {
+                            HttpUtil.sellMaterial(token,material_ids,material_nums,new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
 
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String responseData = response.body().string();
+                                    runOnUiThread( new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    } );
+                                }
+                            });
+                        }
+                        if(!product_ids.equals( "" ))
+                        {
+                            HttpUtil.sellProduct(token,product_ids,product_nums,new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String responseData = response.body().string();
+                                    runOnUiThread( new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    } );
+                                }
+                            });
+                        }
+                        dialog.dismiss();
+                        setInfo( token );
                     }
                 } )
                 .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1120,16 +1481,94 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    private void factorydiscount()
+    //厂房贴现(success)
+    private void factorydiscount(final String token)
     {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.factorydiscount,null);
+        final TableRow r1=linearLayout1.findViewById( R.id.r1 );
+        final TableRow r2=linearLayout1.findViewById( R.id.r2 );
+        final TableRow r3=linearLayout1.findViewById( R.id.r3 );
+        final TableRow r4=linearLayout1.findViewById( R.id.r4 );
+        final TableRow[] row={r1,r2,r3,r4};
+        final CheckBox c1=linearLayout1.findViewById( R.id.c1 );
+        final CheckBox c2=linearLayout1.findViewById( R.id.c2 );
+        final CheckBox c3=linearLayout1.findViewById( R.id.c3 );
+        final CheckBox c4=linearLayout1.findViewById( R.id.c4 );
+        final CheckBox[] c={c1,c2,c3,c4};
+        final TextView name1=linearLayout1.findViewById( R.id.name1 );
+        final TextView name2=linearLayout1.findViewById( R.id.name2 );
+        final TextView name3=linearLayout1.findViewById( R.id.name3 );
+        final TextView name4=linearLayout1.findViewById( R.id.name4 );
+        final TextView []name={name1,name2,name3,name4};
+        final TextView capacity1=linearLayout1.findViewById( R.id.capacity1 );
+        final TextView capacity2=linearLayout1.findViewById( R.id.capacity2 );
+        final TextView capacity3=linearLayout1.findViewById( R.id.capacity3 );
+        final TextView capacity4=linearLayout1.findViewById( R.id.capacity4 );
+        final TextView[] capacity={capacity1,capacity2,capacity3,capacity4};
+        final TextView residual1=linearLayout1.findViewById( R.id.residual1 );
+        final TextView residual2=linearLayout1.findViewById( R.id.residual2 );
+        final TextView residual3=linearLayout1.findViewById( R.id.residual3 );
+        final TextView residual4=linearLayout1.findViewById( R.id.residual4 );
+        final TextView[] residual={residual1,residual2,residual3,residual4};
+        final int[] x=new int[4];
+        HttpUtil.dispostList(token,"0",new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        disposeListBean disposeList=JSON.parseObject( responseData,disposeListBean.class );
+                        List<com.example.erp1.dispose.dataBean> workshopList=disposeList.getData();
+                        for(int i=0;i<workshopList.size();i++)
+                        {
+                            x[i]=workshopList.get( i ).getId();
+                            row[i].setVisibility( View.VISIBLE );
+                            name[i].setText( workshopList.get( i ).getConfigWorkshop().getName()+"("+String.valueOf( workshopList.get( i ).getId())+")" );
+                            capacity[i].setText( String.valueOf( workshopList.get( i ).getConfigWorkshop().getCapacity() ) );
+                            residual[i].setText( String.valueOf( workshopList.get( i ).getResidualCapacity() ) );
+
+                        }
+                    }
+                } );
+            }
+        });
         alertDialog.setTitle( "厂房贴现" )
                 .setView(  linearLayout1)
                 .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        int b=0;
+                        for(int i=0;i<4;i++)
+                        {
+                            if(c[i].isChecked())
+                            {
+                                HttpUtil.discountworkshop(token,String.valueOf(x[i] ),new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread( new Runnable() {
+                                            @Override
+                                            public void run() {
+                                            }
+                                        } );
+                                    }
+                                });
+                                break;
+                            }
+                        }
+
                         dialog.dismiss();
+                        setInfo( token );
 
                     }
                 } )
@@ -1547,6 +1986,7 @@ public class MainActivity extends AppCompatActivity{
                         if(developProductBeanList.size()==0||y==developProductBeanList.size())
                         {
                             product.setText( "暂无" );
+                            product.setTextColor( Color.parseColor( "#000000" ));
                         }
 
                         TextView p1=findViewById( R.id.p1 );
@@ -1644,6 +2084,14 @@ public class MainActivity extends AppCompatActivity{
                         final TextView[] space4={space41,space42,space43,space44};
                         List<workshopBean> workshopBeanList=info.getData().getWorkshop();
                         List<productLineBean> productLineBeanList=info.getData().getProductLine();
+                        for(int i=0;i<4;i++)
+                        {
+                            place[i].setText( "空地" );
+                            space1[i].setVisibility( View.INVISIBLE );
+                            space2[i].setVisibility( View.INVISIBLE );
+                            space3[i].setVisibility( View.INVISIBLE );
+                            space4[i].setVisibility( View.INVISIBLE );
+                        }
                         for(int i=0;i<workshopBeanList.size();i++)
                         {
                             String wsname=workshopBeanList.get( i ).getConfigWorkshop().getName()+"("+workshopBeanList.get( i ).getId()+")"+workshopBeanList.get( i ).getWorkshopStatusDesc();
@@ -1694,6 +2142,28 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
 
+            }
+        });
+    }
+
+    private void getotherCompany()
+    {
+        HttpUtil.tlogin(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        loginBean teacher = JSON.parseObject( responseData, loginBean.class );
+                        String token=teacher.getData().getToken();
+
+                    }
+                } );
             }
         });
     }
