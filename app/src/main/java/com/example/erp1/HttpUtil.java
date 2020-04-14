@@ -24,6 +24,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpUtil {
+    //登录
     public static void loginWithOkHttp(String name,String password,String address,okhttp3.Callback callback)
     {
         OkHttpClient client = new OkHttpClient();
@@ -37,6 +38,7 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+    //注册(
     public static void register(String token,String pwd,String school,String major,String companyClass,String companyName,String declaration,String ceo,String cfo,String coo, String cpo,String cmo,String address,okhttp3.Callback callback)
     {
         OkHttpClient client = new OkHttpClient();
@@ -63,6 +65,7 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+    //用户信息
     public static void decide(String token,String address,okhttp3.Callback callback){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -135,13 +138,23 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
-    public static void buy()
+    public static void buy(String token,String nums,String ids,okhttp3.Callback callback)
     {
-
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "nums",nums )
+                .add( "ids",ids )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8088/stu/ops/material/buy")
+                .post(body)
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
     }
 
     //生产线
-    public static void newLine (String token,String workshopId,String productId,String productLineId,okhttp3.Callback callback)
+    public static void newLine(String token,String workshopId,String productId,String productLineId,okhttp3.Callback callback)
     {
         OkHttpClient client=new OkHttpClient();
         RequestBody body = new FormBody.Builder()

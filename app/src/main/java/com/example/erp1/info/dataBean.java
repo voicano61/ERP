@@ -13,7 +13,7 @@ public class dataBean {
     private List<developMarketBean> developMarket;
     private List<productLineBean> productLine;
     private List<developProductBean> developProduct;
-    private String ops;
+    private String []ops;
     private List<materialBean> material;
     private companyBean company;
 
@@ -97,11 +97,11 @@ public class dataBean {
         this.developProduct = developProduct;
     }
 
-    public String getOps() {
+    public String[] getOps() {
         return ops;
     }
 
-    public void setOps(String ops) {
+    public void setOps(String[] ops) {
         this.ops = ops;
     }
 

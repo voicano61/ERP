@@ -2,9 +2,9 @@
 <resources>
    <string-array name="line">
         <item>请选择生产线类型</item>
-        <item>超级手工线（30W）</item>
-        <item>租赁线（0W）</item>
-        <item>自动线（150W）</item>
-        <item>柔性线（200W）</item>
+        <item>手工线（25W）</item>
+        <item>半自动线（0W）</item>
+        <item>自动线（405W）</item>
+        <item>柔性线（640W）</item>
     </string-array>
 </resources>

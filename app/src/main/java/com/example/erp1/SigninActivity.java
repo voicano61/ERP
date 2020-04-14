@@ -110,7 +110,6 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         informationBean info=JSON.parseObject( responseData,informationBean.class );
-                        int resultCode=info.getResultCode();
                         String status=info.getData().getCompany().getStatusString();
                         //System.out.println("info:"+ info.getData().getCompany().getStatusString() );
                         if(status.equals( "未注册" ))
