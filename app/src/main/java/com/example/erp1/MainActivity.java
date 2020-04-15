@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity{
         //操作台
 
 
-        //申请长贷
+        //申请长贷(结果有出路）
         longloan.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -598,7 +598,7 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog2.show();
             }
         } );
-        //订购原料
+        //订购原料(未测试）
         buy.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -661,8 +661,10 @@ public class MainActivity extends AppCompatActivity{
                                         });
                                     }
                                 } );
-                                setInfo( token );
+
+
                                 buy.setVisibility( View.GONE );
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -830,9 +832,11 @@ public class MainActivity extends AppCompatActivity{
                             public void run() {
                                 informationBean info=JSON.parseObject( responseData,informationBean.class);
                                 List<workshopBean> workshopList=info.getData().getWorkshop();
+                                int x=0;
                                 for(int i=0;i<workshopList.size();i++)
                                 {
-                                    workshop[i]=workshopList.get( i ).getId();
+                                    workshop[x]=workshopList.get( i ).getId();
+
                                 }
                                 //Toast.makeText( MainActivity.this,workId[0],Toast.LENGTH_SHORT).show();
                             }
@@ -944,15 +948,13 @@ public class MainActivity extends AppCompatActivity{
 
             }
         } );
-        //在建生产线
+        //在建生产线(未测试)
         construction.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.construction,null);
                 TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
                 final TextView nothing=linearLayout1.findViewById( R.id.nothing );
-                final TableRow row=new TableRow(getApplicationContext());
-                final LinearLayout l=new LinearLayout( getApplicationContext() );
                 final CheckBox c1=new CheckBox( getApplicationContext() );
                 CheckBox c2=new CheckBox( getApplicationContext() );
                 CheckBox c3=new CheckBox( getApplicationContext() );
@@ -970,92 +972,168 @@ public class MainActivity extends AppCompatActivity{
                 CheckBox c15=new CheckBox( getApplicationContext() );
                 CheckBox c16=new CheckBox( getApplicationContext() );
                 final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
-//                l.setBackgroundResource( R.drawable.textview_border );
-//                c.setBackgroundResource( R.drawable.checkbox_style );
-//                l.addView( c );
-//                l.setGravity( Gravity.CENTER );
-//                row.addView( l );
-//                tableLayout.addView( row );
-                final TextView ids=new TextView( getApplicationContext() );
-                final TextView workshopId=new TextView( getApplicationContext() );
-                final TextView name=new TextView( getApplicationContext() );
-                final TextView product=new TextView( getApplicationContext() );
-                final TextView investmentAmount=new TextView( getApplicationContext() );
-                final TextView start=new TextView( getApplicationContext() );
-                final TextView productLineRemainder=new TextView( getApplicationContext() );
-                l.setBackgroundResource( R.drawable.textview_border );
-                l.setGravity( Gravity.CENTER );
-                ids.setBackgroundResource( R.drawable.textview_border );
-                ids.setGravity( Gravity.CENTER );
-                ids.setTextColor( Color.parseColor( "#000000" ) );
-                ids.setTextSize( 15);
-                workshopId.setBackgroundResource( R.drawable.textview_border );
-                workshopId.setGravity( Gravity.CENTER );
-                workshopId.setTextColor( Color.parseColor( "#000000" ) );
-                workshopId.setTextSize( 15);
-                name.setBackgroundResource( R.drawable.textview_border );
-                name.setGravity( Gravity.CENTER );
-                name.setTextColor( Color.parseColor( "#000000" ) );
-                name.setTextSize( 15);
-                product.setBackgroundResource( R.drawable.textview_border );
-                product.setGravity( Gravity.CENTER );
-                product.setTextColor( Color.parseColor( "#000000" ) );
-                product.setTextSize( 15);
-                investmentAmount.setBackgroundResource( R.drawable.textview_border );
-                investmentAmount.setGravity( Gravity.CENTER );
-                investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
-                investmentAmount.setTextSize( 15);
-                start.setBackgroundResource( R.drawable.textview_border );
-                start.setGravity( Gravity.CENTER );
-                start.setTextColor( Color.parseColor( "#000000" ) );
-                start.setTextSize( 15);
-                productLineRemainder.setBackgroundResource( R.drawable.textview_border );
-                productLineRemainder.setGravity( Gravity.CENTER );
-                productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
-                productLineRemainder.setTextSize( 15);
-//                HttpUtil.buildingList( token, new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        final String responseData = response.body().string();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                informationBean info=JSON.parseObject( responseData,informationBean.class);
-//                                List<productLineBean> productLineList=info.getData().getProductLine();
-//                                if(productLineList.size()!=0)
-//                                {
-//                                    nothing.setVisibility( View.GONE );
-//                                }
-//                                else
-//                                {
-//
-//                                    for(int i=0;i<productLineList.size();i++)
-//                                    {
-//                                        c[i].setBackgroundResource( R.drawable.checkbox_style );
-//                                        l.addView( c[i] );
-//                                        ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
-//                                        workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
-//                                        name.setText(  productLineList.get( i ).getConfigProductLine().getName());
-//                                        product.setText( productLineList.get( i ).getConfigProduct().getName() );
-//
-//                                    }
-//                                }
-//                            }
-//                        });
-//                    }
-//                } );
+                for(int i=0;i<16;i++)
+                {
+                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                }
+                final String []lineId=new String[16];
+                final int[] num = new int[1];
+                HttpUtil.buildingList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeLineBean info=JSON.parseObject( responseData,changeLineBean.class);
+                                List<productLineBean> productLineList=info.getData();
+                                if(productLineList.size()!=0)
+                                {
+                                    nothing.setVisibility( View.GONE );
+                                }
+                                else
+                                {
+                                    num[0] =productLineList.size();
+                                    if(productLineList.size()!=0)
+                                    {
+                                        nothing.setVisibility( View.GONE );
+                                    }
+                                    else
+                                    {
+                                        nothing.setVisibility( View.VISIBLE );
+                                    }
+                                    for(int i=0;i<productLineList.size();i++)
+                                    {
+                                        lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                        TableRow row=new TableRow(getApplicationContext());
+                                        LinearLayout l=new LinearLayout( getApplicationContext() );
+                                        TextView ids=new TextView( getApplicationContext() );
+                                        TextView workshopId=new TextView( getApplicationContext() );
+                                        TextView name=new TextView( getApplicationContext() );
+                                        TextView product=new TextView( getApplicationContext() );
+                                        TextView investmentAmount=new TextView( getApplicationContext() );
+                                        TextView start=new TextView( getApplicationContext() );
+                                        TextView productLineRemainder=new TextView( getApplicationContext() );
+                                        l.setBackgroundResource( R.drawable.textview_border );
+                                        l.setGravity( Gravity.CENTER );
+                                        ids.setBackgroundResource( R.drawable.textview_border );
+                                        ids.setGravity( Gravity.CENTER );
+                                        ids.setTextColor( Color.parseColor( "#000000" ) );
+                                        ids.setTextSize( 15);
+                                        ids.setHeight( 84 );
+                                        workshopId.setBackgroundResource( R.drawable.textview_border );
+                                        workshopId.setGravity( Gravity.CENTER );
+                                        workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                        workshopId.setTextSize( 15);
+                                        workshopId.setHeight( 84 );
+                                        name.setBackgroundResource( R.drawable.textview_border );
+                                        name.setGravity( Gravity.CENTER );
+                                        name.setTextColor( Color.parseColor( "#000000" ) );
+                                        name.setTextSize( 15);
+                                        name.setHeight( 84 );
+                                        product.setBackgroundResource( R.drawable.textview_border );
+                                        product.setGravity( Gravity.CENTER );
+                                        product.setTextColor( Color.parseColor( "#000000" ) );
+                                        product.setTextSize( 15);
+                                        product.setHeight( 84 );
+                                        investmentAmount.setBackgroundResource( R.drawable.textview_border );
+                                        investmentAmount.setGravity( Gravity.CENTER );
+                                        investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
+                                        investmentAmount.setTextSize( 15);
+                                        investmentAmount.setHeight( 84 );
+                                        start.setBackgroundResource( R.drawable.textview_border );
+                                        start.setGravity( Gravity.CENTER );
+                                        start.setTextColor( Color.parseColor( "#000000" ) );
+                                        start.setTextSize( 15);
+                                        start.setHeight( 84 );
+                                        productLineRemainder.setBackgroundResource( R.drawable.textview_border );
+                                        productLineRemainder.setGravity( Gravity.CENTER );
+                                        productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
+                                        productLineRemainder.setTextSize( 15);
+                                        productLineRemainder.setHeight( 84 );
+                                        c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                        l.addView( c[i] );
+                                        ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                        workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                        name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                        product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                        investmentAmount.setText( String.valueOf( productLineList.get( i ).getInvestmentAmount() ) );
+                                        int y=(productLineList.get( i ).getStartTime()+1)/4;
+                                        int q=(productLineList.get( i ).getStartTime()+1)%4;
+                                        if(q==0)
+                                        {
+                                            String startTime="第"+String.valueOf(  y)+"年第4季";
+                                            start.setText( startTime );
+                                        }
+                                        else
+                                        {
+                                            String startTime="第"+String.valueOf( y+1)+"年第"+String.valueOf( q )+"季";
+                                            start.setText( startTime );
+                                        }
+                                        productLineRemainder.setText( String.valueOf( productLineList.get( i ).getProductLineRemainder() ) +"季");
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } );
                 alertDialog1.setTitle( "在建生产线" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                String lid="";
+                                int y=0;
+                                for(int i=0;i<num[0];i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(lid.equals( "" ))
+                                        {
+                                            lid=lineId[i];
+                                        }
+                                        else
+                                        {
+                                            lid=lid+","+lineId[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        y=y+1;
+                                    }
 
+                                }
+                                if(y!=num[0])
+                                {
+                                    HttpUtil.invest( token, lid, new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } );
+                                }
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1251,7 +1329,11 @@ public class MainActivity extends AppCompatActivity{
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
                                                 }
                                             });
                                         }
@@ -1271,18 +1353,179 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //继续转产
+        //继续转产(未测试)
         continuechange.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.continuechangeline,null);
+                final TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TextView nothing=linearLayout1.findViewById( R.id.nothing );
+                final CheckBox c1=new CheckBox( getApplicationContext() );
+                CheckBox c2=new CheckBox( getApplicationContext() );
+                CheckBox c3=new CheckBox( getApplicationContext() );
+                CheckBox c4=new CheckBox( getApplicationContext() );
+                CheckBox c5=new CheckBox( getApplicationContext() );
+                CheckBox c6=new CheckBox( getApplicationContext() );
+                CheckBox c7=new CheckBox( getApplicationContext() );
+                CheckBox c8=new CheckBox( getApplicationContext() );
+                CheckBox c9=new CheckBox( getApplicationContext() );
+                CheckBox c10=new CheckBox( getApplicationContext() );
+                CheckBox c11=new CheckBox( getApplicationContext() );
+                CheckBox c12=new CheckBox( getApplicationContext() );
+                CheckBox c13=new CheckBox( getApplicationContext() );
+                CheckBox c14=new CheckBox( getApplicationContext() );
+                CheckBox c15=new CheckBox( getApplicationContext() );
+                CheckBox c16=new CheckBox( getApplicationContext() );
+                final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
+                for(int i=0;i<16;i++)
+                {
+                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                }
+                final String []lineId=new String[16];
+                final int[] num = new int[1];
+                final String []pId=new String[16];
+                HttpUtil.changingList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeLineBean line=JSON.parseObject( responseData, changeLineBean.class);
+                                List<productLineBean> productLineList=line.getData();
+                                num[0] =productLineList.size();
+                                if(productLineList.size()!=0)
+                                {
+                                    nothing.setVisibility( View.GONE );
+                                }
+                                else
+                                {
+                                    nothing.setVisibility( View.VISIBLE );
+                                }
+                                for(int i=0;i<productLineList.size();i++)
+                                {
+                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                    pId[i]=String.valueOf( productLineList.get( i ).getProductId() );
+                                    TextView ids=new TextView( getApplicationContext() );
+                                    TextView workshopId=new TextView( getApplicationContext() );
+                                    TextView name=new TextView( getApplicationContext() );
+                                    TextView product=new TextView( getApplicationContext() );
+                                    TextView depreciationExpense=new TextView( getApplicationContext() );
+                                    TextView productLineRemainder=new TextView( getApplicationContext() );
+                                    LinearLayout ls=new LinearLayout( getApplicationContext() );
+                                    TableRow rows=new TableRow( getApplicationContext() );
+                                    ls.setBackgroundResource( R.drawable.textview_border );
+                                    ls.setGravity( Gravity.CENTER );
+                                    ids.setBackgroundResource( R.drawable.textview_border );
+                                    ids.setGravity( Gravity.CENTER );
+                                    ids.setTextColor( Color.parseColor( "#000000" ) );
+                                    ids.setTextSize( 15);
+                                    ids.setHeight( 84 );
+                                    workshopId.setBackgroundResource( R.drawable.textview_border );
+                                    workshopId.setGravity( Gravity.CENTER );
+                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                    workshopId.setTextSize( 15);
+                                    workshopId.setHeight( 84 );
+                                    name.setBackgroundResource( R.drawable.textview_border );
+                                    name.setGravity( Gravity.CENTER );
+                                    name.setTextColor( Color.parseColor( "#000000" ) );
+                                    name.setTextSize( 15);
+                                    name.setHeight( 84 );
+                                    product.setBackgroundResource( R.drawable.textview_border );
+                                    product.setGravity( Gravity.CENTER );
+                                    product.setTextColor( Color.parseColor( "#000000" ) );
+                                    product.setTextSize( 15);
+                                    product.setHeight( 84 );
+                                    depreciationExpense.setBackgroundResource( R.drawable.textview_border );
+                                    depreciationExpense.setGravity( Gravity.CENTER );
+                                    depreciationExpense.setTextColor( Color.parseColor( "#000000" ) );
+                                    depreciationExpense.setTextSize( 15);
+                                    depreciationExpense.setHeight( 84 );
+                                    productLineRemainder.setBackgroundResource( R.drawable.textview_border );
+                                    productLineRemainder.setGravity( Gravity.CENTER );
+                                    productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
+                                    productLineRemainder.setTextSize( 15);
+                                    productLineRemainder.setHeight( 84 );
+                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                    ls.addView( c[i] );
+                                    rows.addView( ls);
+                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                    rows.addView( ids );
+                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                    rows.addView( workshopId );
+                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                    rows.addView( name );
+                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                    rows.addView( product );
+                                    depreciationExpense.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getDepreciationExpense())+"W");
+                                    rows.addView( depreciationExpense );
+                                    productLineRemainder.setText(String.valueOf( productLineList.get( i).getProductLineRemainder()+"季" )  );
+                                    rows.addView( productLineRemainder );
+                                    tableLayout.addView( rows );
+                                }
+                            }
+                        });
+                    }
+                } );
                 alertDialog1.setTitle( "继续转产" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                int y=0;
+                                String lid="";
+                                String pid="";
+                                for(int i=0;i<num[0];i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(lid.equals( "" ))
+                                        {
+                                            lid=lineId[i];
+                                            pid=pId[i];
+                                        }
+                                        else
+                                        {
+                                            lid=lid+","+lineId[i];
+                                            pid=pid+","+pId[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        y=y+1;
+                                    }
+                                }
+                                if (y!=num[0])
+                                {
+                                    HttpUtil.change( token, lid,pid,new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
 
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } );
+                                }
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1295,17 +1538,205 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //出售生产线
+        //出售生产线(success)
         soldline.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.soldline,null);
+                final TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TextView nothing=linearLayout1.findViewById( R.id.nothing );
+                final CheckBox c1=new CheckBox( getApplicationContext() );
+                CheckBox c2=new CheckBox( getApplicationContext() );
+                CheckBox c3=new CheckBox( getApplicationContext() );
+                CheckBox c4=new CheckBox( getApplicationContext() );
+                CheckBox c5=new CheckBox( getApplicationContext() );
+                CheckBox c6=new CheckBox( getApplicationContext() );
+                CheckBox c7=new CheckBox( getApplicationContext() );
+                CheckBox c8=new CheckBox( getApplicationContext() );
+                CheckBox c9=new CheckBox( getApplicationContext() );
+                CheckBox c10=new CheckBox( getApplicationContext() );
+                CheckBox c11=new CheckBox( getApplicationContext() );
+                CheckBox c12=new CheckBox( getApplicationContext() );
+                CheckBox c13=new CheckBox( getApplicationContext() );
+                CheckBox c14=new CheckBox( getApplicationContext() );
+                CheckBox c15=new CheckBox( getApplicationContext() );
+                CheckBox c16=new CheckBox( getApplicationContext() );
+                final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
+                for(int i=0;i<16;i++)
+                {
+                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                }
+                final String[]lineId=new String[16];
+                final int[]num=new int[1];
+                HttpUtil.freeList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeLineBean line=JSON.parseObject( responseData, changeLineBean.class);
+                                List<productLineBean> productLineList=line.getData();
+                                num[0] =productLineList.size();
+                                if(productLineList.size()!=0)
+                                {
+                                    nothing.setVisibility( View.GONE );
+                                }
+                                else
+                                {
+                                    nothing.setVisibility( View.VISIBLE );
+                                }
+                                for(int i=0;i<productLineList.size();i++)
+                                {
+                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                    TextView ids=new TextView( getApplicationContext() );
+                                    TextView start=new TextView( getApplicationContext() );
+                                    TextView name=new TextView( getApplicationContext() );
+                                    TextView workshopId=new TextView( getApplicationContext() );
+                                    TextView product=new TextView( getApplicationContext() );
+                                    TextView investmentAmount=new TextView( getApplicationContext() );
+                                    TextView finishTime=new TextView( getApplicationContext() );
+                                    LinearLayout ls=new LinearLayout( getApplicationContext() );
+                                    TableRow rows=new TableRow( getApplicationContext() );
+                                    ls.setBackgroundResource( R.drawable.textview_border );
+                                    ls.setGravity( Gravity.CENTER );
+                                    ids.setBackgroundResource( R.drawable.textview_border );
+                                    ids.setGravity( Gravity.CENTER );
+                                    ids.setTextColor( Color.parseColor( "#000000" ) );
+                                    ids.setTextSize( 15);
+                                    ids.setHeight( 84 );
+
+                                    name.setBackgroundResource( R.drawable.textview_border );
+                                    name.setGravity( Gravity.CENTER );
+                                    name.setTextColor( Color.parseColor( "#000000" ) );
+                                    name.setTextSize( 15);
+                                    name.setHeight( 84 );
+                                    start.setBackgroundResource( R.drawable.textview_border );
+                                    start.setGravity( Gravity.CENTER );
+                                    start.setTextColor( Color.parseColor( "#000000" ) );
+                                    start.setTextSize( 15);
+                                    start.setHeight( 84 );
+                                    workshopId.setBackgroundResource( R.drawable.textview_border );
+                                    workshopId.setGravity( Gravity.CENTER );
+                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                    workshopId.setTextSize( 15);
+                                    workshopId.setHeight( 84 );
+                                    product.setBackgroundResource( R.drawable.textview_border );
+                                    product.setGravity( Gravity.CENTER );
+                                    product.setTextColor( Color.parseColor( "#000000" ) );
+                                    product.setTextSize( 15);
+                                    product.setHeight( 84 );
+                                    investmentAmount.setBackgroundResource( R.drawable.textview_border );
+                                    investmentAmount.setGravity( Gravity.CENTER );
+                                    investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
+                                    investmentAmount.setTextSize( 15);
+                                    investmentAmount.setHeight( 84 );
+                                    finishTime.setBackgroundResource( R.drawable.textview_border );
+                                    finishTime.setGravity( Gravity.CENTER );
+                                    finishTime.setTextColor( Color.parseColor( "#000000" ) );
+                                    finishTime.setTextSize( 15);
+                                    finishTime.setHeight( 84 );
+                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                    ls.addView( c[i] );
+                                    rows.addView( ls);
+                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                    rows.addView( ids );
+
+                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                    rows.addView( name );
+                                    int y=(productLineList.get( i ).getStartTime()+1)/4;
+                                    int q=(productLineList.get( i ).getStartTime()+1)%4;
+                                    if(q==0)
+                                    {
+                                        String startTime="第"+String.valueOf(  y)+"年第4季";
+                                        start.setText( startTime );
+                                    }
+                                    else
+                                    {
+                                        String startTime="第"+String.valueOf( y+1)+"年第"+String.valueOf( q )+"季";
+                                        start.setText( startTime );
+                                    }
+                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                    rows.addView( workshopId );
+                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                    rows.addView( product );
+                                    investmentAmount.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getTurnOverTime() ) +"季");
+                                    rows.addView( investmentAmount );
+                                    int y1=(productLineList.get( i ).getFinishTime()+1)/4;
+                                    int q1=(productLineList.get( i ).getFinishTime()+1)%4;
+                                    if(q1==0)
+                                    {
+                                        String ft="第"+String.valueOf(  y1)+"年第4季";
+                                        finishTime.setText( ft );
+                                    }
+                                    else
+                                    {
+                                        String ft="第"+String.valueOf( y1+1)+"年第"+String.valueOf( q1 )+"季";
+                                        finishTime.setText( ft );
+                                    }
+                                    rows.addView( finishTime );
+                                    tableLayout.addView( rows );
+                                }
+                            }
+                        });
+                    }
+                } );
                 alertDialog1.setTitle( "出售生产线" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                String lid="";
+                                int y=0;
+                                for(int i=0;i<num[0];i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(lid.equals( "" ))
+                                        {
+                                            lid=lineId[i];
+                                        }
+                                        else
+                                        {
+                                            lid=lid+","+lineId[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        y=y+1;
+                                    }
+                                }
+                                if (y!=num[0])
+                                {
+                                    HttpUtil.sell( token, lid,new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } );
+                                }
                                 dialog.dismiss();
+                                setInfo( token );
 
                             }
                         } )
@@ -1319,17 +1750,159 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //开始生产
+        //开始生产(success)
         startproduction.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.startproduction,null);
+                final TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TextView nothing=linearLayout1.findViewById( R.id.nothing );
+                final CheckBox c1=new CheckBox( getApplicationContext() );
+                CheckBox c2=new CheckBox( getApplicationContext() );
+                CheckBox c3=new CheckBox( getApplicationContext() );
+                CheckBox c4=new CheckBox( getApplicationContext() );
+                CheckBox c5=new CheckBox( getApplicationContext() );
+                CheckBox c6=new CheckBox( getApplicationContext() );
+                CheckBox c7=new CheckBox( getApplicationContext() );
+                CheckBox c8=new CheckBox( getApplicationContext() );
+                CheckBox c9=new CheckBox( getApplicationContext() );
+                CheckBox c10=new CheckBox( getApplicationContext() );
+                CheckBox c11=new CheckBox( getApplicationContext() );
+                CheckBox c12=new CheckBox( getApplicationContext() );
+                CheckBox c13=new CheckBox( getApplicationContext() );
+                CheckBox c14=new CheckBox( getApplicationContext() );
+                CheckBox c15=new CheckBox( getApplicationContext() );
+                CheckBox c16=new CheckBox( getApplicationContext() );
+                final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
+                for(int i=0;i<16;i++)
+                {
+                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                }
+                final String[]lineId=new String[16];
+                final int[]num=new int[1];
+                HttpUtil.freeList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeLineBean line=JSON.parseObject( responseData, changeLineBean.class);
+                                List<productLineBean> productLineList=line.getData();
+                                num[0] =productLineList.size();
+                                if(productLineList.size()!=0)
+                                {
+                                    nothing.setVisibility( View.GONE );
+                                }
+                                else
+                                {
+                                    nothing.setVisibility( View.VISIBLE );
+                                }
+                                for(int i=0;i<productLineList.size();i++)
+                                {
+                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                    TextView ids=new TextView( getApplicationContext() );
+                                    TextView workshopId=new TextView( getApplicationContext() );
+                                    TextView name=new TextView( getApplicationContext() );
+                                    TextView product=new TextView( getApplicationContext() );
+                                    LinearLayout ls=new LinearLayout( getApplicationContext() );
+                                    TableRow rows=new TableRow( getApplicationContext() );
+                                    ls.setBackgroundResource( R.drawable.textview_border );
+                                    ls.setGravity( Gravity.CENTER );
+                                    ids.setBackgroundResource( R.drawable.textview_border );
+                                    ids.setGravity( Gravity.CENTER );
+                                    ids.setTextColor( Color.parseColor( "#000000" ) );
+                                    ids.setTextSize( 15);
+                                    ids.setHeight( 84 );
+                                    workshopId.setBackgroundResource( R.drawable.textview_border );
+                                    workshopId.setGravity( Gravity.CENTER );
+                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                    workshopId.setTextSize( 15);
+                                    workshopId.setHeight( 84 );
+                                    name.setBackgroundResource( R.drawable.textview_border );
+                                    name.setGravity( Gravity.CENTER );
+                                    name.setTextColor( Color.parseColor( "#000000" ) );
+                                    name.setTextSize( 15);
+                                    name.setHeight( 84 );
+                                    product.setBackgroundResource( R.drawable.textview_border );
+                                    product.setGravity( Gravity.CENTER );
+                                    product.setTextColor( Color.parseColor( "#000000" ) );
+                                    product.setTextSize( 15);
+                                    product.setHeight( 84 );
+                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                    ls.addView( c[i] );
+                                    rows.addView( ls);
+                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                    rows.addView( ids );
+
+                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                    rows.addView( name );
+                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                    rows.addView( workshopId );
+                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                    rows.addView( product );
+                                    tableLayout.addView( rows );
+                                }
+                            }
+                        });
+                    }
+                } );
                 alertDialog1.setTitle( "开始生产" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                String lid="";
+                                int y=0;
+                                for(int i=0;i<num[0];i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(lid.equals( "" ))
+                                        {
+                                            lid=lineId[i];
+                                        }
+                                        else
+                                        {
+                                            lid=lid+","+lineId[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        y=y+1;
+                                    }
+                                }
+                                if (y!=num[0])
+                                {
+                                    HttpUtil.startProduce( token, lid,new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } );
+                                }
                                 dialog.dismiss();
+                                setInfo( token );
 
                             }
                         } )
@@ -1337,6 +1910,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
+
                             }
                         } )
                         .create();
@@ -1345,27 +1919,78 @@ public class MainActivity extends AppCompatActivity{
         } );
 
 
-        //更新应收款账
+        //更新应收款账(success)
         update1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String[] num =new String[1];
+                final int []period=new int[1];
+                num[0]="";
+                HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                com.example.erp1.info.dataBean data=info.getData();
+                                List<receivableBean> receivableList=data.getReceivable();
+                                if(receivableList.size()!=0)
+                                {
+                                    num[0] =String.valueOf(receivableList.get(0).getReceivableValue()  );
+                                }
+                                period[0]=info.getData().getCompany().getPeriod();
+                            }
+                        });
+                    }
+                } );
+                if(num[0].equals( "" ))
+                {
+                    num[0]="0";
+                }
                 alertDialog2.setTitle( "更新应收款账" )
-                        .setMessage( "收现金额(1期)  " )
+                        .setMessage( "收现金额(1期)"+num[0]+"W" )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
-                                linearLayout.removeAllViews();
-                                //linearLayout2.setVisibility( View.VISIBLE );
-//                                if(i%4==0&&i!=0)
-//                                {
-//                                    linearLayout.addView( view5 );
-//                                }
-//                                else {
-//                                    linearLayout.addView( view4 );
-//                                }
+                                HttpUtil.receviable( token, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
 
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                if(info.getResultCode()==500)
+                                                {
+                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                } );
+                                dialog.dismiss();
+                                linearLayout.removeAllViews();
+                                if (period[0]!=3)
+                                {
+                                    linearLayout.addView( view4 );
+                                }
+                                else
+                                {
+                                    linearLayout.addView( view5 );
+                                }
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1420,7 +2045,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         } );
-        //当季结束
+        //当季结束(success)
         end.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1430,12 +2055,32 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
+                                HttpUtil.end( token, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                if(info.getResultCode()==500)
+                                                {
+                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                } );
                                 linearLayout.removeAllViews();
                                 linearLayout.addView( view1);
                                 longloan.setVisibility( View.GONE );
-
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -1559,11 +2204,31 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
+                                HttpUtil.end( token, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                if(info.getResultCode()==500)
+                                                {
+                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                } );
                                 linearLayout.removeAllViews();
                                 linearLayout.addView( view6);
-
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {

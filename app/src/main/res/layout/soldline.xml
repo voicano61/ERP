@@ -28,7 +28,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/table">
                         <TableRow>
                             <TextView
                                 android:layout_width="40dp"
@@ -106,6 +107,7 @@
                         android:background="@drawable/textview_border"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
+                        android:id="@+id/nothing"
                         ></TextView>
                     <TextView
                         android:layout_width="wrap_content"

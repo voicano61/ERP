@@ -58,16 +58,6 @@
             >
         </Button>
 
-        <Button
-            android:id="@+id/soldline"
-            android:layout_width="90dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="5dp"
-            android:background="@null"
-            android:drawableTop="@drawable/sellline2"
-            android:text="出售生产线"
-            android:textColor="#000000"
-            android:textSize="15dp"></Button>
 
         <Button
             android:layout_width="90dp"
@@ -94,6 +84,16 @@
             >
         </Button>
 
+        <Button
+            android:id="@+id/soldline"
+            android:layout_width="90dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:drawableTop="@drawable/sellline2"
+            android:text="出售生产线"
+            android:textColor="#000000"
+            android:textSize="15dp"></Button>
         <Button
             android:layout_width="80dp"
             android:layout_height="56dp"
