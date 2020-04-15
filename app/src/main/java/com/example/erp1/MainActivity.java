@@ -12,11 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.erp1.changeline.changeLineBean;
 import com.example.erp1.discount.discountListBean;
 import com.example.erp1.dispose.disposeListBean;
 import com.example.erp1.info.companyBean;
@@ -52,6 +55,8 @@ import com.example.erp1.message.messageBean;
 import com.example.erp1.purchase.dataBean;
 import com.example.erp1.purchase.purchaseListBean;
 import com.example.erp1.tLogin.loginBean;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -944,6 +949,106 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.construction,null);
+                TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TextView nothing=linearLayout1.findViewById( R.id.nothing );
+                final TableRow row=new TableRow(getApplicationContext());
+                final LinearLayout l=new LinearLayout( getApplicationContext() );
+                final CheckBox c1=new CheckBox( getApplicationContext() );
+                CheckBox c2=new CheckBox( getApplicationContext() );
+                CheckBox c3=new CheckBox( getApplicationContext() );
+                CheckBox c4=new CheckBox( getApplicationContext() );
+                CheckBox c5=new CheckBox( getApplicationContext() );
+                CheckBox c6=new CheckBox( getApplicationContext() );
+                CheckBox c7=new CheckBox( getApplicationContext() );
+                CheckBox c8=new CheckBox( getApplicationContext() );
+                CheckBox c9=new CheckBox( getApplicationContext() );
+                CheckBox c10=new CheckBox( getApplicationContext() );
+                CheckBox c11=new CheckBox( getApplicationContext() );
+                CheckBox c12=new CheckBox( getApplicationContext() );
+                CheckBox c13=new CheckBox( getApplicationContext() );
+                CheckBox c14=new CheckBox( getApplicationContext() );
+                CheckBox c15=new CheckBox( getApplicationContext() );
+                CheckBox c16=new CheckBox( getApplicationContext() );
+                final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
+//                l.setBackgroundResource( R.drawable.textview_border );
+//                c.setBackgroundResource( R.drawable.checkbox_style );
+//                l.addView( c );
+//                l.setGravity( Gravity.CENTER );
+//                row.addView( l );
+//                tableLayout.addView( row );
+                final TextView ids=new TextView( getApplicationContext() );
+                final TextView workshopId=new TextView( getApplicationContext() );
+                final TextView name=new TextView( getApplicationContext() );
+                final TextView product=new TextView( getApplicationContext() );
+                final TextView investmentAmount=new TextView( getApplicationContext() );
+                final TextView start=new TextView( getApplicationContext() );
+                final TextView productLineRemainder=new TextView( getApplicationContext() );
+                l.setBackgroundResource( R.drawable.textview_border );
+                l.setGravity( Gravity.CENTER );
+                ids.setBackgroundResource( R.drawable.textview_border );
+                ids.setGravity( Gravity.CENTER );
+                ids.setTextColor( Color.parseColor( "#000000" ) );
+                ids.setTextSize( 15);
+                workshopId.setBackgroundResource( R.drawable.textview_border );
+                workshopId.setGravity( Gravity.CENTER );
+                workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                workshopId.setTextSize( 15);
+                name.setBackgroundResource( R.drawable.textview_border );
+                name.setGravity( Gravity.CENTER );
+                name.setTextColor( Color.parseColor( "#000000" ) );
+                name.setTextSize( 15);
+                product.setBackgroundResource( R.drawable.textview_border );
+                product.setGravity( Gravity.CENTER );
+                product.setTextColor( Color.parseColor( "#000000" ) );
+                product.setTextSize( 15);
+                investmentAmount.setBackgroundResource( R.drawable.textview_border );
+                investmentAmount.setGravity( Gravity.CENTER );
+                investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
+                investmentAmount.setTextSize( 15);
+                start.setBackgroundResource( R.drawable.textview_border );
+                start.setGravity( Gravity.CENTER );
+                start.setTextColor( Color.parseColor( "#000000" ) );
+                start.setTextSize( 15);
+                productLineRemainder.setBackgroundResource( R.drawable.textview_border );
+                productLineRemainder.setGravity( Gravity.CENTER );
+                productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
+                productLineRemainder.setTextSize( 15);
+//                HttpUtil.buildingList( token, new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        final String responseData = response.body().string();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+//                                List<productLineBean> productLineList=info.getData().getProductLine();
+//                                if(productLineList.size()!=0)
+//                                {
+//                                    nothing.setVisibility( View.GONE );
+//                                }
+//                                else
+//                                {
+//
+//                                    for(int i=0;i<productLineList.size();i++)
+//                                    {
+//                                        c[i].setBackgroundResource( R.drawable.checkbox_style );
+//                                        l.addView( c[i] );
+//                                        ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+//                                        workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+//                                        name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+//                                        product.setText( productLineList.get( i ).getConfigProduct().getName() );
+//
+//                                    }
+//                                }
+//                            }
+//                        });
+//                    }
+//                } );
                 alertDialog1.setTitle( "在建生产线" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
@@ -963,18 +1068,197 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //生产线转产
+        //生产线转产(success)
         changeline.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.changeline,null);
+                final LinearLayout page=linearLayout1.findViewById( R.id.page2 );
+                RadioButton p1=linearLayout1.findViewById( R.id.p1 );
+                RadioButton p2=linearLayout1.findViewById( R.id.p2 );
+                RadioButton p3=linearLayout1.findViewById( R.id.p3 );
+                RadioButton p4=linearLayout1.findViewById( R.id.p4 );
+                RadioButton p5=linearLayout1.findViewById( R.id.p5 );
+                final RadioButton[]p={p1,p2,p3,p4,p5};
+                final TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TextView nothing=linearLayout1.findViewById( R.id.nothing );
+                final CheckBox c1=new CheckBox( getApplicationContext() );
+                CheckBox c2=new CheckBox( getApplicationContext() );
+                CheckBox c3=new CheckBox( getApplicationContext() );
+                CheckBox c4=new CheckBox( getApplicationContext() );
+                CheckBox c5=new CheckBox( getApplicationContext() );
+                CheckBox c6=new CheckBox( getApplicationContext() );
+                CheckBox c7=new CheckBox( getApplicationContext() );
+                CheckBox c8=new CheckBox( getApplicationContext() );
+                CheckBox c9=new CheckBox( getApplicationContext() );
+                CheckBox c10=new CheckBox( getApplicationContext() );
+                CheckBox c11=new CheckBox( getApplicationContext() );
+                CheckBox c12=new CheckBox( getApplicationContext() );
+                CheckBox c13=new CheckBox( getApplicationContext() );
+                CheckBox c14=new CheckBox( getApplicationContext() );
+                CheckBox c15=new CheckBox( getApplicationContext() );
+                CheckBox c16=new CheckBox( getApplicationContext() );
+                final CheckBox[]c={c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16};
+                for(int i=0;i<16;i++)
+                {
+                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                }
+                final String []lineId=new String[16];
+                final int[] num = new int[1];
+                HttpUtil.changeList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                changeLineBean line=JSON.parseObject( responseData, changeLineBean.class);
+                                List<productLineBean> productLineList=line.getData();
+                                num[0] =productLineList.size();
+                                if(productLineList.size()!=0)
+                                {
+                                    nothing.setVisibility( View.GONE );
+                                    page.setVisibility( View.VISIBLE );
+                                }
+                                else
+                                {
+                                    nothing.setVisibility( View.VISIBLE );
+                                }
+                                for(int i=0;i<productLineList.size();i++)
+                                {
+                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                    TextView ids=new TextView( getApplicationContext() );
+                                    TextView workshopId=new TextView( getApplicationContext() );
+                                    TextView name=new TextView( getApplicationContext() );
+                                    TextView product=new TextView( getApplicationContext() );
+                                    TextView turnOverTime=new TextView( getApplicationContext() );
+                                    TextView turnOverCost=new TextView( getApplicationContext() );
+                                    LinearLayout ls=new LinearLayout( getApplicationContext() );
+                                    TableRow rows=new TableRow( getApplicationContext() );
+                                    ls.setBackgroundResource( R.drawable.textview_border );
+                                    ls.setGravity( Gravity.CENTER );
+                                    ids.setBackgroundResource( R.drawable.textview_border );
+                                    ids.setGravity( Gravity.CENTER );
+                                    ids.setTextColor( Color.parseColor( "#000000" ) );
+                                    ids.setTextSize( 15);
+                                    ids.setHeight( 84 );
+                                    workshopId.setBackgroundResource( R.drawable.textview_border );
+                                    workshopId.setGravity( Gravity.CENTER );
+                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                    workshopId.setTextSize( 15);
+                                    workshopId.setHeight( 84 );
+                                    name.setBackgroundResource( R.drawable.textview_border );
+                                    name.setGravity( Gravity.CENTER );
+                                    name.setTextColor( Color.parseColor( "#000000" ) );
+                                    name.setTextSize( 15);
+                                    name.setHeight( 84 );
+                                    product.setBackgroundResource( R.drawable.textview_border );
+                                    product.setGravity( Gravity.CENTER );
+                                    product.setTextColor( Color.parseColor( "#000000" ) );
+                                    product.setTextSize( 15);
+                                    product.setHeight( 84 );
+                                    turnOverTime.setBackgroundResource( R.drawable.textview_border );
+                                    turnOverTime.setGravity( Gravity.CENTER );
+                                    turnOverTime.setTextColor( Color.parseColor( "#000000" ) );
+                                    turnOverTime.setTextSize( 15);
+                                    turnOverTime.setHeight( 84 );
+                                    turnOverCost.setBackgroundResource( R.drawable.textview_border );
+                                    turnOverCost.setGravity( Gravity.CENTER );
+                                    turnOverCost.setTextColor( Color.parseColor( "#000000" ) );
+                                    turnOverCost.setTextSize( 15);
+                                    turnOverCost.setHeight( 84 );
+                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                    ls.addView( c[i] );
+                                    rows.addView( ls);
+                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                    rows.addView( ids );
+                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                    rows.addView( workshopId );
+                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                    rows.addView( name );
+                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                    rows.addView( product );
+                                    turnOverTime.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getTurnOverTime() ) +"季");
+                                    rows.addView( turnOverTime );
+                                    turnOverCost.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getTurnOverCost() ) +"W");
+                                    rows.addView( turnOverCost );
+                                    tableLayout.addView( rows );
+                                }
+                            }
+                        });
+                    }
+                } );
+
                 alertDialog1.setTitle( "生产线转产" )
                         .setView(  linearLayout1)
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                int x=0;
+                                int y=0;
+                                String lid="";
+                                String pid="";
+                                for(int i=0;i<5;i++)
+                                {
+                                    if(p[i].isChecked())
+                                    {
+                                        pid=String.valueOf( i+1);
+                                    }
+                                    else
+                                    {
+                                        x=x+1;
+                                    }
+                                }
+                                for(int i=0;i<num[0];i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(lid.equals( "" ))
+                                        {
+                                            lid=lineId[i];
+                                        }
+                                        else
+                                        {
+                                            lid=lid+","+lineId[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        y=y+1;
+                                    }
+                                }
 
+                                if(x==5||y==num[0])
+                                {
+                                    Toast.makeText( MainActivity.this,"未选择生产线或产品类型",Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    HttpUtil.change( token, lid, pid, new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+
+                                                }
+                                            });
+                                        }
+                                    } );
+                                }
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
