@@ -197,8 +197,12 @@ public class MainActivity extends AppCompatActivity{
                             if(company.getPeriod()==0)
                             {
                                 linearLayout.addView( view1 );
+                                if(company.getSubSteps().indexOf( "cd" )!=-1)
+                                {
+                                    longloan.setVisibility( View.GONE );
+                                }
                             }
-                            else if(company.getPeriod()==4)
+                            else if(company.getPeriod()%4==0&&company.getPeriod()!=0)
                             {
                                 linearLayout.addView( view7 );
                             }
@@ -211,6 +215,10 @@ public class MainActivity extends AppCompatActivity{
                         if (company.getMainStep() == 2)
                         {
                             linearLayout.addView( view2 );
+                            if(company.getSubSteps().indexOf( "dd" )!=-1)
+                            {
+                                shortloan.setVisibility( View.GONE );
+                            }
                         }
                         if (company.getMainStep()==3)
                         {
@@ -227,7 +235,7 @@ public class MainActivity extends AppCompatActivity{
                         }
                         if (company.getMainStep()==4)
                         {
-                            if(company.getPeriod()!=3)
+                            if(company.getPeriod()%4!=3)
                             {
                                 linearLayout.addView( view4 );
                                 String subSteps=company.getSubSteps();
@@ -409,7 +417,7 @@ public class MainActivity extends AppCompatActivity{
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    setInfo( token );
+
                                                     Toast.makeText( MainActivity.this,"贷款成功",Toast.LENGTH_SHORT).show();
                                                 }
                                             });
@@ -417,7 +425,8 @@ public class MainActivity extends AppCompatActivity{
                                     });
 
                                 }
-
+                                longloan.setVisibility( View.GONE );
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -463,6 +472,7 @@ public class MainActivity extends AppCompatActivity{
                                 //Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
                                 linearLayout.removeAllViews();
                                 linearLayout.addView( view2);
+                                shortloan.setVisibility( View.VISIBLE );
 
                             }
                         } )
@@ -497,8 +507,26 @@ public class MainActivity extends AppCompatActivity{
                                     Toast.makeText( MainActivity.this,"长贷金额不能低于10W",Toast.LENGTH_SHORT ).show();
                                 }
                                 else {
+                                    HttpUtil.applyShort( token, num, new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
 
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Toast.makeText( MainActivity.this,"贷款成功",Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    } );
                                 }
+                                shortloan.setVisibility( View.GONE );
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -518,6 +546,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 final String[] product = new String[1];
+                product[0]="";
                 HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -557,8 +586,12 @@ public class MainActivity extends AppCompatActivity{
                         });
                     }
                 } );
+                if(product[0].equals( "" ))
+                {
+                    product[0]="0";
+                }
                 alertDialog2.setTitle( "更新原料库" )
-                        .setMessage( "现付金额 "+product[0] )
+                        .setMessage( "现付金额 "+product[0]+"W" )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -584,6 +617,8 @@ public class MainActivity extends AppCompatActivity{
                                 linearLayout.removeAllViews();
                                 //linearLayout2.setVisibility( View.GONE );
                                 linearLayout.addView( view3 );
+                                buy.setVisibility( View.VISIBLE );
+                                construction.setVisibility( View.VISIBLE);
 
 
                             }
@@ -598,7 +633,7 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog2.show();
             }
         } );
-        //订购原料(未测试）
+        //订购原料(success）
         buy.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -607,64 +642,67 @@ public class MainActivity extends AppCompatActivity{
                 final EditText number2=linearLayout1.findViewById( R.id.r2_number );
                 final EditText number3=linearLayout1.findViewById( R.id.r3_number );
                 final EditText number4=linearLayout1.findViewById( R.id.r4_number );
-                final String n1=number1.getText().toString();
-                final String n2=number2.getText().toString();
-                final String n3=number3.getText().toString();
-                final String n4=number4.getText().toString();
-                final String[]number={n1,n2,n3,n4};
-                String nums="";
-                String ids="";
-                for(int i=0;i<4;i++)
-                {
-                    if(Integer.parseInt( number[i] )>0)
-                    {
-                        if(nums.equals( "" ))
-                        {
-                            nums=number[i];
-                            ids=String.valueOf( i+1 );
-                        }
-                        else
-                        {
-                            nums=nums+","+number[i];
-                            ids=ids+","+String.valueOf( i+1 );
-                        }
-                    }
-                }
-                final String finalNums = nums;
-                final String finalIds = ids;
+                final String[] nums =new String[1];
+                final String[] ids =new String [1];
+                nums[0]="";
+                ids[0]="";
                 alertDialog1.setTitle( "订购原料" )
                         .setView(linearLayout1 )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //dialog.dismiss();
-                                //Toast.makeText( MainActivity.this,"R1:"+number1.getText().toString()+",R2="+number2.getText().toString()+",R3="+number3.getText().toString()+",R4="+number4.getText().toString(),Toast.LENGTH_SHORT ).show();
-                                HttpUtil.buy( token, finalNums, finalIds,new Callback() {
-                                    @Override
-                                    public void onFailure(Call call, IOException e) {
-
+                                String n1=number1.getText().toString();
+                                String n2=number2.getText().toString();
+                                String n3=number3.getText().toString();
+                                String n4=number4.getText().toString();
+                                String[]number={n1,n2,n3,n4};
+                                for(int i=0;i<4;i++)
+                                {
+                                    if(Integer.parseInt( number[i])>0)
+                                    {
+                                        if(nums[0].equals( "" ))
+                                        {
+                                            nums[0] =number[i];
+                                            ids[0] =String.valueOf( i+1 );
+                                        }
+                                        else
+                                        {
+                                            nums[0] = nums[0] +","+number[i];
+                                            ids[0] = ids[0] +","+String.valueOf( i+1 );
+                                        }
                                     }
+                                }
+                                if(nums[0].equals( "" ))
+                                {
+                                    Toast.makeText( MainActivity.this,"请输入订购原料的数量",Toast.LENGTH_SHORT ).show();
+                                }
+                                else
+                                {
+                                    HttpUtil.buy( token, nums[0], ids[0],new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
 
-                                    @Override
-                                    public void onResponse(Call call, Response response) throws IOException {
-                                        final String responseData = response.body().string();
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
-                                                if(info.getResultCode()==500)
-                                                {
-                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            final String responseData = response.body().string();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                    if(info.getResultCode()==500)
+                                                    {
+                                                        Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    }
+
                                                 }
-
-                                            }
-                                        });
-                                    }
-                                } );
-
-
-                                buy.setVisibility( View.GONE );
-                                setInfo( token );
+                                            });
+                                        }
+                                    } );
+                                    buy.setVisibility( View.GONE );
+                                    setInfo( token );
+                                }
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -948,12 +986,12 @@ public class MainActivity extends AppCompatActivity{
 
             }
         } );
-        //在建生产线(未测试)
+        //在建生产线(success)
         construction.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.construction,null);
-                TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
+                final TableLayout tableLayout=linearLayout1.findViewById( R.id.table );
                 final TextView nothing=linearLayout1.findViewById( R.id.nothing );
                 final CheckBox c1=new CheckBox( getApplicationContext() );
                 CheckBox c2=new CheckBox( getApplicationContext() );
@@ -992,91 +1030,94 @@ public class MainActivity extends AppCompatActivity{
                             public void run() {
                                 changeLineBean info=JSON.parseObject( responseData,changeLineBean.class);
                                 List<productLineBean> productLineList=info.getData();
-                                if(productLineList.size()!=0)
+                                num[0]=productLineList.size();
+                                if(productLineList.size()>0)
                                 {
                                     nothing.setVisibility( View.GONE );
                                 }
                                 else
                                 {
-                                    num[0] =productLineList.size();
-                                    if(productLineList.size()!=0)
+                                    nothing.setVisibility( View.VISIBLE );
+                                }
+                                for(int i=0;i<productLineList.size();i++)
+                                {
+                                   // Toast.makeText( MainActivity.this,"ok",Toast.LENGTH_SHORT).show();
+                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                    TableRow row=new TableRow(getApplicationContext());
+                                    LinearLayout l=new LinearLayout( getApplicationContext() );
+                                    TextView ids=new TextView( getApplicationContext() );
+                                    TextView workshopId=new TextView( getApplicationContext() );
+                                    TextView name=new TextView( getApplicationContext() );
+                                    TextView product=new TextView( getApplicationContext() );
+                                    TextView investmentAmount=new TextView( getApplicationContext() );
+                                    TextView start=new TextView( getApplicationContext() );
+                                    TextView productLineRemainder=new TextView( getApplicationContext() );
+                                    l.setBackgroundResource( R.drawable.textview_border );
+                                    l.setGravity( Gravity.CENTER );
+                                    ids.setBackgroundResource( R.drawable.textview_border );
+                                    ids.setGravity( Gravity.CENTER );
+                                    ids.setTextColor( Color.parseColor( "#000000" ) );
+                                    ids.setTextSize( 15);
+                                    ids.setHeight( 84 );
+                                    workshopId.setBackgroundResource( R.drawable.textview_border );
+                                    workshopId.setGravity( Gravity.CENTER );
+                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                    workshopId.setTextSize( 15);
+                                    workshopId.setHeight( 84 );
+                                    name.setBackgroundResource( R.drawable.textview_border );
+                                    name.setGravity( Gravity.CENTER );
+                                    name.setTextColor( Color.parseColor( "#000000" ) );
+                                    name.setTextSize( 15);
+                                    name.setHeight( 84 );
+                                    product.setBackgroundResource( R.drawable.textview_border );
+                                    product.setGravity( Gravity.CENTER );
+                                    product.setTextColor( Color.parseColor( "#000000" ) );
+                                    product.setTextSize( 15);
+                                    product.setHeight( 84 );
+                                    investmentAmount.setBackgroundResource( R.drawable.textview_border );
+                                    investmentAmount.setGravity( Gravity.CENTER );
+                                    investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
+                                    investmentAmount.setTextSize( 15);
+                                    investmentAmount.setHeight( 84 );
+                                    start.setBackgroundResource( R.drawable.textview_border );
+                                    start.setGravity( Gravity.CENTER );
+                                    start.setTextColor( Color.parseColor( "#000000" ) );
+                                    start.setTextSize( 15);
+                                    start.setHeight( 84 );
+                                    productLineRemainder.setBackgroundResource( R.drawable.textview_border );
+                                    productLineRemainder.setGravity( Gravity.CENTER );
+                                    productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
+                                    productLineRemainder.setTextSize( 15);
+                                    productLineRemainder.setHeight( 84 );
+                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                    l.addView( c[i] );
+                                    row.addView( l );
+                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                    row.addView( ids );
+                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                    row.addView( workshopId );
+                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                    row.addView( name );
+                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                    row.addView( product );
+                                    investmentAmount.setText( String.valueOf( productLineList.get( i ).getInvestmentAmount() ) );
+                                    row.addView( investmentAmount );
+                                    int y=(productLineList.get( i ).getStartTime()+1)/4;
+                                    int q=(productLineList.get( i ).getStartTime()+1)%4;
+                                    if(q==0)
                                     {
-                                        nothing.setVisibility( View.GONE );
+                                        String startTime="第"+String.valueOf(  y)+"年第4季";
+                                        start.setText( startTime );
                                     }
                                     else
                                     {
-                                        nothing.setVisibility( View.VISIBLE );
+                                        String startTime="第"+String.valueOf( y+1)+"年第"+String.valueOf( q )+"季";
+                                        start.setText( startTime );
                                     }
-                                    for(int i=0;i<productLineList.size();i++)
-                                    {
-                                        lineId[i] = String.valueOf( productLineList.get( i ).getId() );
-                                        TableRow row=new TableRow(getApplicationContext());
-                                        LinearLayout l=new LinearLayout( getApplicationContext() );
-                                        TextView ids=new TextView( getApplicationContext() );
-                                        TextView workshopId=new TextView( getApplicationContext() );
-                                        TextView name=new TextView( getApplicationContext() );
-                                        TextView product=new TextView( getApplicationContext() );
-                                        TextView investmentAmount=new TextView( getApplicationContext() );
-                                        TextView start=new TextView( getApplicationContext() );
-                                        TextView productLineRemainder=new TextView( getApplicationContext() );
-                                        l.setBackgroundResource( R.drawable.textview_border );
-                                        l.setGravity( Gravity.CENTER );
-                                        ids.setBackgroundResource( R.drawable.textview_border );
-                                        ids.setGravity( Gravity.CENTER );
-                                        ids.setTextColor( Color.parseColor( "#000000" ) );
-                                        ids.setTextSize( 15);
-                                        ids.setHeight( 84 );
-                                        workshopId.setBackgroundResource( R.drawable.textview_border );
-                                        workshopId.setGravity( Gravity.CENTER );
-                                        workshopId.setTextColor( Color.parseColor( "#000000" ) );
-                                        workshopId.setTextSize( 15);
-                                        workshopId.setHeight( 84 );
-                                        name.setBackgroundResource( R.drawable.textview_border );
-                                        name.setGravity( Gravity.CENTER );
-                                        name.setTextColor( Color.parseColor( "#000000" ) );
-                                        name.setTextSize( 15);
-                                        name.setHeight( 84 );
-                                        product.setBackgroundResource( R.drawable.textview_border );
-                                        product.setGravity( Gravity.CENTER );
-                                        product.setTextColor( Color.parseColor( "#000000" ) );
-                                        product.setTextSize( 15);
-                                        product.setHeight( 84 );
-                                        investmentAmount.setBackgroundResource( R.drawable.textview_border );
-                                        investmentAmount.setGravity( Gravity.CENTER );
-                                        investmentAmount.setTextColor( Color.parseColor( "#000000" ) );
-                                        investmentAmount.setTextSize( 15);
-                                        investmentAmount.setHeight( 84 );
-                                        start.setBackgroundResource( R.drawable.textview_border );
-                                        start.setGravity( Gravity.CENTER );
-                                        start.setTextColor( Color.parseColor( "#000000" ) );
-                                        start.setTextSize( 15);
-                                        start.setHeight( 84 );
-                                        productLineRemainder.setBackgroundResource( R.drawable.textview_border );
-                                        productLineRemainder.setGravity( Gravity.CENTER );
-                                        productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
-                                        productLineRemainder.setTextSize( 15);
-                                        productLineRemainder.setHeight( 84 );
-                                        c[i].setBackgroundResource( R.drawable.checkbox_style );
-                                        l.addView( c[i] );
-                                        ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
-                                        workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
-                                        name.setText(  productLineList.get( i ).getConfigProductLine().getName());
-                                        product.setText( productLineList.get( i ).getConfigProduct().getName() );
-                                        investmentAmount.setText( String.valueOf( productLineList.get( i ).getInvestmentAmount() ) );
-                                        int y=(productLineList.get( i ).getStartTime()+1)/4;
-                                        int q=(productLineList.get( i ).getStartTime()+1)%4;
-                                        if(q==0)
-                                        {
-                                            String startTime="第"+String.valueOf(  y)+"年第4季";
-                                            start.setText( startTime );
-                                        }
-                                        else
-                                        {
-                                            String startTime="第"+String.valueOf( y+1)+"年第"+String.valueOf( q )+"季";
-                                            start.setText( startTime );
-                                        }
-                                        productLineRemainder.setText( String.valueOf( productLineList.get( i ).getProductLineRemainder() ) +"季");
-                                    }
+                                    row.addView( start );
+                                    productLineRemainder.setText( String.valueOf( productLineList.get( i ).getProductLineRemainder() ) +"季");
+                                    row.addView( productLineRemainder );
+                                    tableLayout.addView( row);
                                 }
                             }
                         });
@@ -1132,6 +1173,7 @@ public class MainActivity extends AppCompatActivity{
                                         }
                                     } );
                                 }
+                                construction.setVisibility( View.GONE );
                                 dialog.dismiss();
                                 setInfo( token );
                             }
@@ -1197,18 +1239,20 @@ public class MainActivity extends AppCompatActivity{
                             public void run() {
                                 changeLineBean line=JSON.parseObject( responseData, changeLineBean.class);
                                 List<productLineBean> productLineList=line.getData();
-                                num[0] =productLineList.size();
                                 if(productLineList.size()!=0)
                                 {
                                     nothing.setVisibility( View.GONE );
                                     page.setVisibility( View.VISIBLE );
+                                    num[0] =productLineList.size();
                                 }
                                 else
                                 {
                                     nothing.setVisibility( View.VISIBLE );
+
                                 }
                                 for(int i=0;i<productLineList.size();i++)
                                 {
+
                                     lineId[i] = String.valueOf( productLineList.get( i ).getId() );
                                     TextView ids=new TextView( getApplicationContext() );
                                     TextView workshopId=new TextView( getApplicationContext() );
@@ -1315,7 +1359,7 @@ public class MainActivity extends AppCompatActivity{
                                 {
                                     Toast.makeText( MainActivity.this,"未选择生产线或产品类型",Toast.LENGTH_SHORT).show();
                                 }
-                                else
+                                if(!lid.equals( "" )&&!pid.equals( "" ))
                                 {
                                     HttpUtil.change( token, lid, pid, new Callback() {
                                         @Override
@@ -1500,7 +1544,7 @@ public class MainActivity extends AppCompatActivity{
                                         y=y+1;
                                     }
                                 }
-                                if (y!=num[0])
+                                if (y!=num[0]&&num[0]!=0)
                                 {
                                     HttpUtil.change( token, lid,pid,new Callback() {
                                         @Override
@@ -1711,7 +1755,7 @@ public class MainActivity extends AppCompatActivity{
                                         y=y+1;
                                     }
                                 }
-                                if (y!=num[0])
+                                if (y!=num[0]&&num[0]!=0)
                                 {
                                     HttpUtil.sell( token, lid,new Callback() {
                                         @Override
@@ -1877,7 +1921,7 @@ public class MainActivity extends AppCompatActivity{
                                         y=y+1;
                                     }
                                 }
-                                if (y!=num[0])
+                                if (y!=num[0]&&num[0]!=0)
                                 {
                                     HttpUtil.startProduce( token, lid,new Callback() {
                                         @Override
@@ -1923,9 +1967,9 @@ public class MainActivity extends AppCompatActivity{
         update1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] num =new String[1];
+                final int[] num =new int[1];
                 final int []period=new int[1];
-                num[0]="";
+                num[0]=0;
                 HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -1943,19 +1987,15 @@ public class MainActivity extends AppCompatActivity{
                                 List<receivableBean> receivableList=data.getReceivable();
                                 if(receivableList.size()!=0)
                                 {
-                                    num[0] =String.valueOf(receivableList.get(0).getReceivableValue()  );
+                                    num[0] =num[0]+receivableList.get(0).getReceivableValue();
                                 }
                                 period[0]=info.getData().getCompany().getPeriod();
                             }
                         });
                     }
                 } );
-                if(num[0].equals( "" ))
-                {
-                    num[0]="0";
-                }
                 alertDialog2.setTitle( "更新应收款账" )
-                        .setMessage( "收现金额(1期)"+num[0]+"W" )
+                        .setMessage( "收现金额(1期)"+String.valueOf( num[0] )+"W" )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -1982,13 +2022,17 @@ public class MainActivity extends AppCompatActivity{
                                 } );
                                 dialog.dismiss();
                                 linearLayout.removeAllViews();
-                                if (period[0]!=3)
+                                if (period[0]%4!=3)
                                 {
                                     linearLayout.addView( view4 );
+                                    researchproduct.setVisibility( View.VISIBLE );
                                 }
                                 else
                                 {
                                     linearLayout.addView( view5 );
+                                    researchproduct1.setVisibility( View.VISIBLE );
+                                    exploit.setVisibility( View.VISIBLE );
+                                    investment.setVisibility( View.VISIBLE );
                                 }
                                 setInfo( token );
                             }
@@ -2194,7 +2238,7 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //第四季当季结束
+        //第四季当季结束（success)
         end1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2220,6 +2264,7 @@ public class MainActivity extends AppCompatActivity{
                                                 if(info.getResultCode()==500)
                                                 {
                                                     Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                    setInfo( token );
                                                 }
                                             }
                                         });
@@ -2227,6 +2272,8 @@ public class MainActivity extends AppCompatActivity{
                                 } );
                                 linearLayout.removeAllViews();
                                 linearLayout.addView( view6);
+                                report.setVisibility( View.VISIBLE );
+                                advertising.setVisibility( View.VISIBLE );
                                 dialog.dismiss();
                                 setInfo( token );
                             }
@@ -3360,7 +3407,8 @@ public class MainActivity extends AppCompatActivity{
                             }
                             for(int i=0;i<materialBeanList.size();i++)
                             {
-                                rs[materialBeanList.get( i ).getMaterialId()-1].setText(Integer.toString(  materialBeanList.get( i ).getInventoryNum() ) );
+                                int x=materialBeanList.get( i ).getMaterialId()-1;
+                                rs[x].setText(Integer.toString(  materialBeanList.get( i ).getInventoryNum() ) );
                             }
                             TextView transport1=findViewById( R.id.transport1 );
                             TextView transport2=findViewById( R.id.transport2 );
