@@ -1,29 +1,17 @@
 package com.example.erp1;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -51,22 +39,19 @@ import com.example.erp1.info.productLineBean;
 import com.example.erp1.info.receivableBean;
 import com.example.erp1.info.transportBean;
 import com.example.erp1.info.workshopBean;
-import com.example.erp1.message.messageBean;
 import com.example.erp1.purchase.dataBean;
 import com.example.erp1.purchase.purchaseListBean;
 import com.example.erp1.tLogin.loginBean;
-
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TooManyListenersException;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity{
     private MyDatebaseHelper dbHelper;
@@ -178,7 +163,7 @@ public class MainActivity extends AppCompatActivity{
         username.append( spannableString );
         linearLayout.removeAllViews();
         String url="http://110.88.128.202:8088/stu/user/info";
-        HttpUtil.decide(token,url,new Callback() {
+        HttpUtil.info(token,url,new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
             }
@@ -547,7 +532,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 final String[] product = new String[1];
                 product[0]="";
-                HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
+                HttpUtil.info( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
@@ -857,7 +842,7 @@ public class MainActivity extends AppCompatActivity{
                         list.add(place[i].getText().toString());
                     }
                 }
-                HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
+                HttpUtil.info( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
@@ -1453,64 +1438,67 @@ public class MainActivity extends AppCompatActivity{
                                 }
                                 for(int i=0;i<productLineList.size();i++)
                                 {
-                                    lineId[i] = String.valueOf( productLineList.get( i ).getId() );
-                                    pId[i]=String.valueOf( productLineList.get( i ).getProductId() );
-                                    TextView ids=new TextView( getApplicationContext() );
-                                    TextView workshopId=new TextView( getApplicationContext() );
-                                    TextView name=new TextView( getApplicationContext() );
-                                    TextView product=new TextView( getApplicationContext() );
-                                    TextView depreciationExpense=new TextView( getApplicationContext() );
-                                    TextView productLineRemainder=new TextView( getApplicationContext() );
-                                    LinearLayout ls=new LinearLayout( getApplicationContext() );
-                                    TableRow rows=new TableRow( getApplicationContext() );
-                                    ls.setBackgroundResource( R.drawable.textview_border );
-                                    ls.setGravity( Gravity.CENTER );
-                                    ids.setBackgroundResource( R.drawable.textview_border );
-                                    ids.setGravity( Gravity.CENTER );
-                                    ids.setTextColor( Color.parseColor( "#000000" ) );
-                                    ids.setTextSize( 15);
-                                    ids.setHeight( 84 );
-                                    workshopId.setBackgroundResource( R.drawable.textview_border );
-                                    workshopId.setGravity( Gravity.CENTER );
-                                    workshopId.setTextColor( Color.parseColor( "#000000" ) );
-                                    workshopId.setTextSize( 15);
-                                    workshopId.setHeight( 84 );
-                                    name.setBackgroundResource( R.drawable.textview_border );
-                                    name.setGravity( Gravity.CENTER );
-                                    name.setTextColor( Color.parseColor( "#000000" ) );
-                                    name.setTextSize( 15);
-                                    name.setHeight( 84 );
-                                    product.setBackgroundResource( R.drawable.textview_border );
-                                    product.setGravity( Gravity.CENTER );
-                                    product.setTextColor( Color.parseColor( "#000000" ) );
-                                    product.setTextSize( 15);
-                                    product.setHeight( 84 );
-                                    depreciationExpense.setBackgroundResource( R.drawable.textview_border );
-                                    depreciationExpense.setGravity( Gravity.CENTER );
-                                    depreciationExpense.setTextColor( Color.parseColor( "#000000" ) );
-                                    depreciationExpense.setTextSize( 15);
-                                    depreciationExpense.setHeight( 84 );
-                                    productLineRemainder.setBackgroundResource( R.drawable.textview_border );
-                                    productLineRemainder.setGravity( Gravity.CENTER );
-                                    productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
-                                    productLineRemainder.setTextSize( 15);
-                                    productLineRemainder.setHeight( 84 );
-                                    c[i].setBackgroundResource( R.drawable.checkbox_style );
-                                    ls.addView( c[i] );
-                                    rows.addView( ls);
-                                    ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
-                                    rows.addView( ids );
-                                    workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
-                                    rows.addView( workshopId );
-                                    name.setText(  productLineList.get( i ).getConfigProductLine().getName());
-                                    rows.addView( name );
-                                    product.setText( productLineList.get( i ).getConfigProduct().getName() );
-                                    rows.addView( product );
-                                    depreciationExpense.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getDepreciationExpense())+"W");
-                                    rows.addView( depreciationExpense );
-                                    productLineRemainder.setText(String.valueOf( productLineList.get( i).getProductLineRemainder()+"季" )  );
-                                    rows.addView( productLineRemainder );
-                                    tableLayout.addView( rows );
+                                   if(productLineList.get( i ).getProductLineRemainder()>0)
+                                   {
+                                       lineId[i] = String.valueOf( productLineList.get( i ).getId() );
+                                       pId[i]=String.valueOf( productLineList.get( i ).getProductId() );
+                                       TextView ids=new TextView( getApplicationContext() );
+                                       TextView workshopId=new TextView( getApplicationContext() );
+                                       TextView name=new TextView( getApplicationContext() );
+                                       TextView product=new TextView( getApplicationContext() );
+                                       TextView depreciationExpense=new TextView( getApplicationContext() );
+                                       TextView productLineRemainder=new TextView( getApplicationContext() );
+                                       LinearLayout ls=new LinearLayout( getApplicationContext() );
+                                       TableRow rows=new TableRow( getApplicationContext() );
+                                       ls.setBackgroundResource( R.drawable.textview_border );
+                                       ls.setGravity( Gravity.CENTER );
+                                       ids.setBackgroundResource( R.drawable.textview_border );
+                                       ids.setGravity( Gravity.CENTER );
+                                       ids.setTextColor( Color.parseColor( "#000000" ) );
+                                       ids.setTextSize( 15);
+                                       ids.setHeight( 84 );
+                                       workshopId.setBackgroundResource( R.drawable.textview_border );
+                                       workshopId.setGravity( Gravity.CENTER );
+                                       workshopId.setTextColor( Color.parseColor( "#000000" ) );
+                                       workshopId.setTextSize( 15);
+                                       workshopId.setHeight( 84 );
+                                       name.setBackgroundResource( R.drawable.textview_border );
+                                       name.setGravity( Gravity.CENTER );
+                                       name.setTextColor( Color.parseColor( "#000000" ) );
+                                       name.setTextSize( 15);
+                                       name.setHeight( 84 );
+                                       product.setBackgroundResource( R.drawable.textview_border );
+                                       product.setGravity( Gravity.CENTER );
+                                       product.setTextColor( Color.parseColor( "#000000" ) );
+                                       product.setTextSize( 15);
+                                       product.setHeight( 84 );
+                                       depreciationExpense.setBackgroundResource( R.drawable.textview_border );
+                                       depreciationExpense.setGravity( Gravity.CENTER );
+                                       depreciationExpense.setTextColor( Color.parseColor( "#000000" ) );
+                                       depreciationExpense.setTextSize( 15);
+                                       depreciationExpense.setHeight( 84 );
+                                       productLineRemainder.setBackgroundResource( R.drawable.textview_border );
+                                       productLineRemainder.setGravity( Gravity.CENTER );
+                                       productLineRemainder.setTextColor( Color.parseColor( "#000000" ) );
+                                       productLineRemainder.setTextSize( 15);
+                                       productLineRemainder.setHeight( 84 );
+                                       c[i].setBackgroundResource( R.drawable.checkbox_style );
+                                       ls.addView( c[i] );
+                                       rows.addView( ls);
+                                       ids.setText(String.valueOf( productLineList.get( i ).getId()  ));
+                                       rows.addView( ids );
+                                       workshopId.setText( String.valueOf( productLineList.get( i ).getWorkshopId() ) );
+                                       rows.addView( workshopId );
+                                       name.setText(  productLineList.get( i ).getConfigProductLine().getName());
+                                       rows.addView( name );
+                                       product.setText( productLineList.get( i ).getConfigProduct().getName() );
+                                       rows.addView( product );
+                                       depreciationExpense.setText( String.valueOf( productLineList.get( i ).getConfigProductLine().getDepreciationExpense())+"W");
+                                       rows.addView( depreciationExpense );
+                                       productLineRemainder.setText(String.valueOf( productLineList.get( i).getProductLineRemainder()+"季" )  );
+                                       rows.addView( productLineRemainder );
+                                       tableLayout.addView( rows );
+                                   }
                                 }
                             }
                         });
@@ -1970,7 +1958,7 @@ public class MainActivity extends AppCompatActivity{
                 final int[] num =new int[1];
                 final int []period=new int[1];
                 num[0]=0;
-                HttpUtil.decide( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
+                HttpUtil.info( token, "http://110.88.128.202:8088/stu/user/info", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
@@ -2074,19 +2062,249 @@ public class MainActivity extends AppCompatActivity{
                 managefactory();
             }
         } );
-        //产品研发
+        //产品研发(success)
         researchproduct.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                researchproduce( researchproduct );
+                LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
+                Button allselect=linearLayout1.findViewById( R.id.allselect );
+                final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
+                final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
+                final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
+                final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
+                final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
+                final CheckBox []c={s1,s2,s3,s4,s5};
+                TextView time1=linearLayout1.findViewById( R.id.time1 );
+                TextView time2=linearLayout1.findViewById( R.id.time2 );
+                TextView time3=linearLayout1.findViewById( R.id.time3 );
+                TextView time4=linearLayout1.findViewById( R.id.time4 );
+                TextView time5=linearLayout1.findViewById( R.id.time5 );
+                final TextView []t={time1,time2,time3,time4,time5};
+                HttpUtil.developingProductList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                com.example.erp1.developProduct.developProductBean developProduct=JSON.parseObject( responseData,com.example.erp1.developProduct.developProductBean.class );
+                                List<com.example.erp1.developProduct.productBean> productList=developProduct.getData();
+                                for(int i=0;i<productList.size();i++)
+                                {
+                                    if(productList.get( i ).getDevelopingRemainder()==0)
+                                    {
+                                        c[i].setVisibility( View.INVISIBLE );
+                                        t[i].setText( "0" );
+                                    }
+                                    else
+                                    {
+                                        t[i].setText( String.valueOf( productList.get( i ).getDevelopingRemainder() ) );
+                                    }
+                                }
+                            }
+                        } );
+                    }
+                } );
+//               allselect.setOnClickListener( new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
+//                        {
+//                            s1.setChecked( false );
+//                            s2.setChecked( false);
+//                            s3.setChecked( false );
+//                            s4.setChecked( false );
+//                            s5.setChecked( false );
+//                        }
+//                        else
+//                        {
+//                            s1.setChecked( true );
+//                            s2.setChecked( true );
+//                            s3.setChecked( true );
+//                            s4.setChecked( true );
+//                            s5.setChecked( true );
+//                        }
+//
+//                    }
+//                } );
+                alertDialog1.setTitle( "产品研发" )
+                        .setView(  linearLayout1)
+                        .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String pId="";
+                                for(int i=0;i<5;i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(pId.equals( "" ))
+                                        {
+                                            pId=String.valueOf( i+1 );
+                                        }
+                                        else
+                                        {
+                                            pId=pId+","+String.valueOf( i+1 );
+                                        }
+                                    }
+                                }
+                                HttpUtil.developProduct( token, pId, new Callback() {
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+
+                                            }
+
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                final String responseData = response.body().string();
+                                                runOnUiThread( new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                    }
+                                                } );
+                                            }
+                                        });
+                                researchproduct.setVisibility( View.GONE );
+                                dialog.dismiss();
+                                setInfo( token );
+
+                            }
+                        } )
+                        .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        } )
+                        .create();
+                alertDialog1.show();
 
             }
         } );
         researchproduct1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                researchproduce( researchproduct1 );
 
+                LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
+                Button allselect=linearLayout1.findViewById( R.id.allselect );
+                final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
+                final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
+                final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
+                final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
+                final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
+                final CheckBox []c={s1,s2,s3,s4,s5};
+                TextView time1=linearLayout1.findViewById( R.id.time1 );
+                TextView time2=linearLayout1.findViewById( R.id.time2 );
+                TextView time3=linearLayout1.findViewById( R.id.time3 );
+                TextView time4=linearLayout1.findViewById( R.id.time4 );
+                TextView time5=linearLayout1.findViewById( R.id.time5 );
+                final TextView []t={time1,time2,time3,time4,time5};
+                HttpUtil.developingProductList( token, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                com.example.erp1.developProduct.developProductBean developProduct=JSON.parseObject( responseData,com.example.erp1.developProduct.developProductBean.class );
+                                List<com.example.erp1.developProduct.productBean> productList=developProduct.getData();
+                                for(int i=0;i<productList.size();i++)
+                                {
+                                    if(productList.get( i ).getDevelopingRemainder()==0)
+                                    {
+                                        c[i].setVisibility( View.INVISIBLE );
+                                        t[i].setText( "0" );
+                                    }
+                                    else
+                                    {
+                                        t[i].setText( String.valueOf( productList.get( i ).getDevelopingRemainder() ) );
+                                    }
+                                }
+                            }
+                        } );
+                    }
+                } );
+//               allselect.setOnClickListener( new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
+//                        {
+//                            s1.setChecked( false );
+//                            s2.setChecked( false);
+//                            s3.setChecked( false );
+//                            s4.setChecked( false );
+//                            s5.setChecked( false );
+//                        }
+//                        else
+//                        {
+//                            s1.setChecked( true );
+//                            s2.setChecked( true );
+//                            s3.setChecked( true );
+//                            s4.setChecked( true );
+//                            s5.setChecked( true );
+//                        }
+//
+//                    }
+//                } );
+                alertDialog1.setTitle( "产品研发" )
+                        .setView(  linearLayout1)
+                        .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String pId="";
+                                for(int i=0;i<5;i++)
+                                {
+                                    if(c[i].isChecked())
+                                    {
+                                        if(pId.equals( "" ))
+                                        {
+                                            pId=String.valueOf( i+1 );
+                                        }
+                                        else
+                                        {
+                                            pId=pId+","+String.valueOf( i+1 );
+                                        }
+                                    }
+                                }
+                                HttpUtil.developProduct( token, pId, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread( new Runnable() {
+                                            @Override
+                                            public void run() {
+                                            }
+                                        } );
+                                    }
+                                });
+                                researchproduct1.setVisibility( View.GONE );
+                                dialog.dismiss();
+                                setInfo( token );
+
+                            }
+                        } )
+                        .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        } )
+                        .create();
+                alertDialog1.show();
             }
         } );
         //当季结束(success)
@@ -2274,6 +2492,8 @@ public class MainActivity extends AppCompatActivity{
                                 linearLayout.addView( view6);
                                 report.setVisibility( View.VISIBLE );
                                 advertising.setVisibility( View.VISIBLE );
+                                researchproduct.setVisibility( View.VISIBLE );
+                                researchproduct1.setVisibility( View.VISIBLE );
                                 dialog.dismiss();
                                 setInfo( token );
                             }
@@ -2289,7 +2509,7 @@ public class MainActivity extends AppCompatActivity{
             }
         } );
 
-        //填写报表
+        //填写报表(success)
         report.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2300,6 +2520,196 @@ public class MainActivity extends AppCompatActivity{
                 final TableLayout table1=linearLayout1.findViewById( R.id.table1 );
                 final TableLayout table2=linearLayout1.findViewById( R.id.table2 );
                 final TableLayout table3=linearLayout1.findViewById( R.id.table3 );
+
+                //table1
+                EditText adminstrativeCost=linearLayout1.findViewById( R.id.adminstrativeCost );
+                EditText adCost=linearLayout1.findViewById( R.id.adCost );
+                EditText maintenanceCost=linearLayout1.findViewById( R.id.maintenanceCost );
+                EditText loss=linearLayout1.findViewById( R.id.loss );
+                EditText turnOverCost=linearLayout1.findViewById( R.id.turnOverCost );
+                EditText rentCost=linearLayout1.findViewById( R.id.rentCost );
+                EditText developingMarketCost=linearLayout1.findViewById( R.id.developingMarketCost );
+                EditText developingProductCost=linearLayout1.findViewById( R.id.developingProductCost );
+                EditText developingIsoCost=linearLayout1.findViewById( R.id.developingIsoCost );
+                EditText informationCost=linearLayout1.findViewById( R.id.informationCost );
+                final TextView total=linearLayout1.findViewById( R.id.total );
+                final EditText []t1={adminstrativeCost,adCost,maintenanceCost,loss,turnOverCost,rentCost,developingMarketCost,developingProductCost,developingIsoCost,informationCost};
+                for(int i=0;i<10;i++)
+                {
+                    t1[i].setOnFocusChangeListener( new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            int s1=0;
+                            for(int j=0;j<10;j++)
+                            {
+                                if(!t1[j].getText().toString().equals( "" )&&!t1[j].getText().toString().equals( "0" ))
+                                {
+                                    s1=s1+Integer.parseInt( t1[j].getText().toString() );
+                                }
+                            }
+                            total.setText( String.valueOf( s1 ) );
+                        }
+                    } );
+
+                }
+                //table2
+                EditText sales=linearLayout1.findViewById( R.id.sales );
+                EditText directCost=linearLayout1.findViewById( R.id.directCost );
+                EditText comprehensiveCost=linearLayout1.findViewById( R.id.comprehensiveCost );
+                EditText depreciationCost=linearLayout1.findViewById( R.id.depreciationCost );
+                EditText financialCost=linearLayout1.findViewById( R.id.financialCost );
+                EditText tax=linearLayout1.findViewById( R.id.tax );
+                final TextView grossProfit=linearLayout1.findViewById( R.id.grossProfit );
+                final TextView profitBeforeTax=linearLayout1.findViewById( R.id.profitBeforeTax );
+                final TextView profitBeforeDepreciation=linearLayout1.findViewById( R.id.profitBeforeDepreciation );
+                final TextView profitBeforeInterest=linearLayout1.findViewById( R.id.profitBeforeInterest );
+                final TextView annualNetprofit=linearLayout1.findViewById( R.id.annualNetprofit );
+                final EditText []t2={sales,directCost,comprehensiveCost,depreciationCost,financialCost,tax};
+                final TextView []u2={grossProfit,profitBeforeTax,profitBeforeDepreciation,profitBeforeInterest,annualNetprofit};
+                for(int i=0;i<6;i++)
+                {
+                    t2[i].setOnFocusChangeListener( new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            int s1=0;
+                            int s2=0;
+                            int s3=0;
+                            int s4=0;
+                            int s5=0;
+                            if( !t2[0].getText().toString().equals( "" )&&!t2[1].getText().toString().equals( "" )) {
+                                s1 = Integer.parseInt( t2[0].getText().toString() )-Integer.parseInt( t2[1].getText().toString() );
+                            }
+                            else if(!t2[0].getText().toString().equals( "" )&&t2[1].getText().toString().equals( "" ))
+                            {
+                                s1=Integer.parseInt( t2[0].getText().toString() );
+                            }
+                            else if(t2[0].getText().toString().equals( "" )&&!t2[1].getText().toString().equals( "" ))
+                            {
+                                s1=s1-Integer.parseInt( t2[1].getText().toString() );
+                            }
+                            grossProfit.setText( String.valueOf( s1 ) );
+                            if(!t2[2].getText().toString().equals( "" ))
+                            {
+                                s2= s1-Integer.parseInt( t2[2].getText().toString());
+                                profitBeforeDepreciation.setText( String.valueOf( s2 ) );
+                            }
+                            else
+                            {
+                                s2=s1;
+                                profitBeforeDepreciation.setText( String.valueOf( s2) );
+                            }
+
+                            if(!t2[3].getText().toString().equals( "" ))
+                            {
+                                s3= s2-Integer.parseInt( t2[3].getText().toString());
+                                profitBeforeInterest.setText( String.valueOf( s3 ) );
+                            }
+                            else
+                            {
+                                s3=s2;
+                                profitBeforeInterest.setText( String.valueOf( s3) );
+                            }
+
+                            if(!t2[4].getText().toString().equals( "" ))
+                            {
+                                s4= s3-Integer.parseInt( t2[4].getText().toString());
+                                profitBeforeTax.setText( String.valueOf( s4 ) );
+                            }
+                            else
+                            {
+                                s4=s3;
+                                profitBeforeTax.setText( String.valueOf( s4) );
+                            }
+                            if(!t2[5].getText().toString().equals( "" ))
+                            {
+                                s5= s4-Integer.parseInt( t2[5].getText().toString());
+                                annualNetprofit.setText( String.valueOf( s5 ) );
+                            }
+                            else
+                            {
+                                s5=s4;
+                                annualNetprofit.setText( String.valueOf( s5) );
+                            }
+                        }
+                    } );
+
+                }
+                //table3
+                EditText cash=linearLayout1.findViewById( R.id.cash );
+                EditText longLoan=linearLayout1.findViewById( R.id.longLoan );
+                EditText receivable=linearLayout1.findViewById( R.id.receivable );
+                EditText shortLoan=linearLayout1.findViewById( R.id.shortLoan );
+                EditText productInProcess=linearLayout1.findViewById( R.id.productInProcess );
+                EditText specialLoan=linearLayout1.findViewById( R.id.specialLoan );
+                EditText product=linearLayout1.findViewById( R.id.product );
+                EditText tax1=linearLayout1.findViewById( R.id.tax1 );
+                EditText material=linearLayout1.findViewById( R.id.material );
+                EditText workshop=linearLayout1.findViewById( R.id.workshop );
+                EditText equity=linearLayout1.findViewById( R.id.equity );
+                EditText equipment=linearLayout1.findViewById( R.id.equipment );
+                EditText retainedEarning=linearLayout1.findViewById( R.id.retainedEarning );
+                EditText constructionInProcess=linearLayout1.findViewById( R.id.constructionInProcess );
+                EditText anualNetProfit=linearLayout1.findViewById( R.id.anualNetProfit );
+                final TextView totalDebt=linearLayout1.findViewById( R.id.totalDebt );
+                final TextView totalCurrentAsset=linearLayout1.findViewById( R.id.totalCurrentAsset );
+                final TextView totalFixedAsset=linearLayout1.findViewById( R.id.totalFixedAsset );
+                final TextView totalEquity=linearLayout1.findViewById( R.id.totalEquity );
+                final TextView totalAsset=linearLayout1.findViewById( R.id.totalAsset );
+                final TextView total1=linearLayout1.findViewById( R.id.total1 );
+                final EditText []t3={cash,longLoan,receivable,shortLoan,productInProcess,specialLoan,product,tax1,material,workshop,equity,equipment,retainedEarning,constructionInProcess,anualNetProfit};
+                final TextView []u3={totalDebt,totalCurrentAsset,totalFixedAsset,totalEquity,totalAsset,total1};
+                final EditText []n1={cash,receivable,productInProcess,product,material};
+                final EditText []n2={longLoan,shortLoan,specialLoan,tax1};
+                final EditText []n3={workshop,equipment,constructionInProcess};
+                final EditText []n4={equity,retainedEarning,anualNetProfit};
+                for(int i=0;i<15;i++)
+                {
+                    t3[i].setOnFocusChangeListener( new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            int s1=0;
+                            int s2=0;
+                            int s3=0;
+                            int s4=0;
+                            int s5=0;
+                            int s6=0;
+                            for(int j=0;j<5;j++)
+                            {
+                                if(!n1[j].getText().toString().equals( "" ))
+                                {
+                                    s1=s1+Integer.parseInt( n1[j].getText().toString() );
+                                }
+                            }
+                            totalCurrentAsset.setText( String.valueOf( s2 ) );
+                            for(int j=0;j<4;j++)
+                            {
+                                if(!n2[j].getText().toString().equals( "" ))
+                                {
+                                    s2=s2+Integer.parseInt( n2[j].getText().toString() );
+                                }
+                            }
+                            totalDebt.setText( String.valueOf( s2 ) );
+                            for(int j=0;j<3;j++)
+                            {
+                                if(!n3[j].getText().toString().equals( "" ))
+                                {
+                                    s3=s3+Integer.parseInt( n3[j].getText().toString() );
+                                }
+                            }
+                            totalFixedAsset.setText( String.valueOf( s3 ) );
+                            for(int j=0;j<3;j++)
+                            {
+                                if(!n4[j].getText().toString().equals( "" )&&!n4[j].getText().toString().equals( "-" ))
+                                {
+                                    s4=s4+Integer.parseInt( n4[j].getText().toString() );
+                                }
+                            }
+                            totalEquity.setText( String.valueOf( s4 ) );
+                            totalAsset.setText( String.valueOf( s1+s3 ) );
+                            total1.setText( String.valueOf( s2+s4 ) );
+                        }
+                    } );
+                }
                 composite.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2333,13 +2743,95 @@ public class MainActivity extends AppCompatActivity{
                         table3.setVisibility( View.VISIBLE );
                     }
                 } );
+
+
                 alertDialog1.setTitle( "填写报表" )
                         .setView( linearLayout1 )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                int []charge=new int[11];
+                                int []profits=new int [10];
+                                int []balance=new int [21];
+                                for(int i=0;i<10;i++)
+                                {
+                                    if(t1[i].getText().toString().equals( "" )||t1[i].getText().toString().equals( "0" ))
+                                    {
+                                        charge[i]=0;
+                                    }
+                                    else
+                                    {
+                                        charge[i]=Integer.parseInt( t1[i].getText().toString() );
+                                    }
+                                }
+                                charge[10]=Integer.parseInt( total.getText().toString() );
+
+                                for(int i=0;i<6;i++)
+                                {
+                                    if(t2[i].getText().toString().equals( "" )||t2[i].getText().toString().equals( "0" ))
+                                    {
+                                        profits[i]=0;
+                                    }
+                                    else
+                                    {
+                                        profits[i]=Integer.parseInt( t2[i].getText().toString() );
+                                    }
+                                }
+                                for(int i=6;i<10;i++)
+                                {
+                                    profits[i]=Integer.parseInt( u2[i-6].getText().toString());
+                                }
+                                for(int i=0;i<15;i++)
+                                {
+                                    if(t3[i].getText().toString().equals( "" )||t3[i].getText().toString().equals( "0" ))
+                                    {
+                                        balance[i]=0;
+                                    }
+                                    else
+                                    {
+                                        balance[i]=Integer.parseInt( t3[i].getText().toString() );
+                                    }
+                                }
+                                for(int i=15;i<21;i++)
+                                {
+                                    balance[i]=Integer.parseInt( u3[i-15].getText().toString());
+                                }
+                                HttpUtil.save( token, charge, profits, balance, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread( new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                            }
+                                        } );
+                                    }
+                                } );
+                                HttpUtil.submit( token, charge, profits, balance, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread( new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                            }
+                                        } );
+                                    }
+                                } );
                                 dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
+                               // Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
                                 report.setVisibility( View.GONE );
 
                             }
@@ -2881,7 +3373,7 @@ public class MainActivity extends AppCompatActivity{
         final TextView residual4=linearLayout1.findViewById( R.id.residual4 );
         final TextView[] residual={residual1,residual2,residual3,residual4};
         final int[] x=new int[4];
-        HttpUtil.dispostList(token,"0",new Callback() {
+        HttpUtil.disposeList(token,"0",new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
             }
@@ -3038,57 +3530,12 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    private void researchproduce(final Button res)
+    //产品研发
+    private void researchproduce(final Button res,String token)
     {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
-                Button allselect=linearLayout1.findViewById( R.id.allselect );
-                final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
-                final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
-                final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
-                final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
-                final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
-                allselect.setOnClickListener( new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
-                        {
-                            s1.setChecked( false );
-                            s2.setChecked( false);
-                            s3.setChecked( false );
-                            s4.setChecked( false );
-                            s5.setChecked( false );
-                        }
-                        else
-                        {
-                            s1.setChecked( true );
-                            s2.setChecked( true );
-                            s3.setChecked( true );
-                            s4.setChecked( true );
-                            s5.setChecked( true );
-                        }
 
-                    }
-                } );
-        alertDialog.setTitle( "产品研发" )
-                .setView(  linearLayout1)
-                .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        res.setVisibility( View.GONE );
-                        dialog.dismiss();
-
-                    }
-                } )
-                .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                } )
-                .create();
-        alertDialog.show();
     }
+
     private ArrayAdapter<String> createLine(ArrayAdapter<String> adpter)
     {
         adpter = new ArrayAdapter<String>( this, android.R.layout.simple_spinner_item, list );
@@ -3100,7 +3547,7 @@ public class MainActivity extends AppCompatActivity{
 
         String url = "http://110.88.128.202:8088/stu/user/info";
         final informationBean[] info = {new informationBean()};
-        HttpUtil.decide(token,url, new Callback() {
+        HttpUtil.info(token,url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println( "error" );
@@ -3321,28 +3768,9 @@ public class MainActivity extends AppCompatActivity{
                             for(int i=0;i<developProductBeanList.size();i++)
                             {
                                 int x=0;
+                                x=developProductBeanList.get( i ).getProductId()-1;
                                 if(developProductBeanList.get( i ).getDevelopingRemainder()==0)
                                 {
-                                    if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P1" ))
-                                    {
-                                        x=0;
-                                    }
-                                    if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P2" ))
-                                    {
-                                        x=1;
-                                    }
-                                    if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P3" ))
-                                    {
-                                        x=2;
-                                    }
-                                    if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P4" ))
-                                    {
-                                        x=3;
-                                    }
-                                    if(developProductBeanList.get( i ).getConfigProduct().getName().equals( "P5" ))
-                                    {
-                                        x=4;
-                                    }
                                     p=p+developProductBeanList.get( i ).getConfigProduct().getName()+" ";
                                     products[x].setText( "已研发" );
                                 }

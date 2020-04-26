@@ -88,9 +88,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/management_cost"
+                        android:id="@+id/adminstrativeCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,9 +122,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/advertising_cost"
+                        android:id="@+id/adCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -156,9 +156,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/maintenance_cost"
+                        android:id="@+id/maintenanceCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -190,9 +190,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/lost"
+                        android:id="@+id/loss"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -224,9 +224,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/conversion_cost"
+                        android:id="@+id/turnOverCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -258,9 +258,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/rent"
+                        android:id="@+id/rentCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -292,9 +292,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/exploit_cost"
+                        android:id="@+id/developingMarketCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -326,9 +326,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/researchproduct_cost"
+                        android:id="@+id/developingProductCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -360,9 +360,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/investment_cost"
+                        android:id="@+id/developingIsoCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -394,9 +394,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/message_cost"
+                        android:id="@+id/informationCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -458,9 +458,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/selling_cost"
+                        android:id="@+id/sales"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -492,9 +492,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/direct_cost"
+                        android:id="@+id/directCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -522,7 +522,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
-                    android:id="@+id/gross_margin"></TextView>
+                    android:id="@+id/grossProfit"></TextView>
             </TableRow>
             <TableRow>
                 <TextView
@@ -546,9 +546,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/all"
+                        android:id="@+id/comprehensiveCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -576,7 +576,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
-                    android:id="@+id/ebidta"
+                    android:id="@+id/profitBeforeDepreciation"
                     ></TextView>
             </TableRow>
             <TableRow>
@@ -601,9 +601,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/depreciation"
+                        android:id="@+id/depreciationCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -631,7 +631,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
-                    android:id="@+id/profit_interest"></TextView>
+                    android:id="@+id/profitBeforeInterest"></TextView>
             </TableRow>
             <TableRow>
                 <TextView
@@ -655,9 +655,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/financial_cost"
+                        android:id="@+id/financialCost"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -685,7 +685,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
-                    android:id="@+id/pbt"></TextView>
+                    android:id="@+id/profitBeforeTax"></TextView>
             </TableRow>
             <TableRow>
                 <TextView
@@ -709,9 +709,9 @@
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textSize="15dp"
-                        android:id="@+id/income_tax"
+                        android:id="@+id/tax"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -739,7 +739,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
-                    android:id="@+id/retained_profit"></TextView>
+                    android:id="@+id/annualNetprofit"></TextView>
             </TableRow>
         </TableLayout>
         <TableLayout
@@ -848,7 +848,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/cash"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -880,7 +881,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/longLoan"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -914,7 +916,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/receivable"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -946,7 +949,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/shortLoan"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -980,7 +984,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/productInProcess"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1012,7 +1017,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/specialLoan"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1046,7 +1052,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/product"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1078,7 +1085,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/tax1"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1112,7 +1120,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/material"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1150,7 +1159,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/totalCurrentAsset">
                 </TextView>
                 <TextView
                     android:layout_width="135dp"
@@ -1169,7 +1179,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/totalDebt">
                 </TextView>
             </TableRow>
             <TableRow>
@@ -1228,7 +1239,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/workshop"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1260,7 +1272,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/equity"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1294,7 +1307,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/equipment"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1326,7 +1340,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"
+                        android:id="@+id/retainedEarning"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1360,7 +1375,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/constructionInProcess"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1392,7 +1408,8 @@
                         android:textColor="#000000"
                         android:textSize="15dp"
                         android:background="@drawable/textview_border"
-                        android:digits="1234567890"></EditText>
+                        android:inputType="numberSigned"
+                        android:id="@+id/anualNetProfit"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1411,7 +1428,8 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    >
                 </TextView>
                 <TextView
                     android:layout_width="130dp"
@@ -1420,7 +1438,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/totalFixedAsset">
                 </TextView>
                 <TextView
                     android:layout_width="135dp"
@@ -1439,7 +1458,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/totalEquity">
                 </TextView>
             </TableRow>
             <TableRow>
@@ -1460,7 +1480,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/totalAsset">
                 </TextView>
                 <TextView
                     android:layout_width="135dp"
@@ -1479,7 +1500,8 @@
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
-                    android:background="@drawable/textview_border">
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/total1">
                 </TextView>
             </TableRow>
         </TableLayout>

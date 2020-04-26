@@ -128,7 +128,8 @@
                     android:text="-"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:background="@drawable/textview_border"></TextView>
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/time1"></TextView>
             </TableRow>
             <TableRow>
                 <LinearLayout
@@ -174,7 +175,8 @@
                     android:text="-"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:background="@drawable/textview_border"></TextView>
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/time2"></TextView>
             </TableRow>
             <TableRow>
                 <LinearLayout
@@ -220,7 +222,8 @@
                     android:text="-"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:background="@drawable/textview_border"></TextView>
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/time3"></TextView>
             </TableRow>
             <TableRow>
                 <LinearLayout
@@ -266,7 +269,8 @@
                     android:text="-"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:background="@drawable/textview_border"></TextView>
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/time4"></TextView>
             </TableRow>
             <TableRow>
                 <LinearLayout
@@ -312,7 +316,8 @@
                     android:text="-"
                     android:textColor="#000000"
                     android:gravity="center"
-                    android:background="@drawable/textview_border"></TextView>
+                    android:background="@drawable/textview_border"
+                    android:id="@+id/time5"></TextView>
             </TableRow>
         </TableLayout>
         <TextView

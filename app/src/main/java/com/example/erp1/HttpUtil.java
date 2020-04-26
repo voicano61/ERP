@@ -66,7 +66,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
     //用户信息
-    public static void decide(String token,String address,okhttp3.Callback callback){
+    public static void info(String token,String address,okhttp3.Callback callback){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(address)
@@ -275,6 +275,31 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    //产品
+    public static void developingProductList(String token,okhttp3.Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8088/stu/ops/production/developingList")
+                .post(okhttp3.internal.Util.EMPTY_REQUEST)
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+    public static void developProduct(String token,String productIds,okhttp3.Callback callback)
+    {
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "productIds",productIds )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8088/stu/ops/production/develop")
+                .post(body)
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     //市场
     public static void developingMarketList(String token,okhttp3.Callback callback)
     {
@@ -336,7 +361,7 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
-    public static void svae(String token,int []charges,int []profits,int []balances,okhttp3.Callback callback)
+    public static void save(String token,int []charges,int []profits,int []balances,okhttp3.Callback callback)
     {
         OkHttpClient client = new OkHttpClient();
         chargeBean charge=new chargeBean();
@@ -618,7 +643,7 @@ public class HttpUtil {
     }
 
     //厂房
-    public static void dispostList(String token,String type,okhttp3.Callback callback)
+    public static void disposeList(String token,String type,okhttp3.Callback callback)
     {
         OkHttpClient client=new OkHttpClient();
         RequestBody body = new FormBody.Builder()

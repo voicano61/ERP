@@ -97,7 +97,7 @@ public class SigninActivity extends AppCompatActivity {
 
     private void decide(final String token, final String name) {
         String url = "http://110.88.128.202:8088/stu/user/info";
-        HttpUtil.decide(token,url, new Callback() {
+        HttpUtil.info(token,url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println( "error" );
