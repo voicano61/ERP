@@ -499,7 +499,19 @@ public class HttpUtil {
     }
 
     //广告
-
+    public static void adSubmit(String token,String ads,okhttp3.Callback callback)
+    {
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "ads",ads )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8088/stu/ops/ad/submit")
+                .post(body)
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 
     //贴现
     public static void discountList(String token,okhttp3.Callback callback)

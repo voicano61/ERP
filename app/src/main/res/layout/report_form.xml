@@ -419,7 +419,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -517,7 +517,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -571,7 +571,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -626,7 +626,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -680,7 +680,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -734,7 +734,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1155,7 +1155,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1175,7 +1175,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1434,7 +1434,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1454,7 +1454,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1476,7 +1476,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"
@@ -1496,7 +1496,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:text="0W"
+                    android:text="0"
                     android:textColor="#000000"
                     android:textSize="15dp"
                     android:gravity="center"

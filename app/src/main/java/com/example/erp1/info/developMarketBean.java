@@ -6,6 +6,7 @@ public class developMarketBean {
     private int id;
     private int userid;
     private int matchId;
+    private int marketId;
     private int startTime;
     private int finishTime;
     private configMarketBean configMarket;
@@ -40,6 +41,14 @@ public class developMarketBean {
 
     public void setMatchId(int matchId) {
         this.matchId = matchId;
+    }
+
+    public int getMarketId() {
+        return marketId;
+    }
+
+    public void setMarketId(int marketId) {
+        this.marketId = marketId;
     }
 
     public int getStartTime() {

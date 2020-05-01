@@ -3,6 +3,7 @@ package com.example.erp1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.RadialGradient;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -25,6 +27,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.erp1.changeline.changeLineBean;
+import com.example.erp1.developMarket.developingMarketBean;
+import com.example.erp1.developingISO.developingIsoBean;
 import com.example.erp1.discount.discountListBean;
 import com.example.erp1.dispose.disposeListBean;
 import com.example.erp1.info.companyBean;
@@ -42,7 +46,11 @@ import com.example.erp1.info.workshopBean;
 import com.example.erp1.purchase.dataBean;
 import com.example.erp1.purchase.purchaseListBean;
 import com.example.erp1.tLogin.loginBean;
+
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -598,13 +606,12 @@ public class MainActivity extends AppCompatActivity{
                                         });
                                     }
                                 } );
-                                setInfo(token );
                                 linearLayout.removeAllViews();
                                 //linearLayout2.setVisibility( View.GONE );
                                 linearLayout.addView( view3 );
                                 buy.setVisibility( View.VISIBLE );
                                 construction.setVisibility( View.VISIBLE);
-
+                                setInfo(token );
 
                             }
                         } )
@@ -785,6 +792,7 @@ public class MainActivity extends AppCompatActivity{
                                                         {
                                                             Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
                                                         }
+
                                                     }
                                                 });
                                             }
@@ -2049,262 +2057,31 @@ public class MainActivity extends AppCompatActivity{
                 delivery();
             }
         } );
-        //厂房处理
+        //厂房处理(未测试)
         managefactory.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managefactory();
+                managefactory(token);
             }
         } );
         managefactory1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managefactory();
+                managefactory(token);
             }
         } );
         //产品研发(success)
         researchproduct.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
-                Button allselect=linearLayout1.findViewById( R.id.allselect );
-                final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
-                final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
-                final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
-                final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
-                final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
-                final CheckBox []c={s1,s2,s3,s4,s5};
-                TextView time1=linearLayout1.findViewById( R.id.time1 );
-                TextView time2=linearLayout1.findViewById( R.id.time2 );
-                TextView time3=linearLayout1.findViewById( R.id.time3 );
-                TextView time4=linearLayout1.findViewById( R.id.time4 );
-                TextView time5=linearLayout1.findViewById( R.id.time5 );
-                final TextView []t={time1,time2,time3,time4,time5};
-                HttpUtil.developingProductList( token, new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        final String responseData = response.body().string();
-                        runOnUiThread( new Runnable() {
-                            @Override
-                            public void run() {
-                                com.example.erp1.developProduct.developProductBean developProduct=JSON.parseObject( responseData,com.example.erp1.developProduct.developProductBean.class );
-                                List<com.example.erp1.developProduct.productBean> productList=developProduct.getData();
-                                for(int i=0;i<productList.size();i++)
-                                {
-                                    if(productList.get( i ).getDevelopingRemainder()==0)
-                                    {
-                                        c[i].setVisibility( View.INVISIBLE );
-                                        t[i].setText( "0" );
-                                    }
-                                    else
-                                    {
-                                        t[i].setText( String.valueOf( productList.get( i ).getDevelopingRemainder() ) );
-                                    }
-                                }
-                            }
-                        } );
-                    }
-                } );
-//               allselect.setOnClickListener( new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
-//                        {
-//                            s1.setChecked( false );
-//                            s2.setChecked( false);
-//                            s3.setChecked( false );
-//                            s4.setChecked( false );
-//                            s5.setChecked( false );
-//                        }
-//                        else
-//                        {
-//                            s1.setChecked( true );
-//                            s2.setChecked( true );
-//                            s3.setChecked( true );
-//                            s4.setChecked( true );
-//                            s5.setChecked( true );
-//                        }
-//
-//                    }
-//                } );
-                alertDialog1.setTitle( "产品研发" )
-                        .setView(  linearLayout1)
-                        .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String pId="";
-                                for(int i=0;i<5;i++)
-                                {
-                                    if(c[i].isChecked())
-                                    {
-                                        if(pId.equals( "" ))
-                                        {
-                                            pId=String.valueOf( i+1 );
-                                        }
-                                        else
-                                        {
-                                            pId=pId+","+String.valueOf( i+1 );
-                                        }
-                                    }
-                                }
-                                HttpUtil.developProduct( token, pId, new Callback() {
-                                            @Override
-                                            public void onFailure(Call call, IOException e) {
-
-                                            }
-
-                                            @Override
-                                            public void onResponse(Call call, Response response) throws IOException {
-                                                final String responseData = response.body().string();
-                                                runOnUiThread( new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                    }
-                                                } );
-                                            }
-                                        });
-                                researchproduct.setVisibility( View.GONE );
-                                dialog.dismiss();
-                                setInfo( token );
-
-                            }
-                        } )
-                        .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        } )
-                        .create();
-                alertDialog1.show();
+                researchproduce(researchproduct,token);
 
             }
         } );
         researchproduct1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
-                Button allselect=linearLayout1.findViewById( R.id.allselect );
-                final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
-                final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
-                final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
-                final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
-                final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
-                final CheckBox []c={s1,s2,s3,s4,s5};
-                TextView time1=linearLayout1.findViewById( R.id.time1 );
-                TextView time2=linearLayout1.findViewById( R.id.time2 );
-                TextView time3=linearLayout1.findViewById( R.id.time3 );
-                TextView time4=linearLayout1.findViewById( R.id.time4 );
-                TextView time5=linearLayout1.findViewById( R.id.time5 );
-                final TextView []t={time1,time2,time3,time4,time5};
-                HttpUtil.developingProductList( token, new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        final String responseData = response.body().string();
-                        runOnUiThread( new Runnable() {
-                            @Override
-                            public void run() {
-                                com.example.erp1.developProduct.developProductBean developProduct=JSON.parseObject( responseData,com.example.erp1.developProduct.developProductBean.class );
-                                List<com.example.erp1.developProduct.productBean> productList=developProduct.getData();
-                                for(int i=0;i<productList.size();i++)
-                                {
-                                    if(productList.get( i ).getDevelopingRemainder()==0)
-                                    {
-                                        c[i].setVisibility( View.INVISIBLE );
-                                        t[i].setText( "0" );
-                                    }
-                                    else
-                                    {
-                                        t[i].setText( String.valueOf( productList.get( i ).getDevelopingRemainder() ) );
-                                    }
-                                }
-                            }
-                        } );
-                    }
-                } );
-//               allselect.setOnClickListener( new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
-//                        {
-//                            s1.setChecked( false );
-//                            s2.setChecked( false);
-//                            s3.setChecked( false );
-//                            s4.setChecked( false );
-//                            s5.setChecked( false );
-//                        }
-//                        else
-//                        {
-//                            s1.setChecked( true );
-//                            s2.setChecked( true );
-//                            s3.setChecked( true );
-//                            s4.setChecked( true );
-//                            s5.setChecked( true );
-//                        }
-//
-//                    }
-//                } );
-                alertDialog1.setTitle( "产品研发" )
-                        .setView(  linearLayout1)
-                        .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String pId="";
-                                for(int i=0;i<5;i++)
-                                {
-                                    if(c[i].isChecked())
-                                    {
-                                        if(pId.equals( "" ))
-                                        {
-                                            pId=String.valueOf( i+1 );
-                                        }
-                                        else
-                                        {
-                                            pId=pId+","+String.valueOf( i+1 );
-                                        }
-                                    }
-                                }
-                                HttpUtil.developProduct( token, pId, new Callback() {
-                                    @Override
-                                    public void onFailure(Call call, IOException e) {
-
-                                    }
-
-                                    @Override
-                                    public void onResponse(Call call, Response response) throws IOException {
-                                        final String responseData = response.body().string();
-                                        runOnUiThread( new Runnable() {
-                                            @Override
-                                            public void run() {
-                                            }
-                                        } );
-                                    }
-                                });
-                                researchproduct1.setVisibility( View.GONE );
-                                dialog.dismiss();
-                                setInfo( token );
-
-                            }
-                        } )
-                        .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        } )
-                        .create();
-                alertDialog1.show();
+                researchproduce(researchproduct1,token);
             }
         } );
         //当季结束(success)
@@ -2356,7 +2133,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         } );
-        //市场开拓
+        //市场开拓(success)
         exploit.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2367,26 +2144,63 @@ public class MainActivity extends AppCompatActivity{
                 final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
                 final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
                 final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
-                allselect.setOnClickListener( new View.OnClickListener() {
+                final CheckBox[]s={s1,s2,s3,s4,s5};
+//                allselect.setOnClickListener( new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
+//                        {
+//                            s1.setChecked( false );
+//                            s2.setChecked( false);
+//                            s3.setChecked( false );
+//                            s4.setChecked( false );
+//                            s5.setChecked( false );
+//                        }
+//                        else
+//                        {
+//                            s1.setChecked( true );
+//                            s2.setChecked( true );
+//                            s3.setChecked( true );
+//                            s4.setChecked( true );
+//                            s5.setChecked( true );
+//                        }
+//
+//                    }
+//                } );
+                final TextView time1=linearLayout1.findViewById( R.id.time1 );
+                final TextView time2=linearLayout1.findViewById( R.id.time2 );
+                final TextView time3=linearLayout1.findViewById( R.id.time3 );
+                final TextView time41=linearLayout1.findViewById( R.id.time4 );
+                final TextView time5=linearLayout1.findViewById( R.id.time5 );
+                final TextView []time={time1,time2,time3,time41,time5};
+                HttpUtil.developingMarketList( token, new Callback() {
                     @Override
-                    public void onClick(View v) {
-                        if(s1.isChecked()&&s2.isChecked()&&s3.isChecked()&&s4.isChecked()&&s5.isChecked())
-                        {
-                            s1.setChecked( false );
-                            s2.setChecked( false);
-                            s3.setChecked( false );
-                            s4.setChecked( false );
-                            s5.setChecked( false );
-                        }
-                        else
-                        {
-                            s1.setChecked( true );
-                            s2.setChecked( true );
-                            s3.setChecked( true );
-                            s4.setChecked( true );
-                            s5.setChecked( true );
-                        }
+                    public void onFailure(Call call, IOException e) {
 
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                developingMarketBean  developingMarket=JSON.parseObject( responseData,developingMarketBean.class );
+                                List<developMarketBean> developMarketList=developingMarket.getData();
+                                for(int i=0;i<developMarketList.size();i++)
+                                {
+                                    if(developMarketList.get( i ).getDevelopingRemainder()>0)
+                                    {
+                                        time[i].setText( String.valueOf(  developMarketList.get( i ).getDevelopingRemainder()) );
+                                    }
+                                    if(developMarketList.get( i ).getDevelopingRemainder()==0&&developMarketList.get( i ).getCreateTime()!=null)
+                                    {
+                                        s[i].setEnabled( false );
+                                        time[i].setText( "已开拓" );
+                                    }
+                                }
+                            }
+                        });
                     }
                 } );
                 alertDialog1.setTitle( "市场开拓" )
@@ -2394,9 +2208,48 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                String id="";
+                                for(int i=0;i<5;i++)
+                                {
+                                    if(s[i].isChecked())
+                                    {
+                                        if(id.equals( "" ))
+                                        {
+                                            id=String.valueOf( i+1);
+                                        }
+                                        else
+                                        {
+                                            id=id+","+String.valueOf( i+1 );
+                                        }
+                                    }
+                                }
+                                HttpUtil.developMarket( token, id, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                if(info.getResultCode()==500)
+                                                {
+                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                }
+                                                if(info.getResultCode()==200)
+                                                {
+                                                    exploit.setVisibility( View.GONE );
+                                                }
+                                            }
+                                        });
+                                    }
+                                } );
                                 dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
-                                exploit.setVisibility( View.GONE );
+                                setInfo( token );
 
                             }
                         } )
@@ -2410,7 +2263,7 @@ public class MainActivity extends AppCompatActivity{
                 alertDialog1.show();
             }
         } );
-        //ISO投资
+        //ISO投资（success）
         investment.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2418,32 +2271,104 @@ public class MainActivity extends AppCompatActivity{
                 Button allselect=linearLayout1.findViewById( R.id.allselect );
                 final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
                 final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
-                allselect.setOnClickListener( new View.OnClickListener() {
+                final CheckBox []s={s1,s2};
+                TextView time1=linearLayout1.findViewById( R.id.time1 );
+                TextView time2=linearLayout1.findViewById( R.id.time2 );
+                final TextView []time={time1,time2};
+                HttpUtil.developingISOList( token, new Callback() {
                     @Override
-                    public void onClick(View v) {
-                        if(s1.isChecked()&&s2.isChecked())
-                        {
-                            s1.setChecked( false );
-                            s2.setChecked( false);
-                        }
-                        else
-                        {
-                            s1.setChecked( true );
-                            s2.setChecked( true );
-
-                        }
+                    public void onFailure(Call call, IOException e) {
 
                     }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String responseData = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                developingIsoBean developingISO=JSON.parseObject( responseData,developingIsoBean.class );
+                                List<developIsoBean> developIsoList=developingISO.getData();
+                                for(int i=0;i<developIsoList.size();i++)
+                                {
+                                    if(developIsoList.get( i ).getDevelopingRemainder()>0)
+                                    {
+                                        time[i].setText( String.valueOf(  developIsoList.get( i ).getDevelopingRemainder()) );
+                                    }
+                                    if(developIsoList.get( i ).getDevelopingRemainder()==0&&developIsoList.get( i ).getCreateTime()!=null)
+                                    {
+                                        s[i].setEnabled( false );
+                                        time[i].setText( "已认证" );
+                                    }
+                                }
+                            }
+                        });
+                    }
                 } );
-                alertDialog1.setTitle( "市场开拓" )
+//                allselect.setOnClickListener( new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(s1.isChecked()&&s2.isChecked())
+//                        {
+//                            s1.setChecked( false );
+//                            s2.setChecked( false);
+//                        }
+//                        else
+//                        {
+//                            s1.setChecked( true );
+//                            s2.setChecked( true );
+//
+//                        }
+//
+//                    }
+//                } );
+                alertDialog1.setTitle( "ISO投资" )
                         .setView( linearLayout1 )
                         .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Toast.makeText( MainActivity.this,"已进行该操作",Toast.LENGTH_SHORT ).show();
-                                investment.setVisibility( View.GONE );
+                                String id="";
+                                for(int i=0;i<2;i++)
+                                {
+                                    if(s[i].isChecked())
+                                    {
+                                        if(id.equals( "" ))
+                                        {
+                                            id=String.valueOf( i+1);
+                                        }
+                                        else
+                                        {
+                                            id=id+","+String.valueOf( i+1 );
+                                        }
+                                    }
+                                }
+                                HttpUtil.developISO( token, id, new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
 
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                if(info.getResultCode()==500)
+                                                {
+                                                    Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                }
+                                                if(info.getResultCode()==200)
+                                                {
+                                                    investment.setVisibility( View.GONE );
+                                                }
+                                            }
+                                        });
+                                    }
+                                } );
+                                dialog.dismiss();
+                                setInfo( token );
                             }
                         } )
                         .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -2796,23 +2721,6 @@ public class MainActivity extends AppCompatActivity{
                                 {
                                     balance[i]=Integer.parseInt( u3[i-15].getText().toString());
                                 }
-                                HttpUtil.save( token, charge, profits, balance, new Callback() {
-                                    @Override
-                                    public void onFailure(Call call, IOException e) {
-
-                                    }
-
-                                    @Override
-                                    public void onResponse(Call call, Response response) throws IOException {
-                                        final String responseData = response.body().string();
-                                        runOnUiThread( new Runnable() {
-                                            @Override
-                                            public void run() {
-
-                                            }
-                                        } );
-                                    }
-                                } );
                                 HttpUtil.submit( token, charge, profits, balance, new Callback() {
                                     @Override
                                     public void onFailure(Call call, IOException e) {
@@ -2847,20 +2755,152 @@ public class MainActivity extends AppCompatActivity{
             }
         } );
 
-        //投放广告
+        //投放广告(success)
         advertising.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(report.getVisibility()==View.GONE) {
                     LinearLayout linearLayout1 = (LinearLayout) getLayoutInflater().inflate( R.layout.advertising, null );
+                    EditText local1=linearLayout1.findViewById( R.id.local1 );
+                    EditText local2=linearLayout1.findViewById( R.id.local2 );
+                    EditText local3=linearLayout1.findViewById( R.id.local3 );
+                    EditText local4=linearLayout1.findViewById( R.id.local4 );
+                    EditText local5=linearLayout1.findViewById( R.id.local5 );
+                    final EditText []local={local1,local2,local3,local4,local5};
+                    EditText region1=linearLayout1.findViewById( R.id.region1 );
+                    EditText region2=linearLayout1.findViewById( R.id.region2 );
+                    EditText region3=linearLayout1.findViewById( R.id.region3 );
+                    EditText region4=linearLayout1.findViewById( R.id.region4 );
+                    EditText region5=linearLayout1.findViewById( R.id.region5 );
+                    final EditText []region={region1,region2,region3,region4,region5};
+                    EditText domestic1=linearLayout1.findViewById( R.id.domestic1 );
+                    EditText domestic2=linearLayout1.findViewById( R.id.domestic2 );
+                    EditText domestic3=linearLayout1.findViewById( R.id.domestic3 );
+                    EditText domestic4=linearLayout1.findViewById( R.id.domestic4 );
+                    EditText domestic5=linearLayout1.findViewById( R.id.domestic5 );
+                    final EditText []domestic={domestic1,domestic2,domestic3,domestic4,domestic5};
+                    EditText asia1=linearLayout1.findViewById( R.id.asia1 );
+                    EditText asia2=linearLayout1.findViewById( R.id.asia2 );
+                    EditText asia3=linearLayout1.findViewById( R.id.asia3 );
+                    EditText asia4=linearLayout1.findViewById( R.id.asia4 );
+                    EditText asia5=linearLayout1.findViewById( R.id.asia5 );
+                    final EditText []asia={asia1,asia2,asia3,asia4,asia5};
+                    EditText international1=linearLayout1.findViewById( R.id.international1 );
+                    EditText international2=linearLayout1.findViewById( R.id.international2 );
+                    EditText international3=linearLayout1.findViewById( R.id.international3 );
+                    EditText international4=linearLayout1.findViewById( R.id.international4 );
+                    EditText international5=linearLayout1.findViewById( R.id.international5 );
+                    final EditText []international={international1,international2,international3,international4,international5};
+                    TextView m1=linearLayout1.findViewById( R.id.m1 );
+                    TextView m2=linearLayout1.findViewById( R.id.m2 );
+                    TextView m3=linearLayout1.findViewById( R.id.m3 );
+                    TextView m4=linearLayout1.findViewById( R.id.m4 );
+                    TextView m5=linearLayout1.findViewById( R.id.m5 );
+                    final TextView []m={m1,m2,m3,m4,m5};
+                    final EditText [][]market={local,region,domestic,asia,international};
+                    final int []markedId=new int[5];
+                    final  int[]productId=new int[5];
+                    final int[] x = {0};
+                    HttpUtil.developingMarketList( token, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            final String responseData = response.body().string();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    developingMarketBean developingMarket=JSON.parseObject( responseData,developingMarketBean.class);
+                                    List<developMarketBean> developMarketList=developingMarket.getData();
+                                    if(developingMarket.getResultCode()==500)
+                                    {
+                                        Toast.makeText( MainActivity.this,developingMarket.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                        setInfo( token );
+                                    }
+                                    else
+                                    {
+                                        for(int i=0;i<developMarketList.size();i++)
+                                        {
+                                            if(developMarketList.get( i ).getDevelopingRemainder()==0&&developMarketList.get( i ).getCreateTime()!=null)
+                                            {
+                                                markedId[x[0]]=i;
+                                                x[0] = x[0] +1;
+                                                for(int j=0;j<5;j++)
+                                                {
+                                                    market[i][j].setEnabled( true );
+                                                }
+                                                m[i].setTextColor( Color.parseColor( "#000000" ) );
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    } );
                     alertDialog1.setTitle( "投放广告" )
                             .setView( linearLayout1 )
                             .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    Toast.makeText( MainActivity.this, "已进行该操作", Toast.LENGTH_SHORT ).show();
+                                    String s="[";
+                                    for(int i=0;i<5;i++)
+                                    {
+                                        for(int j=0;j<x[0];j++)
+                                        {
+                                            for(int z=0;z<5;z++)
+                                            {
+                                                if(market[markedId[j]][z].getText().toString()==null||market[markedId[j]][z].getText().toString().equals( "" )||Integer.parseInt(  market[markedId[j]][z].getText().toString())==0)
+                                                {
 
+                                                }
+                                                else
+                                                {
+                                                    if(s.equals( "[" ))
+                                                    {
+                                                        s=s+"{"+"\"marketId\":"+String.valueOf(  markedId[j]+1)+","+"\"productId\":"+String.valueOf( z+1 )+","+"\"adCost\":"+market[markedId[j]][z].getText().toString()+"}";
+                                                    }
+                                                    else
+                                                    {
+                                                        s=s+","+"{"+"\"marketId\":"+String.valueOf(  markedId[j]+1)+","+"\"productId\":"+String.valueOf( z+1 )+","+"\"adCost\":"+market[markedId[j]][z].getText().toString()+"}";
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    s=s+"]";
+                                    if(!s.equals( "[]" ))
+                                    {
+                                        HttpUtil.adSubmit( token, s, new Callback() {
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+
+                                            }
+
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                final String responseData = response.body().string();
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        informationBean info=JSON.parseObject( responseData,informationBean.class);
+                                                        if(info.getResultCode()==500)
+                                                        {
+                                                            Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        } );
+                                    }
+
+                                    dialog.dismiss();
+                                    linearLayout.removeAllViews();
+                                    linearLayout.addView( view7 );
+                                    setInfo( token );
                                 }
                             } )
                             .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -3144,6 +3184,11 @@ public class MainActivity extends AppCompatActivity{
                                     runOnUiThread( new Runnable() {
                                         @Override
                                         public void run() {
+                                            informationBean info=JSON.parseObject( responseData,informationBean.class );
+                                            if(info.getResultCode()==500)
+                                            {
+                                                Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                            }
                                         }
                                     } );
                                 }
@@ -3508,17 +3553,200 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    private void managefactory()
+
+    //厂房处理(未测试)
+    private void managefactory(final String token)
     {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.managefactory,null);
+        RadioGroup radioGroup=linearLayout1.findViewById( R.id.radioGroup );
+        final RadioButton s1=linearLayout1.findViewById( R.id.s1 );
+        final RadioButton s2=linearLayout1.findViewById( R.id.s1 );
+        final RadioButton s3=linearLayout1.findViewById( R.id.s1 );
+        TableRow row1=linearLayout1.findViewById( R.id.row1 );
+        TableRow row2=linearLayout1.findViewById( R.id.row2 );
+        TableRow row3=linearLayout1.findViewById( R.id.row3 );
+        TableRow row4=linearLayout1.findViewById( R.id.row4 );
+        final TableRow []r={row1,row2,row3,row4};
+        CheckBox c1=linearLayout1.findViewById( R.id.c1 );
+        CheckBox c2=linearLayout1.findViewById( R.id.c2 );
+        CheckBox c3=linearLayout1.findViewById( R.id.c3 );
+        CheckBox c4=linearLayout1.findViewById( R.id.c4 );
+        final CheckBox []c={c1,c2,c3,c4};
+        TextView name1=linearLayout1.findViewById( R.id.name1 );
+        TextView name2=linearLayout1.findViewById( R.id.name2 );
+        TextView name3=linearLayout1.findViewById( R.id.name3 );
+        TextView name4=linearLayout1.findViewById( R.id.name4 );
+        final TextView []name={name1,name2,name3,name4};
+        TextView status1=linearLayout1.findViewById( R.id.status1 );
+        TextView status2=linearLayout1.findViewById( R.id.status2 );
+        TextView status3=linearLayout1.findViewById( R.id.status3 );
+        TextView status4=linearLayout1.findViewById( R.id.status4 );
+        final TextView []status={status1,status2,status3,status4};
+        TextView capacity1=linearLayout1.findViewById( R.id.capacity1 );
+        TextView capacity2=linearLayout1.findViewById( R.id.capacity2 );
+        TextView capacity3=linearLayout1.findViewById( R.id.capacity3 );
+        TextView capacity4=linearLayout1.findViewById( R.id.capacity4 );
+        final TextView []capacity={capacity1,capacity2,capacity3,capacity4};
+        TextView residualCapacity1=linearLayout1.findViewById( R.id.residualCapacity1 );
+        TextView residualCapacity2=linearLayout1.findViewById( R.id.residualCapacity2 );
+        TextView residualCapacity3=linearLayout1.findViewById( R.id.residualCapacity3 );
+        TextView residualCapacity4=linearLayout1.findViewById( R.id.residualCapacity4 );
+        final TextView []residualCapacity={residualCapacity1,residualCapacity2,residualCapacity3,residualCapacity4};
+        final String[] type =new String[1];
+        final String[] wId=new String[4];
+        type[0]="";
+        radioGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for(int i=0;i<4;i++)
+                {
+                    r[i].setVisibility( View.GONE );
+                    c[i].setChecked(  false);
+                }
+                if(checkedId==s1.getId())
+                {
+                    type[0]="0";
+                    HttpUtil.disposeList( token, "0", new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            final String responseData = response.body().string();
+                            runOnUiThread( new Runnable() {
+                                @Override
+                                public void run() {
+                                    disposeListBean disposeList=JSON.parseObject( responseData,disposeListBean.class );
+                                    List<com.example.erp1.dispose.dataBean> workshopList=disposeList.getData();
+                                    for(int i=0;i<workshopList.size();i++ )
+                                    {
+                                        wId[i]=String.valueOf( workshopList.get( i ).getId() );
+                                        r[i].setVisibility( View.VISIBLE );
+                                        name[i].setText( workshopList.get( i ).getConfigWorkshop().getName()+"("+workshopList.get( i ).getId()+")");
+                                        status[i].setText( workshopList.get( i ).getWorkshopStatusDesc() );
+                                        capacity[i].setText( String.valueOf( workshopList.get( i ).getConfigWorkshop().getCapacity() ) );
+                                        residualCapacity[i].setText( String.valueOf( workshopList.get( i ).getResidualCapacity() ) );
+                                    }
+
+                                }
+                            } );
+                        }
+                    } );
+                }
+                if(checkedId==s2.getId())
+                {
+                    type[0]="1";
+                    HttpUtil.disposeList( token, "1", new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            final String responseData = response.body().string();
+                            runOnUiThread( new Runnable() {
+                                @Override
+                                public void run() {
+                                    disposeListBean disposeList=JSON.parseObject( responseData,disposeListBean.class );
+                                    List<com.example.erp1.dispose.dataBean> workshopList=disposeList.getData();
+                                    for(int i=0;i<workshopList.size();i++ )
+                                    {
+                                        wId[i]=String.valueOf( workshopList.get( i ).getId() );
+                                        r[i].setVisibility( View.VISIBLE );
+                                        name[i].setText( workshopList.get( i ).getConfigWorkshop().getName()+"("+workshopList.get( i ).getId()+")" );
+                                        status[i].setText( workshopList.get( i ).getWorkshopStatusDesc() );
+                                        capacity[i].setText( String.valueOf( workshopList.get( i ).getConfigWorkshop().getCapacity() ) );
+                                        residualCapacity[i].setText( String.valueOf( workshopList.get( i ).getResidualCapacity() ) );
+                                    }
+
+                                }
+                            } );
+                        }
+                    } );
+                }
+                if(checkedId==s3.getId())
+                {
+                    type[0]="2";
+                    HttpUtil.disposeList( token, "2", new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            final String responseData = response.body().string();
+                            runOnUiThread( new Runnable() {
+                                @Override
+                                public void run() {
+                                    disposeListBean disposeList=JSON.parseObject( responseData,disposeListBean.class );
+                                    List<com.example.erp1.dispose.dataBean> workshopList=disposeList.getData();
+                                    for(int i=0;i<workshopList.size();i++ )
+                                    {
+                                        wId[i]=String.valueOf( workshopList.get( i ).getId() );
+                                        r[i].setVisibility( View.VISIBLE );
+                                        name[i].setText( workshopList.get( i ).getConfigWorkshop().getName()+"("+workshopList.get( i ).getId()+")" );
+                                        status[i].setText( workshopList.get( i ).getWorkshopStatusDesc() );
+                                        capacity[i].setText( String.valueOf( workshopList.get( i ).getConfigWorkshop().getCapacity() ) );
+                                        residualCapacity[i].setText( String.valueOf( workshopList.get( i ).getResidualCapacity() ) );
+                                    }
+
+                                }
+                            } );
+                        }
+                    } );
+                }
+            }
+        } );
         alertDialog.setTitle( "厂房处理" )
                 .setView(  linearLayout1)
                 .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        if(!type[0].equals( "" ))
+                        {
+                            String id="";
+                            for(int i=0;i<4;i++)
+                            {
+                                if(c[i].isChecked())
+                                {
 
+                                    if(id.equals(""))
+                                    {
+                                        id=wId[i];
+                                    }
+                                    else
+                                    {
+                                        id=id+","+wId[i];
+                                    }
+                                }
+                            }
+                            if(!id.equals( "" ))
+                            {
+                               // Toast.makeText( MainActivity.this,id,Toast.LENGTH_SHORT ).show();
+                                HttpUtil.disposeworkshop( token, id, type[0], new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+
+                                    }
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        final String responseData = response.body().string();
+                                        runOnUiThread( new Runnable() {
+                                            @Override
+                                            public void run() {
+                                            }
+                                        } );
+                                    }
+                                } );
+                            }
+                        }
+                        dialog.dismiss();
+                        setInfo( token );
                     }
                 } )
                 .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
@@ -3530,10 +3758,116 @@ public class MainActivity extends AppCompatActivity{
                 .create();
         alertDialog.show();
     }
-    //产品研发
-    private void researchproduce(final Button res,String token)
+    //产品研发(success）
+    private void researchproduce(final Button res,final String token)
     {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        LinearLayout linearLayout1=(LinearLayout)getLayoutInflater().inflate( R.layout.researchproduct,null);
+        Button allselect=linearLayout1.findViewById( R.id.allselect );
+        final CheckBox s1=linearLayout1.findViewById( R.id.s1 );
+        final CheckBox s2=linearLayout1.findViewById( R.id.s2 );
+        final CheckBox s3=linearLayout1.findViewById( R.id.s3 );
+        final CheckBox s4=linearLayout1.findViewById( R.id.s4 );
+        final CheckBox s5=linearLayout1.findViewById( R.id.s5 );
+        final CheckBox []c={s1,s2,s3,s4,s5};
+        TextView time1=linearLayout1.findViewById( R.id.time1 );
+        TextView time2=linearLayout1.findViewById( R.id.time2 );
+        TextView time3=linearLayout1.findViewById( R.id.time3 );
+        TextView time4=linearLayout1.findViewById( R.id.time4 );
+        TextView time5=linearLayout1.findViewById( R.id.time5 );
+        final TextView []t={time1,time2,time3,time4,time5};
+        HttpUtil.developingProductList( token, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseData = response.body().string();
+                runOnUiThread( new Runnable() {
+                    @Override
+                    public void run() {
+                        com.example.erp1.developProduct.developProductBean developProduct=JSON.parseObject( responseData,com.example.erp1.developProduct.developProductBean.class );
+                        List<com.example.erp1.developProduct.productBean> productList=developProduct.getData();
+                        for(int i=0;i<productList.size();i++)
+                        {
+                            if(productList.get( i ).getDevelopingRemainder()==0)
+                            {
+                                c[i].setEnabled( false );
+                                t[i].setText( "已研发" );
+                            }
+                            else if(productList.get( i ).getDevelopingRemainder()==-1)
+                            {
+                                t[i].setText( "未研发" );
+                            }
+                            else
+                            {
+                                t[i].setText( String.valueOf( productList.get( i ).getDevelopingRemainder() ) );
+                            }
+                        }
+                    }
+                } );
+            }
+        } );
+        alertDialog.setTitle( "产品研发" )
+                .setView(  linearLayout1)
+                .setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String pId="";
+                        for(int i=0;i<5;i++)
+                        {
+                            if(c[i].isChecked())
+                            {
+                                if(pId.equals( "" ))
+                                {
+                                    pId=String.valueOf( i+1 );
+                                }
+                                else
+                                {
+                                    pId=pId+","+String.valueOf( i+1 );
+                                }
+                            }
+                        }
+                        HttpUtil.developProduct( token, pId, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                final String responseData = response.body().string();
+                                runOnUiThread( new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        informationBean info=JSON.parseObject( responseData,informationBean.class );
+                                        if(info.getResultCode()==500)
+                                        {
+                                            Toast.makeText( MainActivity.this,info.getResultMessage(),Toast.LENGTH_SHORT ).show();
+                                        }
+                                        if(info.getResultCode()==200)
+                                        {
+                                            res.setVisibility( View.GONE );
+                                        }
+                                    }
+                                } );
+                            }
+                        });
+                        dialog.dismiss();
+                        setInfo( token );
+
+                    }
+                } )
+                .setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                } )
+                .create();
+        alertDialog.show();
     }
 
     private ArrayAdapter<String> createLine(ArrayAdapter<String> adpter)
@@ -3667,39 +4001,18 @@ public class MainActivity extends AppCompatActivity{
                             }
                             for(int i=0;i<developMarketBeanList.size();i++)
                             {
-                                int x=0;
                                 if(developMarketBeanList.get( i ).getDevelopingRemainder()==0)
                                 {
                                     s=s+developMarketBeanList.get( i ).getConfigMarket().getName()+" ";
 //                                SpannableString spannableString =new SpannableString(s);
 //                                spannableString.setSpan( new ForegroundColorSpan( Color.parseColor( "#992424" ) ), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-                                    if(developMarketBeanList.get( i).getConfigMarket().getName()=="本地")
-                                    {
-                                        x=0;
-                                    }
-                                    if(developMarketBeanList.get( i).getConfigMarket().getName()=="区域")
-                                    {
-                                        x=1;
-                                    }
-                                    if(developMarketBeanList.get( i).getConfigMarket().getName()=="国内")
-                                    {
-                                        x=2;
-                                    }
-                                    if(developMarketBeanList.get( i).getConfigMarket().getName()=="亚洲")
-                                    {
-                                        x=3;
-                                    }
-                                    if(developMarketBeanList.get( i).getConfigMarket().getName()=="国际")
-                                    {
-                                        x=4;
-                                    }
-                                    markets[x].setText( "已开拓" );
+                                    markets[developMarketBeanList.get( i ).getMarketId()-1].setText( "已开拓" );
                                 }
                                 else
                                 {
                                     j=j+1;
                                     String m="剩余"+developMarketBeanList.get( i ).getDevelopingRemainder()+"年";
-                                    markets[x].setText( m );
+                                    markets[developMarketBeanList.get( i ).getMarketId()-1].setText( m );
                                 }
 
                             }
@@ -3714,33 +4027,23 @@ public class MainActivity extends AppCompatActivity{
                             TextView iso1=findViewById( R.id.iso1 );
                             TextView iso2=findViewById( R.id.iso2 );
                             TextView []isos={iso1,iso2};
-                            int []isonum={0,0};
+                            iso1.setText( "未认证" );
+                            iso2.setText( "未认证" );
                             List<developIsoBean> developIsoBeanList=info.getData().getDevelopIso();
                             int z=0;
                             String isomessage="";
                             for(int i=0;i<developIsoBeanList.size();i++)
                             {
-                                int x=0;
                                 if(developIsoBeanList.get( i ).getDevelopingRemainder()==0)
                                 {
                                     isomessage=isomessage+developIsoBeanList.get( i ).getConfigIso().getName()+" ";
-                                    if(developIsoBeanList.get( i ).getConfigIso().getName().equals( "ISO9000" ))
-                                    {
-                                        x=0;
-                                    }
-                                    if(developIsoBeanList.get( i ).getConfigIso().getName().equals( "ISO14000" ))
-                                    {
-                                        x=1;
-                                    }
-                                    isos[x].setText( "已认证" );
-                                    isonum[x]=1;
+                                    isos[developIsoBeanList.get( i ).getIsoId()-1].setText( "已认证" );
 
                                 }
                                 else
                                 {
                                     String m="剩余"+developIsoBeanList.get( i ).getDevelopingRemainder()+"年";
-                                    isos[x].setText( m);
-                                    isonum[x]=1;
+                                    isos[developIsoBeanList.get( i ).getIsoId()-1].setText( m);
                                     z=z+1;
                                 }
                             }
@@ -3749,6 +4052,7 @@ public class MainActivity extends AppCompatActivity{
                             {
                                 iso.setText( "暂无" );
                                 iso.setTextColor( Color.parseColor( "#000000" ));
+
                             }
 
                             TextView product=findViewById( R.id.product );

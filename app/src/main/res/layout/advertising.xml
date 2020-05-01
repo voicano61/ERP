@@ -49,6 +49,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
+                    android:id="@+id/m1"
                     >
                 </TextView>
                 <TextView
@@ -59,6 +60,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
+                    android:id="@+id/m2"
                     >
                 </TextView>
                 <TextView
@@ -69,6 +71,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
+                    android:id="@+id/m3"
                     >
                 </TextView>
                 <TextView
@@ -79,6 +82,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
+                    android:id="@+id/m4"
                     >
                 </TextView>
                 <TextView
@@ -89,6 +93,7 @@
                     android:textSize="15dp"
                     android:gravity="center"
                     android:background="@drawable/textview_border"
+                    android:id="@+id/m5"
                     >
                 </TextView>
             </TableRow>
@@ -116,7 +121,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/local1"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,7 +144,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/region1"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,7 +167,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/domestic1"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -182,7 +190,9 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/asia1"
+                        ></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -204,7 +214,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/international1"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -237,7 +248,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/local2"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -259,7 +271,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/region2"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -281,7 +294,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/domestic2"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -303,7 +317,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/asia2"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -325,7 +340,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/international2"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -358,7 +374,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/local3"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -380,7 +397,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/region3"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -402,7 +420,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/domestic3"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -424,7 +443,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/asia3"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -446,7 +466,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/international3"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -479,7 +500,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/local4"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -501,7 +523,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/region4"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -523,7 +546,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/domestic4"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -545,7 +569,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/asia4"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -567,7 +592,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/international4"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -576,7 +602,8 @@
                         android:textColor="#000000"></TextView>
                 </LinearLayout>
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:background="@drawable/textview_border">
                 <TextView
                     android:layout_width="70dp"
                     android:layout_height="50dp"
@@ -600,7 +627,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/local5"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -622,7 +650,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/region5"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -644,7 +673,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/domestic5"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -666,7 +696,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/asia5"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -688,7 +719,8 @@
                         android:gravity="center"
                         android:enabled="false"
                         android:background="@drawable/textview_border"
-                        android:inputType="number"></EditText>
+                        android:inputType="number"
+                        android:id="@+id/international5"></EditText>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
