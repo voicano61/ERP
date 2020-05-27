@@ -722,4 +722,49 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    //参加订货会
+    public static void indexOrder(String token,String userId,Callback callback)
+    {
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "userId",userId )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8080/sandbox/api/orderFair/index.jhtml")
+                .post( body )
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+    //选择订单
+    public static void selectOrder(String token,String userId,String orderId,Callback callback)
+    {
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "userId",userId )
+                .add( "orderId",orderId )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8080/sandbox/api/orderFair/selectOrder.jhtml")
+                .post( body )
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+    //放弃选单
+    public static void abandonOrder(String token,String userId,String marketId,Callback callback)
+    {
+        OkHttpClient client=new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add( "userId",userId )
+                .add( "marketId",marketId )
+                .build();
+        Request request = new Request.Builder()
+                .url("http://110.88.128.202:8080/sandbox/api/orderFair/abandonOrder.jhtml")
+                .post( body )
+                .header( "token",token )
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }

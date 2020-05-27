@@ -24,9 +24,9 @@ public class HelpPageActivity extends AppCompatActivity{
         final Button rule=(Button)findViewById( R.id.rule );
         final Button market=(Button)findViewById( R.id.market );
         final Button back=(Button)findViewById( R.id.back );
-        final Button guide=(Button)findViewById( R.id.guide );
-        final Button knowledge=(Button)findViewById( R.id.knowledge );
-        final Button []list={rule,market,guide,knowledge};
+//        final Button guide=(Button)findViewById( R.id.guide );
+//        final Button knowledge=(Button)findViewById( R.id.knowledge );
+        final Button []list={rule,market};
         back.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +44,7 @@ public class HelpPageActivity extends AppCompatActivity{
 //                    //list[i].setBackgroundColor(getResources().getColor( android.R.color.holo_orange_light ));
 //                }
 //                rule.setBackgroundColor( Color.parseColor( "#707274" ) );
-                for(int i=0;i<=3;i++)
+                for(int i=0;i<2;i++)
                 {
                     list[i].setTextColor( Color.parseColor( "#000000" ));
                 }
@@ -62,7 +62,7 @@ public class HelpPageActivity extends AppCompatActivity{
 //                }
 //                market.setBackgroundColor( Color.parseColor( "#707274" ) );
 //                replaceFragment( new RuleRightFragment() );
-                for(int i=0;i<=3;i++)
+                for(int i=0;i<2;i++)
                 {
                     list[i].setTextColor( Color.parseColor( "#000000" ));
                 }
@@ -70,29 +70,29 @@ public class HelpPageActivity extends AppCompatActivity{
                 replaceFragment( new MarketRightFragment() );
             }
         } );
-        guide.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(int i=0;i<=3;i++)
-                {
-                    list[i].setTextColor( Color.parseColor( "#000000" ));
-                }
-                guide.setTextColor( Color.parseColor( "#992424" ));
-            }
-        } );
-        knowledge.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent=new Intent( Intent.ACTION_VIEW );
-//                intent.setData( Uri.parse("http://110.88.128.202:8080/sandbox/help/index.html") );
-//                startActivity( intent);
-                for(int i=0;i<=3;i++)
-                {
-                    list[i].setTextColor( Color.parseColor( "#000000" ));
-                }
-                knowledge.setTextColor( Color.parseColor( "#992424" ));
-            }
-        } );
+//        guide.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for(int i=0;i<=3;i++)
+//                {
+//                    list[i].setTextColor( Color.parseColor( "#000000" ));
+//                }
+//                guide.setTextColor( Color.parseColor( "#992424" ));
+//            }
+//        } );
+//        knowledge.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent=new Intent( Intent.ACTION_VIEW );
+////                intent.setData( Uri.parse("http://110.88.128.202:8080/sandbox/help/index.html") );
+////                startActivity( intent);
+//                for(int i=0;i<=3;i++)
+//                {
+//                    list[i].setTextColor( Color.parseColor( "#000000" ));
+//                }
+//                knowledge.setTextColor( Color.parseColor( "#992424" ));
+//            }
+//        } );
     replaceFragment( new RightFragment() );
 
 }

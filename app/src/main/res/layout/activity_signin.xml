@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".SigninActivity"
-    android:background="#ffffff"
+    android:background="@drawable/backgroundmain"
     android:gravity="center_horizontal">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,18 +15,21 @@
         android:orientation="vertical"
         >
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="36dp"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
             android:background="@drawable/message"
             android:drawableLeft="@drawable/name"
             android:textSize="26dp"
             android:textColor="#000000"
             android:id="@+id/edit_name"
-            android:hint="请输入用户名">
+            android:paddingLeft="5dp"
+            android:hint="请输入用户名"
+            android:textColorHint="#A19B9B"
+            >
         </EditText>
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="36dp"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
             android:layout_marginTop="53dp"
             android:textSize="26dp"
             android:textColor="#000000"
@@ -34,6 +37,8 @@
             android:background="@drawable/message"
             android:drawableLeft="@drawable/password"
             android:id="@+id/edit_password"
+            android:paddingLeft="5dp"
+            android:textColorHint="#A19B9B"
             android:hint="请输入密码"
             >
         </EditText>
@@ -44,21 +49,11 @@
             android:layout_gravity="center">
         <Button
             android:id="@+id/submit"
-            android:background="#3F3E3E"
+            android:background="@drawable/signin"
             android:layout_marginTop="40dp"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:text="登录"
-            />
-        <Button
-            android:id="@+id/register"
-            android:background="#3F3E3E"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:text="注册"
-            android:visibility="gone"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:textStyle="bold"
             />
         </LinearLayout>
     </LinearLayout>

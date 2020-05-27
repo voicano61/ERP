@@ -42,7 +42,7 @@ public class SigninActivity extends AppCompatActivity {
         setContentView( R.layout.activity_signin );
         // Bmob.initialize( this,"ae1eda892970b9ac009daa2d847ffcdc" );
         Button button1 = (Button) findViewById( R.id.submit );
-        final Button button2 = (Button) findViewById( R.id.register );
+//        final Button button2 = (Button) findViewById( R.id.register );
         final EditText edit_name = (EditText) findViewById( R.id.edit_name );
         final EditText edit_password = (EditText) findViewById( R.id.edit_password );
         button1.setOnClickListener( new View.OnClickListener() {
@@ -86,13 +86,13 @@ public class SigninActivity extends AppCompatActivity {
                 });
             }
         } );
-        button2.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent( SigninActivity.this, RegisterActivity.class );
-                startActivity( intent );
-            }
-        } );
+//        button2.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent( SigninActivity.this, RegisterActivity.class );
+//                startActivity( intent );
+//            }
+//        } );
     }
 
     private void decide(final String token, final String name) {
@@ -125,6 +125,7 @@ public class SigninActivity extends AppCompatActivity {
                             Intent intent= new Intent( SigninActivity.this, MainActivity.class);
                             intent.putExtra( "name", name);
                             intent.putExtra( "token",token );
+                            intent.putExtra( "userId",String.valueOf( info.getData().getCompany().getUserId() ) );
                             startActivity( intent );
                         }
 

@@ -44,15 +44,6 @@
                                     android:textSize="15dp"
                                     android:textColor="#000000"
                                     ></TextView>
-                                <Button
-                                    android:layout_width="40dp"
-                                    android:layout_height="30dp"
-                                    android:background="#4BB9E9"
-                                    android:id="@+id/allselect"
-                                    android:text="全选"
-                                    android:textSize="12dp"
-                                    android:layout_marginLeft="10dp">
-                                </Button>
                             </LinearLayout>
                             <TextView
                                 android:layout_width="100dp"

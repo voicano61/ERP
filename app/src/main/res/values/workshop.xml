@@ -2,8 +2,8 @@
 <resources>
     <string-array name="workshop">
         <item>请选择厂房类型</item>
-        <item>大厂房（购买:320W,容量:4,租用:32W）</item>
-        <item>小厂房（购买:160W,容量:2,租用:16W）</item>
-        <item>中厂房（购买:240W,容量:3,租用:24W）</item>
+        <item>大厂房（购买:400W,容量:4,租用:40W）</item>
+        <item>中厂房（购买:300W,容量:3,租用:30W）</item>
+        <item>小厂房（购买:200W,容量:2,租用:20W）</item>
     </string-array>
 </resources>

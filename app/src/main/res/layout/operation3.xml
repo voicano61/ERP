@@ -3,6 +3,9 @@
     android:orientation="vertical"
     android:layout_width="669dp"
     android:layout_height="wrap_content">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,6 +97,7 @@
             android:text="出售生产线"
             android:textColor="#000000"
             android:textSize="15dp"></Button>
+
         <Button
             android:layout_width="80dp"
             android:layout_height="56dp"
@@ -119,124 +123,6 @@
             >
         </Button>
     </LinearLayout>
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_marginTop="6dp">-->
-<!--        <Button-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:textSize="15dp"-->
-<!--            android:text="出售生产线"-->
-<!--            android:drawableTop="@drawable/sellline2"-->
-<!--            android:background="@null"-->
-<!--            android:layout_marginLeft="11dp"-->
-<!--            android:textColor="#000000"-->
-<!--            android:id="@+id/soldline"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:textSize="15dp"-->
-<!--            android:text="开始生产"-->
-<!--            android:drawableTop="@drawable/product1"-->
-<!--            android:background="@null"-->
-<!--            android:layout_marginLeft="5dp"-->
-<!--            android:textColor="#000000"-->
-<!--            android:id="@+id/startproduction"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:textSize="15dp"-->
-<!--            android:text="更新应收款账"-->
-<!--            android:drawableTop="@drawable/update1"-->
-<!--            android:background="#@null"-->
-<!--            android:layout_marginLeft="11dp"-->
-<!--            android:textColor="#000000"-->
-<!--            android:id="@+id/update"-->
-<!--            >-->
-<!--        </Button>-->
-<!--    </LinearLayout>-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_marginTop="4dp">-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="贴现"-->
-<!--            android:drawableLeft="@drawable/discount"-->
-<!--            android:background="#6CB170"-->
-<!--            android:layout_marginLeft="13dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/discount"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="紧急采购"-->
-<!--            android:drawableLeft="@drawable/purchase"-->
-<!--            android:background="#4982B1"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/purchase"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="出售库存"-->
-<!--            android:drawableLeft="@drawable/sellline"-->
-<!--            android:background="#A7DBF1"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/soleinventory"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="厂房贴现"-->
-<!--            android:drawableLeft="@drawable/sell"-->
-<!--            android:background="#7C8083"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/factorydiscount"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="订单信息"-->
-<!--            android:drawableLeft="@drawable/order"-->
-<!--            android:background="#A8504C"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/ordermessage"-->
-<!--            >-->
-<!--        </Button>-->
-<!--        <Button-->
-<!--            android:layout_width="95dp"-->
-<!--            android:layout_height="23dp"-->
-<!--            android:textSize="12dp"-->
-<!--            android:text="间谍"-->
-<!--            android:drawableLeft="@drawable/espionage"-->
-<!--            android:background="#D86B49"-->
-<!--            android:layout_marginLeft="15dp"-->
-<!--            android:paddingLeft="4dp"-->
-<!--            android:id="@+id/spy"-->
-<!--            >-->
-<!--        </Button>-->
-<!--    </LinearLayout>-->
+        </HorizontalScrollView>
+
 </LinearLayout>

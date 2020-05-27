@@ -17,8 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NoticeActivity"
-            android:theme="@style/dialogstyle"></activity>
+<!--        <activity android:name=".InfoActivity"></activity>-->
+        <activity
+            android:name=".NoticeActivity"
+            android:theme="@style/dialogstyle" />
         <activity
             android:name=".LongloanActivity"
             android:theme="@style/dialogstyle" />

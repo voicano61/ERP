@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
     android:orientation="vertical"
-    android:background="#ffffff"
+    android:background="@drawable/backgroundmain1"
     android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:text="用户注册"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:drawableLeft="@drawable/space2"
+        android:drawableLeft="@drawable/baby"
         android:layout_marginTop="10dp">
     </TextView>
     <LinearLayout
@@ -38,10 +38,10 @@
         </TextView>
         <TextView
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
-            android:text=""
             android:textColor="#000000"
+            android:textSize="15dp"
             android:id="@+id/name">
         </TextView>
         <TextView
@@ -63,6 +63,7 @@
             android:textColor="#000000"
             android:textSize="15dp"
             android:id="@+id/companyname"
+            android:textColorHint="#A19B9B"
             >
         </EditText>
     </LinearLayout>
@@ -90,7 +91,8 @@
             android:paddingLeft="6dp"
             android:textColor="#000000"
             android:textSize="15dp"
-            android:id="@+id/password">
+            android:id="@+id/password"
+            android:textColorHint="#A19B9B">
         </EditText>
         <TextView
             android:layout_width="70dp"
@@ -111,7 +113,8 @@
             android:paddingLeft="6dp"
             android:textColor="#000000"
             android:textSize="15dp"
-            android:id="@+id/manager">
+            android:id="@+id/manager"
+            android:textColorHint="#A19B9B">
         </EditText>
     </LinearLayout>
         <LinearLayout
@@ -138,7 +141,8 @@
                 android:paddingLeft="6dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
-                android:id="@+id/school">
+                android:id="@+id/school"
+                android:textColorHint="#A19B9B">
             </EditText>
             <TextView
                 android:layout_width="70dp"
@@ -159,7 +163,8 @@
                 android:paddingLeft="6dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
-                android:id="@+id/finance">
+                android:id="@+id/finance"
+                android:textColorHint="#A19B9B">
             </EditText>
         </LinearLayout>
         <LinearLayout
@@ -186,7 +191,8 @@
                 android:paddingLeft="6dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
-                android:id="@+id/major">
+                android:id="@+id/major"
+                android:textColorHint="#A19B9B">
             </EditText>
             <TextView
                 android:layout_width="70dp"
@@ -207,7 +213,8 @@
                 android:paddingLeft="6dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
-                android:id="@+id/purchasing">
+                android:id="@+id/purchasing"
+                android:textColorHint="#A19B9B">
             </EditText>
         </LinearLayout>
         <LinearLayout
@@ -234,7 +241,8 @@
                 android:paddingLeft="6dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
-                android:id="@+id/theclass">
+                android:id="@+id/theclass"
+                android:textColorHint="#A19B9B">
             </EditText>
             <TextView
                 android:layout_width="70dp"
@@ -256,6 +264,7 @@
                 android:textColor="#000000"
                 android:textSize="15dp"
                 android:id="@+id/sales"
+                android:textColorHint="#A19B9B"
                 >
             </EditText>
         </LinearLayout>
@@ -282,7 +291,8 @@
             android:paddingLeft="6dp"
             android:textColor="#000000"
             android:textSize="15dp"
-            android:id="@+id/declaration">
+            android:id="@+id/declaration"
+            android:textColorHint="#A19B9B">
         </EditText>
             <TextView
                 android:layout_width="70dp"
@@ -304,6 +314,7 @@
                 android:textColor="#000000"
                 android:textSize="15dp"
                 android:id="@+id/create"
+                android:textColorHint="#A19B9B"
                 >
             </EditText>
         </LinearLayout>
@@ -316,20 +327,18 @@
             <Button
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:text="返回"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:background="@drawable/button"
+                android:background="@drawable/no"
                 android:layout_gravity="center"
                 android:id="@+id/back">
             </Button>
             <Button
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:text="确认注册"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:background="@drawable/button"
+                android:background="@drawable/yes1"
                 android:layout_gravity="center"
                 android:layout_marginLeft="50dp"
                 android:id="@+id/submit">
